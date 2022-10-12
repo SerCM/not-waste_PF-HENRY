@@ -3,7 +3,8 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   sequelize.define("customer", {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       unique: true,
     },
@@ -23,10 +24,17 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-        // TODO cambiar datatype a ENUM con los partidos de buenos aires
+    // TODO cambiar datatype a ENUM con los partidos de buenos aires
     city: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM([
+        "Palermo",
+        "Retiro",
+        "Recoleta",
+        "Almagro",
+        "Puerto Madero",
+        "Linier",
+      ]),
       allowNull: false,
-    }
+    },
   });
 };
