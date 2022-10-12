@@ -10,6 +10,7 @@ router.get("/hola/:city", getSellerByCity);
 
 router.get("/customer", getCallCustomer);
 
+//manager
 router.get("/manager", getManager);
 
 router.get("/manager/:id", getManagerById);
