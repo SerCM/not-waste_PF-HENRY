@@ -12,7 +12,7 @@ function StoreSeller() {
   var sellers = useSelector((state) => state.seller);
   var { user } = useAuth0();
   let seller = sellers?.find((s) => s.email === user?.email);
-  // console.log(seller);
+  console.log(seller.products);
   useEffect(() => {
     dispatch(getSellers());
   }, []);
