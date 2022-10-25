@@ -3,7 +3,7 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST } = process.env;
-
+/// 
 let sequelize =
   process.env.NODE_ENV === "production"
     ? new Sequelize({
