@@ -18,7 +18,7 @@ function ViewProductSeller() {
         <>
             <NavBar />            
             {!db.exists && <h1> debe ser un usuario registrado para utilizar esta sesion</h1>}
-            {db.exists && db.type=== "consumer" && <h1>Los clientes no pueden cargar productos</h1>}
+            {db.exists && db.type=== "customer" && <h1>Los clientes no pueden cargar productos</h1>}
             {db.type  === "seller" && db.products.length? createcards(db.products) : <h1> Aun no tiene productos cargados, por favor dirijase a <Link to="/formproduct"> creacion de productos!
             </Link></h1>}
             <Footer />
