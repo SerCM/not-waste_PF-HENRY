@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export function getSellers(queryParams) {
-  let url = new URL("http://localhost:3001/seller");
+  let url = new URL("/seller");
   if (queryParams?.city) {
     url.searchParams.append("city", queryParams?.city);
   }
@@ -46,7 +46,7 @@ export function getSellers(queryParams) {
 export function getCities() {
   return async function (dispatch) {
     try {
-      const cities = await axios.get("http://localhost:3001/city");
+      const cities = await axios.get("/city");
       dispatch({
         type: "GET_CITIES",
         payload: cities.data,
@@ -60,7 +60,7 @@ export function getCities() {
 export function getProduct() {
   return async function (dispatch) {
     try {
-      const price = await axios.get("http://localhost:3001/product");
+      const price = await axios.get("/product");
       dispatch({
         type: "GET_PRODUCT",
         payload: price.data,
@@ -75,7 +75,7 @@ export function prodDetail(id) {
   return async function (dispatch) {
     try {
       let detailProduct = await await axios.get(
-        "http://localhost:3001/product/" + id
+        "/product/" + id
       );
       detailProduct = detailProduct.data[0];
       dispatch({
@@ -91,7 +91,7 @@ export function prodDetail(id) {
 export function getDiet() {
   return async function (dispatch) {
     try {
-      const diet = await axios.get("http://localhost:3001/diets");
+      const diet = await axios.get("/diets");
       dispatch({
         type: "GET_DIET",
         payload: diet.data,
@@ -103,9 +103,9 @@ export function getDiet() {
 }
 
 export function getCustomer(email) {
-  let url = "http://localhost:3001/customer";
+  let url = "/customer";
   if (email) {
-    url = `http://localhost:3001/customer?email=${email}`;
+    url = `/customer?email=${email}`;
   }
   
   return async function (dispatch) {
@@ -127,7 +127,7 @@ export function getCustomer(email) {
 }
 
 export function postCustomer(data) {
-  return fetch("http://localhost:3001/customer", {
+  return fetch("/customer", {
     method: "POST", // or 'PUT'
     body: JSON.stringify(data), // data can be `string` or {object}!
     headers: {
@@ -140,7 +140,7 @@ export function postCustomer(data) {
 }
 
 export function postSeller(data) {
-  return fetch("http://localhost:3001/seller", {
+  return fetch("/seller", {
     method: "POST", // or 'PUT'
     body: JSON.stringify(data), // data can be `string` or {object}!
     headers: {
@@ -161,13 +161,13 @@ export const filterByCity = (payload) => {
 
 export const postProduct = (payload) => {
   return async () => {
-    let json = await axios.post("http://localhost:3001/product", payload);
+    let json = await axios.post("/product", payload);
     return json;
   };
 };
 
 export function postPay(price, postId) {
-  return fetch("http://localhost:3001/create_preference", {
+  return fetch("/create_preference", {
     method: "POST", // or 'PUT'
     body: JSON.stringify(price, postId), // data can be `string` or {object}!
     headers: {
@@ -185,7 +185,7 @@ export function postPay(price, postId) {
 export function postOrder(input) {
   return async function (dispatch) {
     try {
-      const act = await axios.post("http://localhost:3001/order", input);
+      const act = await axios.post("/order", input);
       dispatch({
         type: "POST_ORDER",
         payload: act.data,
@@ -198,9 +198,9 @@ export function postOrder(input) {
 }
 
 export function getOrders(customerId) {
-  let url = "http://localhost:3001/order";
+  let url = "/order";
   if (customerId) {
-    url = `http://localhost:3001/customer?customerId=${customerId}`;
+    url = `/customer?customerId=${customerId}`;
   }
 
   return async function (dispatch) {
@@ -229,7 +229,7 @@ export function addCart(payload) {
 }
 
 export function postPost(data) {
-  return fetch("http://localhost:3001/post", {
+  return fetch("/post", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -242,7 +242,7 @@ export function postPost(data) {
 }
 
 export function deleteProduct(data) {
-  return fetch(`http://localhost:3001/product/${data}`, {
+  return fetch(`/product/${data}`, {
     method: "DELETE",
   })
     .then((res) => res.json())
@@ -253,7 +253,7 @@ export function deleteProduct(data) {
 }
 
 export function getpost(id) {
-  fetch(`http://localhost:3001/post/?id=${id}`)
+  fetch(`/post/?id=${id}`)
     .then((res) => res.json())
     .then((response) => console.log("Success:", response))
     .catch((error) => console.error("Error:", error));
@@ -261,7 +261,7 @@ export function getpost(id) {
 export function postDetail(id) {
   return async function (dispatch) {
     try {
-      let postDetail = await axios.get("http://localhost:3001/post/" + id);
+      let postDetail = await axios.get("/post/" + id);
       postDetail = postDetail.data;
       dispatch({
         type: "POST_DETAIL",
@@ -275,7 +275,7 @@ export function postDetail(id) {
 
 export function modifyPost(id, input) {
   return async function (dispatch) {
-    const response = await axios.put(`http://localhost:3001/post/${id}`, input);
+    const response = await axios.put(`/post/${id}`, input);
     if (response.ok) {
       const json = await response.data();
       dispatch({ type: "MODIFY_POST", payload: json });
@@ -292,7 +292,7 @@ export function putOrder(id, state) {
   return async function (dispatch) {
     try {
       const response = await axios.put(
-        `http://localhost:3001/order/${id}`,
+        `/order/${id}`,
         state
       );
       dispatch({
@@ -309,7 +309,7 @@ export function orderDetail(id) {
   return async function (dispatch) {
     try {
       let detailOrder = await  axios.get(
-        "http://localhost:3001/order/" + id
+        "/order/" + id
       );
       detailOrder = detailOrder.data[0];
       dispatch({
