@@ -22,9 +22,9 @@
     "mercadopago": "^1.5.8",
     "morgan": "^1.10.0",
     "pg": "^8.8.0",
-    "sequelize": "^6.25.0"
+    "sequelize": "^6.25.0",
+    "nodemon": "^2.0.19"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
   }
 }
