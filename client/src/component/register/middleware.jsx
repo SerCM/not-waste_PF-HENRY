@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { postSeller } from "../../redux/actions";
+import { postCustomer, postSeller } from "../../redux/actions";
 import Cookies from "universal-cookie";
 
 const dispatch = useDispatch;
@@ -45,4 +45,8 @@ const registerSupplier = async (e, input, error) => {
   );
 };
 
-export default registerSupplier;
+const registerCustomer = async (name, email) => {
+  dispatch(postCustomer({ name, email }));
+}
+
+export {registerCustomer, registerSupplier}
