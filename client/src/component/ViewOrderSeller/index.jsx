@@ -3,7 +3,7 @@ import NavBar from "../NavBar";
 import VerifyProfile from "../VerifyProfile";
 import Footer from "../Footer";
 import { Link } from "react-router-dom";
-import createCardsOrders from "./auxiliary";
+import CreateCardsOrders from "./auxiliary";
 
 function ViewOrderSeller() {
 
@@ -23,7 +23,7 @@ function ViewOrderSeller() {
             }, 5000)}
             {db.type === "seller" && !db.products.length && <h1> Aun no tiene productos cargados, por favor dirijase a <Link to="/formproduct"> creacion de productos!
             </Link></h1>}
-            {db.type === "seller" && db.products.length && createCardsOrders(db)}
+            {db.type === "seller" && db.products.length && <CreateCardsOrders {...db} />}
             <Footer />
         </>
     )
