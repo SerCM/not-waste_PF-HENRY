@@ -1,9 +1,33 @@
 import React from "react";
+import { disableForcePost } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 // import { Link } from "react-router-dom";
 import { Card, Badge } from "react-bootstrap";
 import "../StoreSeller/storeSeller.css";
 
 function CardSeller({ product, post }) {
+  const dispatch = useDispatch();
+  const readDates = () => {
+    let diff = product.posts.map((post) => {
+      // let initialDate = post.createdAt;
+      let finalDate = post.date;
+
+      var diaEnMils = 1000 * 60 * 60 * 24;
+      var actualTime = Date.now();
+      var desde = new Date(actualTime);
+      var hasta = new Date(finalDate.substr(0, 10));
+      var diff = hasta.getTime() - desde.getTime(); // +1 incluir el dia de ini
+
+      setTimeout(() => {
+        dispatch(disableForcePost(post.id));
+      }, diff);
+      return diff;
+    });
+    return diff;
+  };
+
+  console.log(readDates(), "AQUI");
+
   return (
     <div>
       <Card style={{ width: "40rem" }}>
@@ -18,7 +42,9 @@ function CardSeller({ product, post }) {
           <Card.Text className="card-description">
             {product.description}
           </Card.Text>
-          <Card.Footer >
+          {/* {console.log(initialDate, "INITIAL")}
+          {console.log(finalDate, "FINAL")} */}
+          <Card.Footer>
             <svg
               width="16"
               height="16"
@@ -31,13 +57,14 @@ function CardSeller({ product, post }) {
             <span className="ms-2">{Math.ceil(Math.random() * 5)}</span>
             <span className="mx-2 text-black-50">|</span>
             <span>{new Date(post.date).toLocaleDateString("es-AR")}</span>
+            <span> {new Date(post.date).toLocaleTimeString("es-AR")}</span>
             <span className="mx-2 text-black-50">|</span>
             <span className="precio">$ {product.price}</span>
           </Card.Footer>
         </Card.Body>
       </Card>
-      <br/>
-      <br/>
+      <br />
+      <br />
     </div>
   );
 }

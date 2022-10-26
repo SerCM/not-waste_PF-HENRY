@@ -107,7 +107,7 @@ export function getCustomer(email) {
   if (email) {
     url = `http://localhost:3001/customer?email=${email}`;
   }
-  
+
   return async function (dispatch) {
     const response = await fetch(url);
     if (response.ok) {
@@ -189,7 +189,7 @@ export function postOrder(input) {
       dispatch({
         type: "POST_ORDER",
         payload: act.data,
-        orders: act.data.id
+        orders: act.data.id,
       });
     } catch (error) {
       console.log(error);
@@ -252,6 +252,20 @@ export function deleteProduct(data) {
     .catch((error) => console.error("Error:", error));
 }
 
+export function disableProduct(id) {
+  return async function () {
+    const res = await axios.put(`http://localhost:3001/product/disable/${id}`);
+    return res;
+  };
+}
+
+export function restoreProduct(id) {
+  return async function () {
+    const res = await axios.put(`http://localhost:3001/product/restore/${id}`);
+    return res;
+  };
+}
+
 export function getpost(id) {
   fetch(`http://localhost:3001/post/?id=${id}`)
     .then((res) => res.json())
@@ -308,9 +322,7 @@ export function putOrder(id, state) {
 export function orderDetail(id) {
   return async function (dispatch) {
     try {
-      let detailOrder = await  axios.get(
-        "http://localhost:3001/order/" + id
-      );
+      let detailOrder = await axios.get("http://localhost:3001/order/" + id);
       detailOrder = detailOrder.data[0];
       dispatch({
         type: "ORDER_DETAIL",
@@ -326,9 +338,10 @@ export function actualizarOrden(id, state) {
   return fetch(`http://localhost:3001/order/${id}`, {
     method: "PUT",
     body: JSON.stringify(state), // data can be `string` or {object}!
-    headers:{
-      'Content-Type': 'application/json'
-  }})
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
     .then((res) => res.json())
     .then((response) => {
       console.log("Success:", response);
@@ -338,7 +351,7 @@ export function actualizarOrden(id, state) {
 
 export function getManagers() {
   let url = "http://localhost:3001/manager";
-  
+
   return async function (dispatch) {
     const response = await fetch(url);
     if (response.ok) {
@@ -354,5 +367,28 @@ export function getManagers() {
         payload: "La búsqueda no arrojó resultados",
       });
     }
+  };
+}
+
+export function disableSeller(id) {
+  return async function () {
+    const res = await axios.put(`http://localhost:3001/seller/disable/${id}`);
+    return res;
+  };
+}
+
+export function restoreSeller(id) {
+  return async function () {
+    const res = await axios.put(`http://localhost:3001/seller/restore/${id}`);
+    return res;
+  };
+}
+
+export function disableForcePost(id) {
+  return async function () {
+    const res = await axios.put(
+      `http://localhost:3001/post/disableForce/${id}`
+    );
+    return res;
   };
 }

@@ -14,7 +14,7 @@ const initialState = {
   payId: [],
   postDetail: [],
   orderDetail: {},
-  managers: []
+  managers: [],
 };
 
 export default function rootReducer(state = initialState, actions) {
@@ -91,25 +91,23 @@ export default function rootReducer(state = initialState, actions) {
         postDetail: actions.payload,
       };
     case "MODIFY_POST":
-      console.log(
-        actions.payload
-      );
+      console.log(actions.payload);
       return {
         ...state,
         postDetail: actions.payload,
       };
 
-      case "ORDER_DETAIL":
-        return {
-          ...state,
-          orderDetail: actions.payload
-        }
+    case "ORDER_DETAIL":
+      return {
+        ...state,
+        orderDetail: actions.payload,
+      };
 
-      case "GET_MANAGERS":
-        return {
-          ...state,
-          managers: actions.payload
-        }
+    case "GET_MANAGERS":
+      return {
+        ...state,
+        managers: actions.payload,
+      };
 
     default:
       return state;

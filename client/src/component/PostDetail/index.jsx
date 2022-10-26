@@ -49,14 +49,12 @@ const PostDetail = () => {
 
   const handleCart = (input) => {
     input.amount > 0 && dispatch(addCart(input));
-    alert(input.name + ' se añadio correctamente')
+    alert(input.name + " se añadio correctamente");
   };
 
   let seller = sellers.find((s) => s.id === product.sellerId);
 
   if (product?.id) {
-    
-
     return (
       <>
         <NavBar />
@@ -114,32 +112,32 @@ const PostDetail = () => {
                   <span className="mx-2 text-capitalize">
                     {seller ? seller.adress : ""}
                   </span>
-                  <span className="mx-2 text-capitalize">
-                    ({seller?.cities[0].name})
-                  </span>
+                  {
+                    <span className="mx-2 text-capitalize">
+                      ({seller?.cities[0].name})
+                    </span>
+                  }
                 </Card.Link>
               </ListGroup.Item>
               <ListGroup.Item>
-              {product?.diets.length > 0 && (
-                <>
-                  <Card.Subtitle className="text-muted">
-                    Dietas
-                  </Card.Subtitle>
-                  {product.diets?.map((diet) => {
-                    return (
-                      <Badge
-                        pill
-                        className="pill-diets"
-                        bg="light"
-                        text="dark"
-                        key={diet.id}
-                      >
-                        {diet.name}
-                      </Badge>
-                    );
-                  })}
-                </>
-              )}
+                {product?.diets.length > 0 && (
+                  <>
+                    <Card.Subtitle className="text-muted">Dietas</Card.Subtitle>
+                    {product.diets?.map((diet) => {
+                      return (
+                        <Badge
+                          pill
+                          className="pill-diets"
+                          bg="light"
+                          text="dark"
+                          key={diet.id}
+                        >
+                          {diet.name}
+                        </Badge>
+                      );
+                    })}
+                  </>
+                )}
               </ListGroup.Item>
             </ListGroup>
           </Card.Body>
@@ -147,6 +145,9 @@ const PostDetail = () => {
             <div className="d-flex align-items-center">
               <span className="mx-2">
                 {new Date(post.date).toLocaleDateString("es-AR")}
+              </span>
+              <span className="mx-2">
+                {new Date(post.date).toLocaleTimeString("es-AR")}
               </span>
               <DropdownButton
                 variant="light"
@@ -166,7 +167,7 @@ const PostDetail = () => {
                   );
                 })}
               </DropdownButton>
-              <Button 
+              <Button
                 onClick={() =>
                   handleCart({
                     amount: orders.amount,
