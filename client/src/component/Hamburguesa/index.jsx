@@ -65,6 +65,11 @@ export const Profile = (props) => {
                 Mi Perfil
               </Link>
             </Dropdown.Item>
+          <Dropdown.Item className="drop">
+              <Link className="link" to={"/ViewOrderSeller"}>
+                Ordenes
+              </Link>
+            </Dropdown.Item>
             <Dropdown.Item className="drop">
               <Link className="link" to="/viewProductSeller">
                 Mis Productos
