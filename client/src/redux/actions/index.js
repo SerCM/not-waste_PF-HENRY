@@ -321,3 +321,17 @@ export function orderDetail(id) {
     }
   };
 }
+
+export function actualizarOrden(id, state) {
+  return fetch(`http://localhost:3001/order/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(state), // data can be `string` or {object}!
+    headers:{
+      'Content-Type': 'application/json'
+  }})
+    .then((res) => res.json())
+    .then((response) => {
+      console.log("Success:", response);
+    })
+    .catch((error) => console.error("Error:", error));
+}
