@@ -9,18 +9,19 @@ function CardSeller({ product, post }) {
   const dispatch = useDispatch();
   const readDates = () => {
     let diff = product.posts.map((post) => {
-      let initialDate = post.createdAt;
+      // let initialDate = post.createdAt;
       let finalDate = post.date;
 
       var diaEnMils = 1000 * 60 * 60 * 24;
-      var desde = new Date(initialDate.substr(0, 10));
+      var actualTime = Date.now();
+      var desde = new Date(actualTime);
       var hasta = new Date(finalDate.substr(0, 10));
       var diff = hasta.getTime() - desde.getTime(); // +1 incluir el dia de ini
 
       setTimeout(() => {
         dispatch(disableForcePost(post.id));
       }, diff);
-      return diff / diaEnMils; /* { diff, initialDate, finalDate } */
+      return diff;
     });
     return diff;
   };

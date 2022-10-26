@@ -35,7 +35,7 @@ export default function AdminListSeller() {
         return (
           <div className="container">
             <Card>
-              <Card.Body>
+              <Card.Body className={se.deletedAt ? "resaltar" : "sinResaltar"}>
                 <div className="d-flex">
                   <img
                     src={se.image}
