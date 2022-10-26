@@ -18,7 +18,7 @@ function CardSeller({ product, post }) {
           <Card.Text className="card-description">
             {product.description}
           </Card.Text>
-          <Card.Footer >
+          <Card.Footer>
             <svg
               width="16"
               height="16"
@@ -31,13 +31,14 @@ function CardSeller({ product, post }) {
             <span className="ms-2">{Math.ceil(Math.random() * 5)}</span>
             <span className="mx-2 text-black-50">|</span>
             <span>{new Date(post.date).toLocaleDateString("es-AR")}</span>
+            <span> {new Date(post.date).toLocaleTimeString("es-AR")}</span>
             <span className="mx-2 text-black-50">|</span>
             <span className="precio">$ {product.price}</span>
           </Card.Footer>
         </Card.Body>
       </Card>
-      <br/>
-      <br/>
+      <br />
+      <br />
     </div>
   );
 }

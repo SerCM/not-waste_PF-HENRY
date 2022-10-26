@@ -16,7 +16,7 @@ const getSellers = async (req, res) => {
       }
     }
     if (name) {
-      sellers = sellers.filter((s) => s.name === name );
+      sellers = sellers.filter((s) => s.name === name);
       if (!sellers.length) {
         throw new Error("No hay proveedores con ese nombre");
       }
@@ -62,7 +62,7 @@ const getSellers = async (req, res) => {
     }
 
     if (email) {
-      sellers = sellers.filter((s) => s.email === email );
+      sellers = sellers.filter((s) => s.email === email);
       if (!sellers.length) {
         throw new Error("No hay proveedores con ese nombre");
       }
@@ -174,9 +174,48 @@ const putSeller = async (req, res) => {
   }
 };
 
+const restoreSeller = async (req, res) => {
+  let { id } = req.params;
+  try {
+    await Seller.restore({
+      where: {
+        id: id,
+      },
+    });
+    const restoredSeller = await Seller.findOne({
+      where: {
+        id: id,
+      },
+    });
+    res.status(200).send(restoredSeller);
+  } catch (error) {
+    res.status(400).send("Hubo un problema recuperando el vendedor");
+  }
+};
+
+const disableSeller = async (req, res) => {
+  let { id } = req.params;
+  try {
+    await Seller.destroy({
+      where: {
+        id: id,
+      },
+    });
+    const disableSeller = await Seller.findOne({
+      where: {
+        id: id,
+      },
+    });
+    res.status(200).send(disableSeller);
+  } catch (error) {
+    res.status(400).send("Hubo un problema al eliminar el vendedor");
+  }
+};
+
 module.exports = {
   getSellers,
   postSeller,
   putSeller,
-  
+  restoreSeller,
+  disableSeller,
 };
