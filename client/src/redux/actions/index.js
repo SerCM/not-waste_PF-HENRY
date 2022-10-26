@@ -335,3 +335,24 @@ export function actualizarOrden(id, state) {
     })
     .catch((error) => console.error("Error:", error));
 }
+
+export function getManagers() {
+  let url = "http://localhost:3001/manager";
+  
+  return async function (dispatch) {
+    const response = await fetch(url);
+    if (response.ok) {
+      const json = await response.json();
+
+      dispatch({
+        type: "GET_MANAGERS",
+        payload: json,
+      });
+    } else {
+      dispatch({
+        type: "REQUEST_ERROR",
+        payload: "La búsqueda no arrojó resultados",
+      });
+    }
+  };
+}

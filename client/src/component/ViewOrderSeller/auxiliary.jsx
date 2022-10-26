@@ -79,24 +79,24 @@ const CreateCardsOrders = (db) => {
         let post = posts.find(p => p.id === orden.postId)
         let producto = products.find(p => p.id === post.productId)
         let total = orden.amount * producto.price
-        return <div class="list-group-item list-group-item-action list-group-item-light">
-            <img class="rounded float-start pe-2" src={producto.image} alt="producto sin imagen" height="40px" />
-            <figure class="text-end">
-                <ul class="list-inline-end"><li class="list-inline-item">Cliente: <strong>{comprador.name}</strong></li><li class="list-inline-item">Cant: <strong>{orden.amount}</strong></li><li class="list-inline-item">Total: $<strong>{total}</strong></li></ul>
+        return <div className="list-group-item list-group-item-action list-group-item-light">
+            <img className="rounded float-start pe-2" src={producto.image} alt="producto sin imagen" height="40px" />
+            <figure className="text-end">
+                <ul className="list-inline-end"><li className="list-inline-item">Cliente: <strong>{comprador.name}</strong></li><li className="list-inline-item">Cant: <strong>{orden.amount}</strong></li><li className="list-inline-item">Total: $<strong>{total}</strong></li></ul>
             </figure>
-            <figure class="text-start">
-                <ul class="list-inline">
-                    <li class="list-inline-item">Prodcucto: {producto.name} |</li>
-                    <li class="list-inline-item">Precio Unit. ${producto.price} |</li>
-                    <li class="list-inline-item">Fecha de entrega: {orden.date}</li>
-                    <li class="list-inline-item">Estado: <strong>{orden.state}</strong></li>
-                    {orden.state === "confirmado" && orden.date === today && <div class="form-check form-switch m-1" onChange={() => marcarComoEntregado(orden.id)}>
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-                        <label class="form-check-label" for="flexSwitchCheckDefault"><strong>Marcar el pedido como Entregado</strong></label>
+            <figure className="text-start">
+                <ul className="list-inline">
+                    <li className="list-inline-item">Prodcucto: {producto.name} |</li>
+                    <li className="list-inline-item">Precio Unit. ${producto.price} |</li>
+                    <li className="list-inline-item">Fecha de entrega: {orden.date}</li>
+                    <li className="list-inline-item">Estado: <strong>{orden.state}</strong></li>
+                    {orden.state === "confirmado" && orden.date === today && <div className="form-check form-switch m-1" onChange={() => marcarComoEntregado(orden.id)}>
+                        <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                        <label className="form-check-label" for="flexSwitchCheckDefault"><strong>Marcar el pedido como Entregado</strong></label>
                     </div>}
-                    {orden.state === "confirmado" && orden.date < today && <div class="form-check form-switch m-1" onChange={() => marcarComoCancelado(orden.id)}>
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-                        <label class="form-check-label" for="flexSwitchCheckDefault"><strong>Marcar el pedido como Cancelado</strong></label>
+                    {orden.state === "confirmado" && orden.date < today && <div className="form-check form-switch m-1" onChange={() => marcarComoCancelado(orden.id)}>
+                        <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                        <label className="form-check-label" for="flexSwitchCheckDefault"><strong>Marcar el pedido como Cancelado</strong></label>
                     </div>}
                 </ul>
             </figure>
@@ -120,13 +120,13 @@ const CreateCardsOrders = (db) => {
         <div>
             <br />
             <h3 key={uuidv4}>Ordenes del dia - {today}</h3>
-            <div class="list-group">{ordenesDelDia ? ordenesDelDia.map(orden => cardOrderSellers(orden)) : <h1> No hay ordenes para el dia de hoy</h1>}</div>
+            <div className="list-group">{ordenesDelDia ? ordenesDelDia.map(orden => cardOrderSellers(orden)) : <h1> No hay ordenes para el dia de hoy</h1>}</div>
             <br />
             <h3 key={uuidv4}>Ordenes antiguas:</h3>
-            <div class="list-group">{ordenesViejas ? ordenesViejas.map(orden => cardOrderSellers(orden)) : <h1> No hay ordenes para el dia de hoy</h1>}</div>
+            <div className="list-group">{ordenesViejas ? ordenesViejas.map(orden => cardOrderSellers(orden)) : <h1> No hay ordenes para el dia de hoy</h1>}</div>
             <br />
             <h3 key={uuidv4}>Proximas ordenes:</h3>
-            <div class="list-group">{ordenesFuturas ? ordenesFuturas.map(orden => cardOrderSellers(orden)) : <h1> No hay ordenes para el dia de hoy</h1>}</div>
+            <div className="list-group">{ordenesFuturas ? ordenesFuturas.map(orden => cardOrderSellers(orden)) : <h1> No hay ordenes para el dia de hoy</h1>}</div>
             <br />
         </div>
     )
