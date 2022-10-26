@@ -7,19 +7,20 @@ const routes = require("./routes/index.js");
 require("./db.js");
 
 
-//Mercadopago -->
-// const cors = require('cors')
-// const mercardopago = require("mercadopago")
-// const ACCESS_TOKEN_MP_CRISTIAN = process.env
+// Mercadopago -->
+const cors = require('cors')
+const mercardopago = require("mercadopago")
+const ACCESS_TOKEN_MP_CRISTIAN = process.env
 
-// mercardopago.configure({
-//   access_token: ACCESS_TOKEN_MP_CRISTIAN
-// })
+mercardopago.configure({
+  access_token: ACCESS_TOKEN_MP_CRISTIAN
+})
 //  <-- Mercadopago
 
 const server = express();
 
 server.name = "API";
+server.use(cors())
 
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));

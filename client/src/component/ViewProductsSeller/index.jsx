@@ -19,7 +19,7 @@ function ViewProductSeller() {
       {!db.exists && (
         <h1> debe ser un usuario registrado para utilizar esta sesion</h1>
       )}
-      {db.exists && db.type === "consumer" && (
+      {db.exists && db.type === "customer" && (
         <h1>Los clientes no pueden cargar productos</h1>
       )}
       {db.type === "seller" && db.products.length ? (
