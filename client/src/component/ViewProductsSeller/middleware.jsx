@@ -11,8 +11,4 @@ function disDeleteProduct(data) {
   dispatch(deleteProduct(data));
 }
 
-/* function disDisableProduct(id) {
-  dispatch(disableProduct(id));
-} */
-
 export { registerPost, disDeleteProduct };

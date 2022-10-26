@@ -348,3 +348,26 @@ export function actualizarOrden(id, state) {
     })
     .catch((error) => console.error("Error:", error));
 }
+
+export function disableSeller(id) {
+  return async function () {
+    const res = await axios.put(`http://localhost:3001/seller/disable/${id}`);
+    return res;
+  };
+}
+
+export function restoreSeller(id) {
+  return async function () {
+    const res = await axios.put(`http://localhost:3001/seller/restore/${id}`);
+    return res;
+  };
+}
+
+export function disableForcePost(id) {
+  return async function () {
+    const res = await axios.put(
+      `http://localhost:3001/post/disableForce/${id}`
+    );
+    return res;
+  };
+}

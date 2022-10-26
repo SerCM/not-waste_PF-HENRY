@@ -31,6 +31,7 @@ const getDbInfo = async () => {
         paranoid: false,
       },
     ],
+    paranoid: false,
   });
 };
 

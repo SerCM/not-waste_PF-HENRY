@@ -71,14 +71,14 @@ export default function Createcards(data) {
           </div>
           <div className="col-md-8">
             <div className="card-body">
-              <button
+              {/* <button
                 className="btn btn-outline-danger col-md-4 mb-2"
                 type="button"
                 name={e.id}
                 onClick={(event) => eliminar(event)}
               >
                 Eliminar producto
-              </button>
+              </button> */}
               <button
                 className="btn btn-outline-danger col-md-4 mb-2"
                 type="button"

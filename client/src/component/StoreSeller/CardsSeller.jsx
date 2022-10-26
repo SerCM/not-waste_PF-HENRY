@@ -1,9 +1,32 @@
 import React from "react";
+import { disableForcePost } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 // import { Link } from "react-router-dom";
 import { Card, Badge } from "react-bootstrap";
 import "../StoreSeller/storeSeller.css";
 
 function CardSeller({ product, post }) {
+  const dispatch = useDispatch();
+  const readDates = () => {
+    let diff = product.posts.map((post) => {
+      let initialDate = post.createdAt;
+      let finalDate = post.date;
+
+      var diaEnMils = 1000 * 60 * 60 * 24;
+      var desde = new Date(initialDate.substr(0, 10));
+      var hasta = new Date(finalDate.substr(0, 10));
+      var diff = hasta.getTime() - desde.getTime(); // +1 incluir el dia de ini
+
+      setTimeout(() => {
+        dispatch(disableForcePost(post.id));
+      }, diff);
+      return diff / diaEnMils; /* { diff, initialDate, finalDate } */
+    });
+    return diff;
+  };
+
+  console.log(readDates(), "AQUI");
+
   return (
     <div>
       <Card style={{ width: "40rem" }}>
@@ -18,6 +41,8 @@ function CardSeller({ product, post }) {
           <Card.Text className="card-description">
             {product.description}
           </Card.Text>
+          {/* {console.log(initialDate, "INITIAL")}
+          {console.log(finalDate, "FINAL")} */}
           <Card.Footer>
             <svg
               width="16"
