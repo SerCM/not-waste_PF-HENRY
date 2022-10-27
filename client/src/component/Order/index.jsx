@@ -20,7 +20,7 @@ const Order = () => {
 
   let customers = useSelector((state) => state.customer);
   let customer = customers?.find((c) => c.email === user?.email);
-  let orderFinded = customer?.orders?.find(o => o.postId === postIdToModify)
+  let orderFinishded = customer?.orders?.find(o => o.postId === postIdToModify)
 
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
