@@ -21,7 +21,7 @@ function RouteController() {
       <Route exact path="/" element={<LandingPage />} />
       <Route exact path="/register" element={<Registrering />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/profile/:user" element={<Profile />} />
+      <Route path="/profile" element={<Profile />} />
       <Route exact path="/contact" element={<Contact />} />
       <Route exact path="/developers" element={<Developers />} />
       <Route path="/home/:postId" element={<PostDetail />} />
