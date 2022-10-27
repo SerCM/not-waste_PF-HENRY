@@ -28,7 +28,7 @@ function FormProduct() {
         realValue: "",
         image: "",
         description: "",
-        stock: 0,
+        stock: 1,
         diets: [],
         sellerId: db.id,
       };
@@ -92,17 +92,16 @@ function FormProduct() {
         realValue: "",
         image: "",
         description: "",
-        stock: "",
+        stock: 1,
         diets: [],
         sellerId: db.id,
       });
     } else {
-     console.log(error);
+      console.log(error);
     }
   }
 
   function handleSelectDiet(e) {
-
     if (!input.diets.includes(e.target.value)) {
       setInput({
         ...input,
