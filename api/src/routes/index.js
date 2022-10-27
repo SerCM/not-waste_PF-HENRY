@@ -81,7 +81,7 @@ router.get("/diets", getDiets);
 
 //mercadopago -->
 router.post("/create_preference", post_create_preference);
-router.get("/feedback", get_feedback);
+router.post("/feedback", get_feedback);
 //<-- mercadopago
 
 module.exports = router;
