@@ -404,3 +404,17 @@ export function disableForcePost(id) {
     return res;
   };
 }
+
+export function disablePost(id) {
+  return async function () {
+    const res = await axios.put(`http://localhost:3001/post/disable/${id}`);
+    return res;
+  };
+}
+
+export function restorePost(id) {
+  return async function () {
+    const res = await axios.put(`http://localhost:3001/post/restore/${id}`);
+    return res;
+  };
+}
