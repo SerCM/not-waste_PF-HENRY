@@ -25,7 +25,7 @@ export const Profile = (props) => {
 
           <Dropdown.Menu className="option">
             <Dropdown.Item className="drop">
-              <Link className="link" to={`/profile/${props.email}`}>
+              <Link className="link" to="/profile">
                 Mi Perfil
               </Link>
             </Dropdown.Item>
@@ -61,7 +61,7 @@ export const Profile = (props) => {
 
           <Dropdown.Menu className="option">
             <Dropdown.Item className="drop">
-              <Link className="link" to={`/profile/${props.email}`}>
+              <Link className="link" to="/profile">
                 Mi Perfil
               </Link>
             </Dropdown.Item>

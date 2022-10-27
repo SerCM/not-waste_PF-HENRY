@@ -1,70 +1,75 @@
-import React, { useEffect } from "react";
+import React  from "react"; //{ useEffect }
 import Navbar from "../NavBar/index";
 import Footer from "../Footer/index";
-import { getSellers } from "../../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+// import { getSellers } from "../../redux/actions";
+// import { useDispatch, useSelector } from "react-redux";
+// import { useParams } from "react-router-dom";
 import { ListGroup } from "react-bootstrap";
 
+import AuthProfile from "../AuthProfile";
+import VerifyProfile from "../VerifyProfile";
+
 function Profile() {
-  const dispatch = useDispatch();
-  const { user } = useParams();
-
-  useEffect(() => {
-    dispatch(getSellers());
-  }, [dispatch]);
-  const userData = useSelector((state) => state.seller);
-
-  const filtro = userData.filter((e) => e.email === user);
+  let log = AuthProfile("profile"); // esto puede ser {}, true o false
+  let db = VerifyProfile(log.email);
 
   return (
-    <div>
+    <>
       <Navbar />
-      {filtro.map((e) => {
-        return (
-          <>
-            <ListGroup variant="flush">
-              <ListGroup.Item>
-                <strong>Logo: </strong>
-                <img alt="asd" src={e.image} width="50px" height="50px" />
-              </ListGroup.Item>
-              <ListGroup.Item className="textx-capitalice">
-                <strong>Nombre: {e.name}</strong>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <strong>Email: </strong>
-                {e.email}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <strong>Número: </strong>
-                {e.phone}
-              </ListGroup.Item>
+      {db.exists && db.type === "customer" &&
+        <ListGroup variant="flush">
+          <ListGroup.Item className="textx-capitalice">
+            <strong>Nombre: {db.name}</strong>
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Email: </strong>
+            {db.email}
+          </ListGroup.Item>
+        </ListGroup>
+      }
+      {db.exists && db.type === "seller" &&
+        <ListGroup variant="flush">
+          <ListGroup.Item>
+            <strong>Logo: </strong>
+            <img alt="asd" src={db.image} width="50px" height="50px" />
+          </ListGroup.Item>
+          <ListGroup.Item className="textx-capitalice">
+            <strong>Nombre: {db.name}</strong>
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Email: </strong>
+            {db.email}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Número: </strong>
+            {db.phone}
+          </ListGroup.Item>
+          <ListGroup.Item className="text-capitalize">
+            <strong>Dirección: </strong>
+            {db.adress}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Cuil: </strong>
+            {db.cuit}
+          </ListGroup.Item>
+          {db.cities?.map((e) => {
+            return (
               <ListGroup.Item className="text-capitalize">
-                <strong>Dirección: </strong>
-                {e.adress}
+                <strong>Ciudad: </strong>
+                {e.name}
               </ListGroup.Item>
-              <ListGroup.Item>
-                <strong>Cuil: </strong>
-                {e.cuit}
-              </ListGroup.Item>
-              {e.cities?.map((e) => {
-                return (
-                  <ListGroup.Item className="text-capitalize">
-                    <strong>Ciudad: </strong>
-                    {e.name}
-                  </ListGroup.Item>
-                );
-              })}
-              <ListGroup.Item className="text-capitalize">
-                <strong>categoria: </strong>
-                {e.category}
-              </ListGroup.Item>
-            </ListGroup>
-          </>
-        );
-      })}
+            );
+          })}
+          <ListGroup.Item className="text-capitalize">
+            <strong>categoria: </strong>
+            {db.category ? db.category : <h6>No hay categorias cargadas</h6>}
+          </ListGroup.Item>
+        </ListGroup>
+      }
+      {db.exists && db.type === "manager" && <h1>Esta seccion muestra los datos de perfil de sus vendedores y compradores. Su usuario "administrador" no tiene datos para mostrar en esta seccion.</h1>}
       <Footer />
-    </div>
+      {console.log(db)}
+    </>
   );
 }
 
