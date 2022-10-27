@@ -1,7 +1,6 @@
 const product = require("../../public/newProduct-model.json");
 const { Product, Diet, Post, Order } = require("../../db");
 
-
 const getDbInfo = async () => {
   return await Product.findAll({
     include: [
@@ -17,11 +16,11 @@ const getDbInfo = async () => {
         include: { model: Order },
       },
     ],
+    paranoid: false,
   });
 };
 
 const getAllProducts = async () => {
- 
   const dbInfo = await getDbInfo();
 
   return dbInfo;

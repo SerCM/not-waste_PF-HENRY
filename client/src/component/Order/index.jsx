@@ -24,7 +24,8 @@ const Order = () => {
 
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
-  dispatch(putOrder(orderFinded?.id, {state: 'confirmado'}));
+
+  dispatch(putOrder(orderFinishded?.id, {state: 'confirmado'}));
   useEffect(() => {
     dispatch(getCustomer());
     dispatch(getProduct());
