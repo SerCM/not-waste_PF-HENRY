@@ -5,7 +5,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { Button, Card, ListGroup } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
-import { postOrder, postPay, addCart, orderDetail } from "../../redux/actions";
+import { postOrder, postPay, addCart, modifyPost } from "../../redux/actions";
 
 function Cart(props) {
   var { user } = useAuth0();
@@ -17,16 +17,16 @@ function Cart(props) {
   const handleShow = () => setShow(true);
 
   let cart = useSelector((state) => state.cart);
-
+  
   const productId = cart?.productId;
-
+  
   const price = cart?.amount * cart?.price;
   const { isAuthenticated, loginWithRedirect } = useAuth0();
   
-
-
+ 
+  
   const handlePayment = async (cart) => {
-    let orderdddd = await dispatch(postOrder(cart));
+    await dispatch(postOrder(cart));
     let payId = await postPay({ price: price, postId: cart.postId });
     cart.payId = payId.id; 
     window.location.replace(payId.redirect);

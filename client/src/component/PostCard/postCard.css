@@ -1,74 +1,78 @@
 .containerpri {
-    flex-wrap: wrap;
-    display: flex;
-    justify-content: center;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
 }
 
 .card-link {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 .postCard {
-    margin: 20px;
-    border-radius: 15px;
-    min-width: 18rem;
-    max-width: 18rem;
-    height: 300px;
-    display: flex;
-    background-color: white;
-    border: 1px solid #ccc;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 20px;
+  border-radius: 15px;
+  min-width: 18rem;
+  max-width: 18rem;
+  height: 300px;
+  display: flex;
+  background-color: white;
+  border: 1px solid #ccc;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.postCard1 {
+  display: none;
 }
 
 .card-image {
-    min-height: 150px;
-    max-height: 150px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+  min-height: 150px;
+  max-height: 150px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
-
 .card-description {
-    margin-bottom: 15px;
-    word-break: break-word;
-    font-size: 16px;
-    text-decoration: none;
-    overflow-wrap: break-word;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    display: -webkit-box;
-    overflow: hidden;
+  margin-bottom: 15px;
+  word-break: break-word;
+  font-size: 16px;
+  text-decoration: none;
+  overflow-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  overflow: hidden;
 }
 
 .postCard:hover {
-    transform: scale(1.010);
-    cursor: pointer;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  transform: scale(1.01);
+  cursor: pointer;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
 }
 
 .imgbig {
-    border-radius: 15px;
-    border: black solid;
-    height: 120px;
-    margin: 3%;
-    flex-wrap: wrap;
+  border-radius: 15px;
+  border: black solid;
+  height: 120px;
+  margin: 3%;
+  flex-wrap: wrap;
 }
 
 .contenido {
-    font-size: 17px;
-    color: white;
-    text-shadow: white;
-    padding: 5px 10px;
+  font-size: 17px;
+  color: white;
+  text-shadow: white;
+  padding: 5px 10px;
 }
 
 .h3name {
-    display: flex;
+  display: flex;
 }
 
 .h4price {
-    display: flex;
-    justify-content: space-between;
-    padding: 0px 10px;
-    margin-top: 22%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 10px;
+  margin-top: 22%;
 }
