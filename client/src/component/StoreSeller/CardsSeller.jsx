@@ -1,9 +1,21 @@
 import React from "react";
+import { disableForcePost } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 // import { Link } from "react-router-dom";
 import { Card, Badge } from "react-bootstrap";
 import "../StoreSeller/storeSeller.css";
 
 function CardSeller({ product, post }) {
+  const dispatch = useDispatch();
+  const readDates = () => {
+    let diff = product.posts.map((post) => {
+      dispatch(disableForcePost(post.id));
+    });
+    return diff;
+  };
+
+  readDates();
+
   return (
     <div>
       <Card style={{ width: "40rem" }}>
@@ -18,7 +30,7 @@ function CardSeller({ product, post }) {
           <Card.Text className="card-description">
             {product.description}
           </Card.Text>
-          <Card.Footer >
+          <Card.Footer>
             <svg
               width="16"
               height="16"
@@ -31,13 +43,14 @@ function CardSeller({ product, post }) {
             <span className="ms-2">{Math.ceil(Math.random() * 5)}</span>
             <span className="mx-2 text-black-50">|</span>
             <span>{new Date(post.date).toLocaleDateString("es-AR")}</span>
+            <span> {new Date(post.date).toLocaleTimeString("es-AR")}</span>
             <span className="mx-2 text-black-50">|</span>
             <span className="precio">$ {product.price}</span>
           </Card.Footer>
         </Card.Body>
       </Card>
-      <br/>
-      <br/>
+      <br />
+      <br />
     </div>
   );
 }

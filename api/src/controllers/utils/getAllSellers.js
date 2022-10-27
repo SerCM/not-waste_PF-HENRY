@@ -1,7 +1,5 @@
-const arraySeller = require("../../public/newSeller-model.json")
+const arraySeller = require("../../public/newSeller-model.json");
 const { Seller, Diet, City, Product, Post, Order } = require("../../db");
-
-
 
 const getDbInfo = async () => {
   return await Seller.findAll({
@@ -15,22 +13,25 @@ const getDbInfo = async () => {
       },
       {
         model: Product,
-        include: [{
-          model: Post,
-          include: {
-            model: Order,
-          }
-        },
-        {
-        model: Diet,
-        attributes: ["name"],
-        through: {
-          attributes: [],
-        },
-      }]
-  },
-      
+        include: [
+          {
+            model: Post,
+            include: {
+              model: Order,
+            },
+          },
+          {
+            model: Diet,
+            attributes: ["name"],
+            through: {
+              attributes: [],
+            },
+          },
+        ],
+        paranoid: false,
+      },
     ],
+    paranoid: false,
   });
 };
 
