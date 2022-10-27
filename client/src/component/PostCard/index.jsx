@@ -7,7 +7,9 @@ import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 
 function PostCard({ product, post }) {
   return (
-    <Card className={product.deletedAt ? "postCard1" : "postCard"}>
+    <Card
+      className={product.deletedAt || post.deletedAt ? "postCard1" : "postCard"}
+    >
       <Card.Link className="card-link" href={`/home/${post.id}`}>
         <Card.Img className="card-image" variant="top" src={product.image} />
         <Card.ImgOverlay>
