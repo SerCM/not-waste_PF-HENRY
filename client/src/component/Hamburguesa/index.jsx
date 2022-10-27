@@ -30,7 +30,7 @@ export const Profile = (props) => {
               </Link>
             </Dropdown.Item>
             <Dropdown.Item className="drop">
-              <Link className="link" to="/myShopping">
+              <Link className="link" to="/customer/orders">
                 Mis Pedidos
               </Link>
             </Dropdown.Item>

@@ -47,24 +47,18 @@ const postPost = async (req, res) => {
 
 const putPost = async (req, res) => {
   const { id } = req.params;
-  let { date, amount, productId } = req.body;
+  let { amount } = req.body;
   try {
-    if (!date) {
-      throw new Error("Debe definirse una fecha");
-    }
-    if (!amount) {
-      throw new Error("Debe definirse una cantidad");
-    }
-    if (!productId) {
-      throw new Error("Debe definirse los productos");
-    }
-    let postToModify = await Post.upsert({
-      id,
-      date,
-      amount,
-      productId,
-    });
-    res.send(postToModify);
+
+    let postToModify = await Post.update({
+      amount: amount
+    },
+      { where: { id: id } }
+
+    );
+    let postModified = await Post.findByPk(id);
+
+    res.send(postModified);
   } catch (e) {
     res.status(500).send(`${e}`);
   }
