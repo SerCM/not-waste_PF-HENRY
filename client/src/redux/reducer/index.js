@@ -15,6 +15,7 @@ const initialState = {
   postDetail: [],
   orderDetail: {},
   managers: [],
+  allPosts:[]
 };
 
 export default function rootReducer(state = initialState, actions) {
@@ -108,6 +109,11 @@ export default function rootReducer(state = initialState, actions) {
         ...state,
         managers: actions.payload,
       };
+      case "GET_POSTEO":
+        return {
+          ...state,
+          allPosts: actions.payload,
+        };
     default:
       return state;
   }
