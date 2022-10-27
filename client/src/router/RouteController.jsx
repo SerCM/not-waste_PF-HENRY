@@ -12,9 +12,7 @@ import Order from "../component/Order";
 import ViewProductSeller from "../component/ViewProductsSeller";
 import MyShopping from "../component/MyShopping";
 import StoreSeller from "../component/StoreSeller/index";
-
 import OderDetail from "../component/OrderDetail/orderDetail";
-
 import ViewOrderSeller from "../component/ViewOrderSeller"
 import AdminListSeller from "../component/AdminListSeller/index";
 

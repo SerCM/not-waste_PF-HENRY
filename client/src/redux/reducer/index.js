@@ -13,7 +13,8 @@ const initialState = {
   cart: [],
   payId: [],
   postDetail: [],
-  orderDetail: {}
+  orderDetail: {},
+  post:[]
 };
 
 export default function rootReducer(state = initialState, actions) {
@@ -98,11 +99,18 @@ export default function rootReducer(state = initialState, actions) {
         postDetail: actions.payload,
       };
 
+      
       case "ORDER_DETAIL":
         return {
           ...state,
           orderDetail: actions.payload
         }
+
+        case "GET_POSTEO":
+          return {
+            ...state,
+            post: actions.payload
+          }
     default:
       return state;
   }
