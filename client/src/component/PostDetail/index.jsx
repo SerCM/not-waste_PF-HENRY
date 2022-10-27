@@ -42,7 +42,6 @@ const PostDetail = () => {
     dispatch(postDetail(postId));
     dispatch(prodDetail(productId));
     dispatch(getProduct());
-    dispatch(modifyPost(postId))
   }, []);
 
   function handleAmount(a) {
@@ -50,10 +49,8 @@ const PostDetail = () => {
   }
 
   const handleCart = (input) => {
-    let amount = { amount: post.amount - input.amount }
     if (input.amount > 0) {
       dispatch(addCart(input));
-      dispatch(modifyPost(postId, amount));
       alert(input.name + " se añadio correctamente");
     }
   };

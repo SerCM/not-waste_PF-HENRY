@@ -28,8 +28,8 @@ const postPost = async (req, res) => {
     if (!date) {
       throw new Error("Debe definirse una fecha");
     }
-    if (!amount) {
-      throw new Error("Debe definirse una cantidad");
+    if (amount < 1) {
+      throw new Error("La cantidad a publicar debe ser mayor a 0");
     }
     if (!productId) {
       throw new Error("Debe definirse los productos");
@@ -49,7 +49,9 @@ const putPost = async (req, res) => {
   const { id } = req.params;
   let { amount } = req.body;
   try {
-
+    if (amount < 0) {
+      throw new Error("El stock de esta publicación ha llegado a 0");
+    }
     let postToModify = await Post.update({
       amount: amount
     },
