@@ -1,3 +1,4 @@
+const { Sequelize, Op } = require("sequelize");
 const { Post, Order, Diet } = require("../db");
 const { getAllPosts } = require("./utils/getAllPosts");
 
@@ -135,13 +136,14 @@ const disablePostForce = async (req, res) => {
     await Post.destroy({
       where: {
         id: id,
+        date: { [Op.lt]: Sequelize.literal("NOW()") },
       },
+      force: true,
     });
     const disablePostForce = await Post.findOne({
       where: {
         id: id,
       },
-      force: true,
     });
     res.status(200).send(disablePostForce);
   } catch (error) {
