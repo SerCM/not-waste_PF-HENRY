@@ -17,7 +17,7 @@ function OderDetail() {
         // dispatch(postDetail(idPosteo))
     },[dispatch]) 
 
-    let getPost = useSelector((state) => state.post);
+    let getPost = useSelector((state) => state.allPosts);
 
     const prod = useParams()
     let id = prod.id
