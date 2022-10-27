@@ -97,18 +97,17 @@ export default function rootReducer(state = initialState, actions) {
         postDetail: actions.payload,
       };
 
-    case "ORDER_DETAIL":
-      return {
-        ...state,
-        orderDetail: actions.payload,
-      };
-
+      case "ORDER_DETAIL":
+        return {
+          ...state,
+          orderDetail: actions.payload
+        }
+        
     case "GET_MANAGERS":
       return {
         ...state,
         managers: actions.payload,
       };
-
     default:
       return state;
   }

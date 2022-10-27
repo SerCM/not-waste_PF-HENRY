@@ -286,7 +286,19 @@ export function postDetail(id) {
     }
   };
 }
-
+export function postGet() {
+  return async function (dispatch) {
+    try {
+      let getPost = await axios.get("http://localhost:3001/post");
+      dispatch({
+        type: "GET_POSTEO",
+        payload: getPost.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 export function modifyPost(id, input) {
   return async function (dispatch) {
     const response = await axios.put(`http://localhost:3001/post/${id}`, input);
