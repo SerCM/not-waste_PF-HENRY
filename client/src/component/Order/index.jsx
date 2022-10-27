@@ -20,11 +20,12 @@ const Order = () => {
 
   let customers = useSelector((state) => state.customer);
   let customer = customers?.find((c) => c.email === user?.email);
-  let orderFinded = customer?.orders?.find(o => o.postId === postIdToModify)
-  console.log("🚀 ~ file: index.jsx ~ line 24 ~ Order ~ orderFinded", orderFinded)
+  let orderFinishded = customer?.orders?.find(o => o.postId === postIdToModify)
+  console.log("🚀 ~ file: index.jsx ~ line 24 ~ Order ~ orderFinishded", orderFinishded)
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
-  dispatch(putOrder(orderFinded?.id, {state: 'confirmado'}));
+
+  dispatch(putOrder(orderFinishded?.id, {state: 'confirmado'}));
   useEffect(() => {
     dispatch(getCustomer());
     dispatch(getProduct());

@@ -18,7 +18,6 @@ module.exports = (sequelize) => {
       amount: {
         type: DataTypes.INTEGER,
         min: 0,
-        allowNull: false,
       },
     },
     {
