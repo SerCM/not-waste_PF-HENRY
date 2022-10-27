@@ -12,7 +12,12 @@ import Order from "../component/Order";
 import ViewProductSeller from "../component/ViewProductsSeller";
 import MyShopping from "../component/MyShopping";
 import StoreSeller from "../component/StoreSeller/index";
+
 import OderDetail from "../component/OrderDetail/orderDetail";
+
+import ViewOrderSeller from "../component/ViewOrderSeller"
+import AdminListSeller from "../component/AdminListSeller/index";
+
 
 function RouteController() {
   return (
@@ -30,6 +35,8 @@ function RouteController() {
       <Route path="/myShopping" element={<MyShopping />} />
       <Route path="/postSeller" element={<StoreSeller />} />
       <Route path="/orderDetial/:id" element={<OderDetail/>} />
+      <Route exact path="/ViewOrderSeller" element={<ViewOrderSeller />} />
+      <Route path="/listSeller" element={<AdminListSeller />} />
     </Routes>
   );
 }
