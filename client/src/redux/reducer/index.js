@@ -101,6 +101,12 @@ export default function rootReducer(state = initialState, actions) {
           ...state,
           orderDetail: actions.payload
         }
+        
+    case "GET_MANAGERS":
+      return {
+        ...state,
+        managers: actions.payload,
+      };
     default:
       return state;
   }
