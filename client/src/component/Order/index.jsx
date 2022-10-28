@@ -7,7 +7,7 @@ import NavBar from "../NavBar";
 import Footer from "../Footer/index";
 import OrderItem from "../OrderItem/OrderItem";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
 
 const Order = () => {
   let { user } = useAuth0();
@@ -20,11 +20,14 @@ const Order = () => {
 
   let customers = useSelector((state) => state.customer);
   let customer = customers?.find((c) => c.email === user?.email);
-  let orderFinded = customer?.orders?.find(o => o.postId === postIdToModify)
-  console.log("🚀 ~ file: index.jsx ~ line 24 ~ Order ~ orderFinded", orderFinded)
+  let orderFinished = customer?.orders?.find(o => o.postId === postIdToModify)
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
-  dispatch(putOrder(orderFinded?.id, {state: 'confirmado'}));
+  if (orderFinished) {
+    dispatch(putOrder(orderFinished?.id, {state: 'confirmado'}));
+  }
+
+  
   useEffect(() => {
     dispatch(getCustomer());
     dispatch(getProduct());
@@ -34,6 +37,7 @@ const Order = () => {
     (order) => order.state !== "entregado"
   );
 
+
   let ordersInProgressId = ordersInProgress?.map((p) => {
     return p.postId;
   });
@@ -41,6 +45,7 @@ const Order = () => {
     products.find((prod) => prod.posts.find((p) => p.id === post))
   );
 
+  
   let ordersFinished = customer?.orders.filter(
     (order) => order.state === "entregado"
   );
@@ -57,6 +62,7 @@ const Order = () => {
   );
 
   if (orderConfirmed) {
+    console.log("🚀 ~ file: index.jsx ~ line 65 ~ Order ~ orderConfirmed", orderConfirmed)
     putOrder(orderConfirmed.id, { state: "confirmado" });
   }
 
@@ -82,9 +88,11 @@ const Order = () => {
                 </Card.Subtitle>
                 {productOrderInProgress?.map((p) => {
                   return (
-                    <div key={i++}>
+                  <div key={i++}>
+                    <Link to={`/orderDetial/${ordersInProgress[i].id}`}>
                       <OrderItem product={p} order={ordersInProgress[i]} />
-                    </div>
+                    </Link>
+                  </div>
                   );
                 })}
               </div>
@@ -97,7 +105,9 @@ const Order = () => {
                 {productOrderFinished?.map((p) => {
                   return (
                     <div key={j++}>
+                    <Link to={`/orderDelivered/${ordersFinished[j].id}`}>
                       <OrderItem product={p} order={ordersFinished[j]} />
+                    </Link>
                     </div>
                   );
                 })}

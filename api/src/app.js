@@ -3,14 +3,16 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
-
+const dotenv = require("dotenv");
+const mercardopago = require("mercadopago")
+const ACCESS_TOKEN_MP_CRISTIAN = process.env.ACCESS_TOKEN_MP_CRISTIAN
 require("./db.js");
 
 
 // Mercadopago -->
 const cors = require('cors')
-const mercardopago = require("mercadopago")
-const ACCESS_TOKEN_MP_CRISTIAN = process.env
+
+
 
 mercardopago.configure({
   access_token: ACCESS_TOKEN_MP_CRISTIAN

@@ -1,24 +1,57 @@
 import React from "react";
+import {
+  disableForcePost,
+  disablePost,
+  restorePost,
+} from "../../redux/actions";
+import { useDispatch } from "react-redux";
 // import { Link } from "react-router-dom";
 import { Card, Badge } from "react-bootstrap";
 import "../StoreSeller/storeSeller.css";
+import Button from "react-bootstrap/Button";
 
 function CardSeller({ product, post }) {
+  const dispatch = useDispatch();
+  const readDates = () => {
+    let diff = product.posts.map((post) => {
+      dispatch(disableForcePost(post.id));
+    });
+    return diff;
+  };
+
+  readDates();
+
+  const desabilitar = (e) => {
+    console.log("DESHABILITAR");
+    dispatch(disablePost(e.target.name));
+    window.location.reload(true);
+  };
+
+  const habilitar = (e) => {
+    dispatch(restorePost(e.target.name));
+    window.location.reload(true);
+  };
+
   return (
     <div>
-      <Card style={{ width: "40rem" }}>
+      <Card
+        className={post.deletedAt ? "dis" : "ok"}
+        style={{ width: "40rem" }}
+      >
         <Card.Img variant="top" src={product.image} />
+
         <Card.Body>
           <Card.Title className="name-post">{product.name}</Card.Title>
-          <Card.ImgOverlay>
+          {/* <Card.ImgOverlay>
             <Badge pill bg="warning" text="white">
               {post.amount} disponible(s)
             </Badge>
-          </Card.ImgOverlay>
+          </Card.ImgOverlay> */}
           <Card.Text className="card-description">
             {product.description}
           </Card.Text>
-          <Card.Footer >
+
+          <Card.Footer>
             <svg
               width="16"
               height="16"
@@ -31,13 +64,31 @@ function CardSeller({ product, post }) {
             <span className="ms-2">{Math.ceil(Math.random() * 5)}</span>
             <span className="mx-2 text-black-50">|</span>
             <span>{new Date(post.date).toLocaleDateString("es-AR")}</span>
+            <span> {new Date(post.date).toLocaleTimeString("es-AR")}</span>
             <span className="mx-2 text-black-50">|</span>
             <span className="precio">$ {product.price}</span>
+            <div className="habilitarBtn">
+              <Button
+                name={post.id}
+                onClick={(e) => desabilitar(e)}
+                variant="danger"
+              >
+                Deshabilitar
+              </Button>
+              <Button
+                name={post.id}
+                onClick={(e) => habilitar(e)}
+                variant="success"
+                className="ms-5"
+              >
+                Habilitar
+              </Button>
+            </div>
           </Card.Footer>
         </Card.Body>
       </Card>
-      <br/>
-      <br/>
+      <br />
+      <br />
     </div>
   );
 }

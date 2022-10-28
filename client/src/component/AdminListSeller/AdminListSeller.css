@@ -1,0 +1,31 @@
+/* .contadminseller {
+  margin-left: 30%;
+}
+
+
+
+.container {
+  margin-top: 30px;
+  flex-wrap: wrap;
+}  */
+
+.cardbox {
+  box-shadow: 5px 0px 10px black;
+}
+
+.imgadmin {
+  border-radius: 20px;
+}
+
+#buttondeshabi {
+  box-shadow: 5px 0px 10px black;  
+}
+
+.resaltar {
+  background-color: rgba(255, 99, 71, 0.5);
+}
+
+.sinResaltar {
+  background-color: white;
+  border-radius: 20px;
+}

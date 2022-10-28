@@ -1,7 +1,10 @@
 import axios from "axios";
 
+const urlAPI = process.env.REACT_APP_API || "http://localhost:3001" ;
+
+
 export function getSellers(queryParams) {
-  let url = new URL("/seller");
+  let url = new URL(`${urlAPI}/seller`);
   if (queryParams?.city) {
     url.searchParams.append("city", queryParams?.city);
   }
@@ -46,7 +49,7 @@ export function getSellers(queryParams) {
 export function getCities() {
   return async function (dispatch) {
     try {
-      const cities = await axios.get("/city");
+      const cities = await axios.get(`${urlAPI}/city`);
       dispatch({
         type: "GET_CITIES",
         payload: cities.data,
@@ -57,10 +60,24 @@ export function getCities() {
   };
 }
 
+export function reviewOrder(id, review) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(`${urlAPI}/${id}`, review);
+      dispatch({
+        type: "PUT_ORDER",
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
 export function getProduct() {
   return async function (dispatch) {
     try {
-      const price = await axios.get("/product");
+      const price = await axios.get(`${urlAPI}/product`);
       dispatch({
         type: "GET_PRODUCT",
         payload: price.data,
@@ -75,7 +92,7 @@ export function prodDetail(id) {
   return async function (dispatch) {
     try {
       let detailProduct = await await axios.get(
-        "/product/" + id
+        `${urlAPI}/product/${id}`
       );
       detailProduct = detailProduct.data[0];
       dispatch({
@@ -91,7 +108,7 @@ export function prodDetail(id) {
 export function getDiet() {
   return async function (dispatch) {
     try {
-      const diet = await axios.get("/diets");
+      const diet = await axios.get(`${urlAPI}/diets`);
       dispatch({
         type: "GET_DIET",
         payload: diet.data,
@@ -103,11 +120,11 @@ export function getDiet() {
 }
 
 export function getCustomer(email) {
-  let url = "/customer";
+  let url = `${urlAPI}/customer`;
   if (email) {
-    url = `/customer?email=${email}`;
+    url = `${urlAPI}/customer?email=${email}`;
   }
-  
+
   return async function (dispatch) {
     const response = await fetch(url);
     if (response.ok) {
@@ -127,7 +144,7 @@ export function getCustomer(email) {
 }
 
 export function postCustomer(data) {
-  return fetch("/customer", {
+  return fetch(`${urlAPI}/customer`, {
     method: "POST", // or 'PUT'
     body: JSON.stringify(data), // data can be `string` or {object}!
     headers: {
@@ -140,7 +157,7 @@ export function postCustomer(data) {
 }
 
 export function postSeller(data) {
-  return fetch("/seller", {
+  return fetch(`${urlAPI}/seller`, {
     method: "POST", // or 'PUT'
     body: JSON.stringify(data), // data can be `string` or {object}!
     headers: {
@@ -161,13 +178,13 @@ export const filterByCity = (payload) => {
 
 export const postProduct = (payload) => {
   return async () => {
-    let json = await axios.post("/product", payload);
+    let json = await axios.post(`${urlAPI}/product`, payload);
     return json;
   };
 };
 
 export function postPay(price, postId) {
-  return fetch("/create_preference", {
+  return fetch(`${urlAPI}/create_preference`, {
     method: "POST", // or 'PUT'
     body: JSON.stringify(price, postId), // data can be `string` or {object}!
     headers: {
@@ -185,11 +202,11 @@ export function postPay(price, postId) {
 export function postOrder(input) {
   return async function (dispatch) {
     try {
-      const act = await axios.post("/order", input);
+      const act = await axios.post(`${urlAPI}/order`, input);
       dispatch({
         type: "POST_ORDER",
         payload: act.data,
-        orders: act.data.id
+        orders: act.data.id,
       });
     } catch (error) {
       console.log(error);
@@ -198,9 +215,9 @@ export function postOrder(input) {
 }
 
 export function getOrders(customerId) {
-  let url = "/order";
+  let url = `${urlAPI}/order`;
   if (customerId) {
-    url = `/customer?customerId=${customerId}`;
+    url = `${urlAPI}/customer?customerId=${customerId}`;
   }
 
   return async function (dispatch) {
@@ -229,7 +246,7 @@ export function addCart(payload) {
 }
 
 export function postPost(data) {
-  return fetch("/post", {
+  return fetch(`${urlAPI}/post`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -242,7 +259,7 @@ export function postPost(data) {
 }
 
 export function deleteProduct(data) {
-  return fetch(`/product/${data}`, {
+  return fetch(`${urlAPI}/product/${data}`, {
     method: "DELETE",
   })
     .then((res) => res.json())
@@ -252,8 +269,22 @@ export function deleteProduct(data) {
     .catch((error) => console.error("Error:", error));
 }
 
+export function disableProduct(id) {
+  return async function () {
+    const res = await axios.put(`${urlAPI}/product/disable/${id}`);
+    return res;
+  };
+}
+
+export function restoreProduct(id) {
+  return async function () {
+    const res = await axios.put(`${urlAPI}/product/restore/${id}`);
+    return res;
+  };
+}
+
 export function getpost(id) {
-  fetch(`/post/?id=${id}`)
+  fetch(`${urlAPI}/post/?id=${id}`)
     .then((res) => res.json())
     .then((response) => console.log("Success:", response))
     .catch((error) => console.error("Error:", error));
@@ -261,7 +292,7 @@ export function getpost(id) {
 export function postDetail(id) {
   return async function (dispatch) {
     try {
-      let postDetail = await axios.get("/post/" + id);
+      let postDetail = await axios.get(`${urlAPI}/post/${id}`);
       postDetail = postDetail.data;
       dispatch({
         type: "POST_DETAIL",
@@ -272,10 +303,22 @@ export function postDetail(id) {
     }
   };
 }
-
+export function postGet() {
+  return async function (dispatch) {
+    try {
+      let getPost = await axios.get(`${urlAPI}/post`);
+      dispatch({
+        type: "GET_POSTEO",
+        payload: getPost.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 export function modifyPost(id, input) {
   return async function (dispatch) {
-    const response = await axios.put(`/post/${id}`, input);
+    const response = await axios.put(`${urlAPI}/post/${id}`, input);
     if (response.ok) {
       const json = await response.data();
       dispatch({ type: "MODIFY_POST", payload: json });
@@ -292,7 +335,7 @@ export function putOrder(id, state) {
   return async function (dispatch) {
     try {
       const response = await axios.put(
-        `/order/${id}`,
+        `${urlAPI}/order/${id}`,
         state
       );
       dispatch({
@@ -308,9 +351,7 @@ export function putOrder(id, state) {
 export function orderDetail(id) {
   return async function (dispatch) {
     try {
-      let detailOrder = await  axios.get(
-        "/order/" + id
-      );
+      let detailOrder = await axios.get(`${urlAPI}/order/${id}`);
       detailOrder = detailOrder.data[0];
       dispatch({
         type: "ORDER_DETAIL",
@@ -319,5 +360,78 @@ export function orderDetail(id) {
     } catch (error) {
       console.log(error);
     }
+  };
+}
+
+export function actualizarOrden(id, state) {
+  return fetch(`${urlAPI}/order/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(state), // data can be `string` or {object}!
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((response) => {
+      console.log("Success:", response);
+    })
+    .catch((error) => console.error("Error:", error));
+}
+
+export function getManagers() {
+  let url = `${urlAPI}/manager`;
+
+  return async function (dispatch) {
+    const response = await fetch(url);
+    if (response.ok) {
+      const json = await response.json();
+
+      dispatch({
+        type: "GET_MANAGERS",
+        payload: json,
+      });
+    } else {
+      dispatch({
+        type: "REQUEST_ERROR",
+        payload: "La búsqueda no arrojó resultados",
+      });
+    }
+  };
+}
+
+export function disableSeller(id) {
+  return async function () {
+    const res = await axios.put(`${urlAPI}/seller/disable/${id}`);
+    return res;
+  };
+}
+
+export function restoreSeller(id) {
+  return async function () {
+    const res = await axios.put(`${urlAPI}/seller/restore/${id}`);
+    return res;
+  };
+}
+
+export function disableForcePost(id) {
+  return async function () {
+    const res = await axios.put(
+      `${urlAPI}/post/disableForce/${id}`
+    );
+    return res;
+  };
+}
+
+export function disablePost(id) {
+  return async function () {
+    const res = await axios.put(`${urlAPI}/post/disable/${id}`);
+    return res;
+  };
+}
+
+export function restorePost(id) {
+  return async function () {
+    const res = await axios.put(`${urlAPI}/post/restore/${id}`);
+    return res;
   };
 }

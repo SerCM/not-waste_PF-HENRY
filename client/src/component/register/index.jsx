@@ -9,6 +9,8 @@ import "../register/register.css";
 import {registerSupplier, registerCustomer} from "./middleware";
 import Cookies from "universal-cookie";
 
+const redirectUri = process.env.REACT_APP_AUTH0_REDIRECT_URI
+
 function Register(props) {
   const dispatch = useDispatch();
   const cities = useSelector((state) => state.cities);
@@ -107,7 +109,7 @@ function Register(props) {
   };
 
   const reload = () => {
-    window.location.assign("http://localhost:3000/home");
+    window.location.assign(`${redirectUri}/home` );
   };
 
   const registrarproveedor = (e) => {
