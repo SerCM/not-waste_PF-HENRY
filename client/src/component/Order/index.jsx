@@ -62,6 +62,7 @@ const Order = () => {
   );
 
   if (orderConfirmed) {
+    console.log("🚀 ~ file: index.jsx ~ line 65 ~ Order ~ orderConfirmed", orderConfirmed)
     putOrder(orderConfirmed.id, { state: "confirmado" });
   }
 
