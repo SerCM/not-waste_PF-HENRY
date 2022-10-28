@@ -8,6 +8,7 @@ import Footer from "../Footer/index";
 import OrderItem from "../OrderItem/OrderItem";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams, useLocation, Link } from "react-router-dom";
+import { notificaciones } from "../../redux/actions";
 
 const Order = () => {
   let { user } = useAuth0();

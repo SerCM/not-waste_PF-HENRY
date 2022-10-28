@@ -180,10 +180,10 @@ export const postProduct = (payload) => {
   };
 };
 
-export function postPay(price, postId) {
+export function postPay(price, postId, email) {
   return fetch(`${urlAPI}/create_preference`, {
     method: "POST", // or 'PUT'
-    body: JSON.stringify(price, postId), // data can be `string` or {object}!
+    body: JSON.stringify(price, postId, email), // data can be `string` or {object}!
     headers: {
       "Content-Type": "application/json",
     },
@@ -427,4 +427,17 @@ export function restorePost(id) {
     const res = await axios.put(`${urlAPI}/post/restore/${id}`);
     return res;
   };
+}
+
+export function notificaciones(email, mensaje) {
+  return fetch(`${urlAPI}/notificaciones`, {
+    method: "POST",
+    body: JSON.stringify(email, mensaje),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((response) => console.log("Success:", response))
+    .catch((error) => console.error("Error:", error));
 }
