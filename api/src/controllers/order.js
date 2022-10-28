@@ -25,12 +25,12 @@ const getAllData = async () => {
 };
 
 const validateNewOrder = (newOrder) => {
-  const { state, review } = newOrder;
+  const { state, reviewValue } = newOrder;
 
-  if (!state || !review) throw Error("Faltan parametros necesarios");
+  if (!state || !reviewValue) throw Error("Faltan parametros necesarios");
   if (typeof state !== "string")
     throw Error("el estado debe ser en formato texto");
-  if (review < 1 || review > 5)
+  if (reviewValue < 1 || reviewValue > 5)
     throw Error("rating debe ser un número entre 1 y 5");
   return true;
 };
@@ -80,34 +80,9 @@ const getAllOrder = async (req, res) => {
   }
 };
 
-// const getAllOrder = async (req, res) => {
-//   const { state, customerId } = req.query;
-//   try {
-//     let orderList = await getAllData();
-//     if (state) {
-//       let orderList = orderList.filter((order) =>
-//         order.state.toLowerCase().includes(state.toLocaleLowerCase())
-//       );
-//       orderList.length
-//         ? res.status(200).send(orderList)
-//         : res
-//             .status(404)
-//             .send(`No se encontró ninguna orden con el estado: ${state}`);
-//     } if (customerId) {
-//       let orderList = orderList.filter((order) =>
-//         order.customerId = customerId
-//       );
-//       res.status(200).send(orderList);
-//     }
-//     res.status(200).send(orderList);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send(error);
-//   }
-// };
 
 const postOrder = async (req, res) => {
-  let { date, amount, state, review, postId, customerId, payId } = req.body;
+  let { date, amount, state, postId, customerId, reviewValue, reviewComment } = req.body;
   try {
     if (!amount) {
       throw new Error("Debe definirse una cantidad");
@@ -119,10 +94,11 @@ const postOrder = async (req, res) => {
       date,
       amount,
       state,
-      review,
+      reviewValue,
+      reviewComment,
       postId,
       customerId,
-      // payId,
+
     });
     newOrder.setPost(postId);
     let post = await Post.findByPk(postId);

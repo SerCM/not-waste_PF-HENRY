@@ -29,15 +29,16 @@ const PostDetail = () => {
   var { user } = useAuth0();
 
   let post = useSelector((state) => state.postDetail);
-  console.log("🚀 ~ file: index.jsx ~ line 32 ~ PostDetail ~ post", post)
+  let postO = post[0]
   let products = useSelector((state) => state.product);
-  let product = products.find((p) => p.id === post.productId);
+  let product = products.find((p) => p.id === postO.productId);
   let sellers = useSelector((state) => state.seller);
   let customers = useSelector((state) => state.customer);
 
   const [orders, setOrders] = useState({});
   let customer = customers?.find((c) => c.email === user?.email);
   let productId = post.productId;
+  let ordersReview = post[0]?.orders?.map(e=>e);
 
   useEffect(() => {
     dispatch(postDetail(postId));
@@ -67,7 +68,7 @@ const PostDetail = () => {
             <Card.Img variant="top" src={product.image} />
             <Card.ImgOverlay className="d-flex align-items-start flex-column justify-content-between">
               <Badge pill bg="warning">
-                {post.amount + " disponible(s)"}
+                {postO.amount + " disponible(s)"}
               </Badge>
               <Card.Title className="text-white fw-bold bg-light rounded p-2 ">
                 <span className="text-dark text-uppercase">{product.name}</span>
@@ -145,14 +146,14 @@ const PostDetail = () => {
             </ListGroup>
           </Card.Body>
           <Card.Footer>
-            {post.amount === 0 ?
+            {postO.amount === 0 ?
               <div>no hay disponibilidad</div>
               : <div className="d-flex align-items-center">
                 <span className="mx-2">
-                  {new Date(post.date).toLocaleDateString("es-AR")}
+                  {new Date(postO.date).toLocaleDateString("es-AR")}
                 </span>
                 <span className="mx-2">
-                  {new Date(post.date).toLocaleTimeString("es-AR")}
+                  {new Date(postO.date).toLocaleTimeString("es-AR")}
                 </span>
                 <DropdownButton
                   variant="light"
@@ -160,11 +161,11 @@ const PostDetail = () => {
                   key={`newOrder_${orders.amount}`}
                   title={orders.amount || "Cantidad"}
                 >
-                  {amountPostArray(post).map((a) => {
+                  {amountPostArray(postO).map((a) => {
                     return (
                       <Dropdown.Item
                         onClick={() => handleAmount(a)}
-                        key={`${a}+${post.date}`}
+                        key={`${a}+${postO.date}`}
                         as="button"
                       >
                         {a}
@@ -176,13 +177,13 @@ const PostDetail = () => {
                   onClick={() =>
                     handleCart({
                       amount: orders.amount,
-                      date: post.date,
+                      date: postO.date,
                       image: product.image,
                       price: product.price,
                       name: product.name,
                       image: product.image,
                       customerId: customer.id,
-                      postId: post.id,
+                      postId: postO.id,
                     })
                   }
                   className="btn btn-dark m-1 p-1"
@@ -203,7 +204,7 @@ const PostDetail = () => {
               </div>
             }
           </Card.Footer>
-          {post?.orders?.map(e=>{return <div>{e.review}</div>}) + "review"}
+          {ordersReview?.map(e=>{return <div>{e.reviewValue}</div>}) + "review"}
         </Card>
         <Footer />
       </>
