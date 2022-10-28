@@ -15,8 +15,7 @@ import StoreSeller from "../component/StoreSeller/index";
 import OderDetail from "../component/OrderDetail/orderDetail";
 import ViewOrderSeller from "../component/ViewOrderSeller"
 import AdminListSeller from "../component/AdminListSeller/index";
-
-
+import OrderDelivered from "../component/OrderDelivered/orderDelivered";
 function RouteController() {
   return (
     <Routes>
@@ -35,6 +34,7 @@ function RouteController() {
       <Route path="/orderDetial/:id" element={<OderDetail/>} />
       <Route exact path="/ViewOrderSeller" element={<ViewOrderSeller />} />
       <Route path="/listSeller" element={<AdminListSeller />} />
+      <Route path="/orderDelivered/:id" element={<OrderDelivered/>} />
     </Routes>
   );
 }
