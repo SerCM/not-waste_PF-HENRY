@@ -18,7 +18,7 @@ const post_create_preference = async (req, res) => {
       //esto es donde redirecciona en cada caso
       success: `${process.env.URL_FRONT}/customer/orders`,
       failure: `${process.env.URL_FRONT}/home`,
-      pending:`${process.env.URL_FRONT}/home`,
+      pending: `${process.env.URL_FRONT}/home`,
     },
     auto_return: "approved",
     external_reference: req.body.postId,
@@ -39,6 +39,7 @@ const post_create_preference = async (req, res) => {
 
 const get_feedback = async (req, res) => {
   //mercadopago me redirecciona aca con los datos por query
+  window.location.reload(true);
   res.json({
     Status: req.query.status,
     id: req.query.preference_id,

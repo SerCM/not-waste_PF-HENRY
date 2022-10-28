@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const urlAPI = process.env.REACT_APP_API || "http://localhost:3001" ;
-
+const urlAPI = process.env.REACT_APP_API || "http://localhost:3001";
 
 export function getSellers(queryParams) {
   let url = new URL(`${urlAPI}/seller`);
@@ -91,9 +90,7 @@ export function getProduct() {
 export function prodDetail(id) {
   return async function (dispatch) {
     try {
-      let detailProduct = await await axios.get(
-        `${urlAPI}/product/${id}`
-      );
+      let detailProduct = await await axios.get(`${urlAPI}/product/${id}`);
       detailProduct = detailProduct.data[0];
       dispatch({
         type: "PROD_DETAIL",
@@ -203,7 +200,7 @@ export function postOrder(input) {
   return async function (dispatch) {
     try {
       const act = await axios.post(`${urlAPI}/order`, input);
-      console.log("🚀 ~ file: index.js ~ line 206 ~ act", act)
+      console.log("🚀 ~ file: index.js ~ line 206 ~ act", act);
       dispatch({
         type: "POST_ORDER",
         payload: act.data,
@@ -335,10 +332,7 @@ export function modifyPost(id, input) {
 export function putOrder(id, state) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(
-        `${urlAPI}/order/${id}`,
-        state
-      );
+      const response = await axios.put(`${urlAPI}/order/${id}`, state);
       dispatch({
         type: "PUT_ORDER",
         payload: response.data,
@@ -416,9 +410,7 @@ export function restoreSeller(id) {
 
 export function disableForcePost(id) {
   return async function () {
-    const res = await axios.put(
-      `${urlAPI}/post/disableForce/${id}`
-    );
+    const res = await axios.put(`${urlAPI}/post/disableForce/${id}`);
     return res;
   };
 }
