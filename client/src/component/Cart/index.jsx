@@ -27,7 +27,7 @@ function Cart(props) {
   
   const handlePayment = async (cart) => {
     await dispatch(postOrder(cart));
-    let payId = await postPay({ price: price, postId: cart.postId });
+    let payId = await postPay({ price: price, postId: cart.postId, email: cart.email });
     cart.payId = payId.id; 
     window.location.replace(payId.redirect);
   };

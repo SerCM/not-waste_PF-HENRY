@@ -11,6 +11,7 @@ import VerifyProfile from "../VerifyProfile";
 import AuthProfile from "../AuthProfile";
 import "./FormProducts.css";
 import { Link } from "react-router-dom";
+import swal from 'sweetalert';
 
 function FormProduct() {
   const [error, setError] = useState({});
@@ -65,7 +66,11 @@ function FormProduct() {
     e.preventDefault();
     setError(validate(input));
     if (!Object.keys(error).length && input.diets.length) {
-      alert("Producto añadido con exito");
+      swal({
+        title: '¡Producto añadido!',
+        text: 'Su producto fue cargado con exito!',
+        icon: 'success'
+      })
       let imageObj = input.image;
       const data = new FormData();
       data.append("file", imageObj);

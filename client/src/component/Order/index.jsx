@@ -8,6 +8,7 @@ import Footer from "../Footer/index";
 import OrderItem from "../OrderItem/OrderItem";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams, useLocation, Link } from "react-router-dom";
+import { notificaciones } from "../../redux/actions";
 
 const Order = () => {
   let { user } = useAuth0();
@@ -16,27 +17,30 @@ const Order = () => {
 
   let query = useQuery();
 
-  let postIdToModify = query.get('external_reference')
+  let postIdToModify = query.get("external_reference");
 
   let customers = useSelector((state) => state.customer);
   let customer = customers?.find((c) => c.email === user?.email);
-  let orderFinished = customer?.orders?.find(o => o.postId === postIdToModify)
+  let orderFinished = customer?.orders?.find(
+    (o) => o.postId === postIdToModify
+  );
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
-  if (orderFinished) {
-    dispatch(putOrder(orderFinished?.id, {state: 'confirmado'}));
+  if (orderFinished && orderFinished.state === "pendiente") {
+    setTimeout(() => {
+      window.location.reload(true);
+    }, 1000);
+    dispatch(putOrder(orderFinished?.id, { state: "confirmado" }));
   }
 
-  
   useEffect(() => {
     dispatch(getCustomer());
     dispatch(getProduct());
-  }, []);
+  }, [dispatch]);
 
   let ordersInProgress = customer?.orders.filter(
     (order) => order.state !== "entregado"
   );
-
 
   let ordersInProgressId = ordersInProgress?.map((p) => {
     return p.postId;
@@ -45,7 +49,6 @@ const Order = () => {
     products.find((prod) => prod.posts.find((p) => p.id === post))
   );
 
-  
   let ordersFinished = customer?.orders.filter(
     (order) => order.state === "entregado"
   );
@@ -55,16 +58,6 @@ const Order = () => {
   let productOrderFinished = ordersFinishedId?.map((post) =>
     products.find((prod) => prod.posts.find((p) => p.id === post))
   );
-
-  const params = useParams(); //No esta trayendo los parametros
-  let orderConfirmed = customer?.orders.find(
-    (order) => order.payId === params.preference_id
-  );
-
-  if (orderConfirmed) {
-    console.log("🚀 ~ file: index.jsx ~ line 65 ~ Order ~ orderConfirmed", orderConfirmed)
-    putOrder(orderConfirmed.id, { state: "confirmado" });
-  }
 
   let i = 0;
   let j = 0;
@@ -88,11 +81,11 @@ const Order = () => {
                 </Card.Subtitle>
                 {productOrderInProgress?.map((p) => {
                   return (
-                  <div key={i++}>
-                    <Link to={`/orderDetial/${ordersInProgress[i].id}`}>
-                      <OrderItem product={p} order={ordersInProgress[i]} />
-                    </Link>
-                  </div>
+                    <div key={i++}>
+                      <Link to={`/orderDetial/${ordersInProgress[i].id}`}>
+                        <OrderItem product={p} order={ordersInProgress[i]} />
+                      </Link>
+                    </div>
                   );
                 })}
               </div>
@@ -105,9 +98,9 @@ const Order = () => {
                 {productOrderFinished?.map((p) => {
                   return (
                     <div key={j++}>
-                    <Link to={`/orderDelivered/${ordersFinished[j].id}`}>
-                      <OrderItem product={p} order={ordersFinished[j]} />
-                    </Link>
+                      <Link to={`/orderDelivered/${ordersFinished[j].id}`}>
+                        <OrderItem product={p} order={ordersFinished[j]} />
+                      </Link>
                     </div>
                   );
                 })}

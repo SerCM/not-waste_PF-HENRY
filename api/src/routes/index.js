@@ -47,6 +47,8 @@ const {
   get_feedback,
 } = require("../controllers/mercadopago");
 
+const enviarMail = require("../controllers/notificaciones")
+
 const router = Router();
 
 //Rutas del Seller
@@ -100,7 +102,10 @@ router.get("/diets", getDiets);
 
 //mercadopago -->
 router.post("/create_preference", post_create_preference);
-router.post("/feedback", get_feedback);
+router.get("/feedback", get_feedback);
 //<-- mercadopago
 
+//notificaciones -->
+router.post("/notificaciones", enviarMail)
+// <-- notificaciones
 module.exports = router;
