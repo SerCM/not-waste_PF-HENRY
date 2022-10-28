@@ -8,6 +8,7 @@ import Footer from "../Footer/index";
 import OrderItem from "../OrderItem/OrderItem";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams, useLocation, Link } from "react-router-dom";
+import { notificaciones } from "../../redux/actions";
 
 const Order = () => {
   let { user } = useAuth0();
@@ -24,6 +25,7 @@ const Order = () => {
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
   if (orderFinished) {
+    notificaciones({email: customer.email, mensaje: "finalizaste tu compra. Te invitamos a que sihgas recorriendo nuestro sitio."})
     dispatch(putOrder(orderFinished?.id, {state: 'confirmado'}));
   }
 
@@ -55,16 +57,6 @@ const Order = () => {
   let productOrderFinished = ordersFinishedId?.map((post) =>
     products.find((prod) => prod.posts.find((p) => p.id === post))
   );
-
-  const params = useParams(); //No esta trayendo los parametros
-  let orderConfirmed = customer?.orders.find(
-    (order) => order.payId === params.preference_id
-  );
-
-  if (orderConfirmed) {
-    console.log("🚀 ~ file: index.jsx ~ line 65 ~ Order ~ orderConfirmed", orderConfirmed)
-    putOrder(orderConfirmed.id, { state: "confirmado" });
-  }
 
   let i = 0;
   let j = 0;

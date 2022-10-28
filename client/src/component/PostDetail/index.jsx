@@ -181,9 +181,9 @@ const PostDetail = () => {
                       image: product.image,
                       price: product.price,
                       name: product.name,
-                      image: product.image,
                       customerId: customer.id,
                       postId: postO.id,
+                      email: user.email
                     })
                   }
                   className="btn btn-dark m-1 p-1"

@@ -1,5 +1,5 @@
 const mercadopago = require("mercadopago");
-const { ACCESS_TOKEN_MP_CRISTIAN } = process.env;
+const  ACCESS_TOKEN_MP_CRISTIAN  = process.env.ACCESS_TOKEN_MP_CRISTIAN;
 
 mercadopago.configure({
   access_token: ACCESS_TOKEN_MP_CRISTIAN,
