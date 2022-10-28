@@ -8,6 +8,7 @@ import { postCustomer, postSeller } from "../../redux/actions";
 import "../register/register.css";
 import {registerSupplier, registerCustomer} from "./middleware";
 import Cookies from "universal-cookie";
+import swal from 'sweetalert';
 
 const redirectUri = process.env.REACT_APP_AUTH0_REDIRECT_URI
 
@@ -123,9 +124,14 @@ function Register(props) {
       localStorage.removeItem("formSeller");
     } else {
       e.preventDefault();
-      alert(
-        "Hay campos incompletos o inválidos. Por favor revise su formulario, todos los campos son obligatorios."
-      );
+      // alert(
+      //   "Hay campos incompletos o inválidos. Por favor revise su formulario, todos los campos son obligatorios."
+      // );
+      swal({
+        title: "Campos incompletos o invalidos",
+        text: "Por favor revuse su formulario, todos los campos son obligatorios",
+        icon: "error",
+      });
     }
   };
   // const registerSupplier = async (e) => {

@@ -21,6 +21,7 @@ import NavBar from "../NavBar";
 import Footer from "../Footer/index";
 import amountPostArray from "../../utils/amountPostArray";
 import { useAuth0 } from "@auth0/auth0-react";
+import swal from 'sweetalert';
 
 const PostDetail = () => {
   const { postId } = useParams();
@@ -53,7 +54,12 @@ const PostDetail = () => {
   const handleCart = (input) => {
     if (input.amount > 0) {
       dispatch(addCart(input));
-      alert(input.name + " se añadio correctamente");
+      // alert(input.name + " se añadio correctamente");
+      swal({
+        title: input.name,
+        text: "Se añadió correctamente!",
+        icon: "success",
+      });
     }
   };
 
