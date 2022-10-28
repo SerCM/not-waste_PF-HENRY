@@ -29,6 +29,7 @@ const PostDetail = () => {
   var { user } = useAuth0();
 
   let post = useSelector((state) => state.postDetail);
+  console.log("🚀 ~ file: index.jsx ~ line 32 ~ PostDetail ~ post", post)
   let products = useSelector((state) => state.product);
   let product = products.find((p) => p.id === post.productId);
   let sellers = useSelector((state) => state.seller);
@@ -202,6 +203,7 @@ const PostDetail = () => {
               </div>
             }
           </Card.Footer>
+          {post?.orders?.map(e=>{return <div>{e.review}</div>}) + "review"}
         </Card>
         <Footer />
       </>

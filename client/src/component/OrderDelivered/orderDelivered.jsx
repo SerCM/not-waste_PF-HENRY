@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 import Footer from '../Footer'
 import NavBar from '../NavBar'
 import { useDispatch, useSelector } from "react-redux";
+import { Badge, Button, Card, ListGroup } from 'react-bootstrap';
 import { getCustomer, postDetail, postGet, prodDetail } from '../../redux/actions';
 import AuthProfile from '../AuthProfile';
 import VerifyProfile from '../VerifyProfile';
 import { useParams } from 'react-router-dom';
-import { Auxilary } from './auxilary';
+import { AuxilaryDelivered } from './auxilaryDelivered';
+export default function OrderDelivered() {
 
-
-function OderDetail() {
     const dispatch = useDispatch()
     useEffect(()=>{ 
         dispatch(postGet());
@@ -37,16 +37,17 @@ let unidad = getPost?.filter(e=>e.id === idPosteo)
 
 let idProduct = unidad?.map(e=>e.productId).toString()
 
+
   return (
     <div>
- <NavBar/>
+    <NavBar/> 
     {idProduct === "" ? <></> :
-<Auxilary idProduct={idProduct&&idProduct}
+    <AuxilaryDelivered idProduct={idProduct&&idProduct}
     orden={ordenesId}
+    id={id}
 />
     }
-<Footer/>
-    </div>
+   <Footer/>
+       </div>
   )
 }
-export default OderDetail

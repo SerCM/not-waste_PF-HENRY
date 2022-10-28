@@ -105,7 +105,9 @@ const Order = () => {
                 {productOrderFinished?.map((p) => {
                   return (
                     <div key={j++}>
+                    <Link to={`/orderDelivered/${ordersFinished[j].id}`}>
                       <OrderItem product={p} order={ordersFinished[j]} />
+                    </Link>
                     </div>
                   );
                 })}

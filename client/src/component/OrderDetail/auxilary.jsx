@@ -32,7 +32,7 @@ let stateOrder = orden?.map(e=>{return e.state}).toString()
             <Card.Img variant="top" src={product.image} />
             <Card.ImgOverlay className="d-flex align-items-start flex-column justify-content-between">
 
-              <Badge pill bg="warning">Estado: {orden?.map(e=>{return(<>{e.state}</>)})}</Badge>
+              <Badge pill bg="danger">Estado: {orden?.map(e=>{return(<>{e.state}</>)})}</Badge>
 
               <Card.Title className="text-white fw-bold bg-light rounded p-2 ">
                 <span className="text-dark text-uppercase">{product.name}</span>
@@ -139,7 +139,7 @@ let stateOrder = orden?.map(e=>{return e.state}).toString()
                         key={diet.id}
                       >
                         {diet.name}
-                      </Badge>
+                      </Badge> 
                     );
                   })}
                 </>
@@ -150,9 +150,9 @@ let stateOrder = orden?.map(e=>{return e.state}).toString()
           </Card.Body>
 
           <Card.Footer>
-            <div className="d-flex align-items-center">
+            {/* <div className="d-flex align-items-center">
               <Button className="btn btn-dark m-1 p-1">Añadir reseña</Button>
-            </div>
+            </div> */}
           </Card.Footer>
         </Card>
         </>
