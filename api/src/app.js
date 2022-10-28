@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const routes = require("./routes/index.js");
 const dotenv = require("dotenv");
 const mercardopago = require("mercadopago")
-const ACCESS_TOKEN_MP_CRISTIAN = process.env
+const ACCESS_TOKEN_MP_CRISTIAN = process.env.ACCESS_TOKEN_MP_CRISTIAN
 require("./db.js");
 
 
