@@ -157,7 +157,7 @@ const putOrder = async (req, res) => {
     if (!state) {
       throw new Error("No se recibio parametro state");
     }
-    let orderMod = await Order.update(
+    await Order.update(
       { state },
       { where: { id } });
     let orderModificated = await Order.findByPk(id)
@@ -168,13 +168,13 @@ const putOrder = async (req, res) => {
 };
 const putOrderReview = async (req, res) => {
   const { id } = req.params;
-  let { review } = req.body;
+  let { reviewValue, reviewComment } = req.body;
   try {
-    if (!review) {
+    if (!reviewValue) {
       throw new Error("No se recibio parametro review");
     }
-    let orderMod = await Order.update(
-      { review },
+    await Order.update(
+      { reviewValue, reviewComment },
       { where: { id } });
     let orderModificated = await Order.findByPk(id)
     res.send(orderModificated);
