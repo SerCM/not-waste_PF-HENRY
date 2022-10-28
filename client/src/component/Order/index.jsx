@@ -20,12 +20,14 @@ const Order = () => {
 
   let customers = useSelector((state) => state.customer);
   let customer = customers?.find((c) => c.email === user?.email);
-  let orderFinishded = customer?.orders?.find(o => o.postId === postIdToModify)
-
+  let orderFinished = customer?.orders?.find(o => o.postId === postIdToModify)
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
+  if (orderFinished) {
+    dispatch(putOrder(orderFinished?.id, {state: 'confirmado'}));
+  }
 
-  dispatch(putOrder(orderFinishded?.id, {state: 'confirmado'}));
+  
   useEffect(() => {
     dispatch(getCustomer());
     dispatch(getProduct());
@@ -102,7 +104,9 @@ const Order = () => {
                 {productOrderFinished?.map((p) => {
                   return (
                     <div key={j++}>
+                    <Link to={`/orderDelivered/${ordersFinished[j].id}`}>
                       <OrderItem product={p} order={ordersFinished[j]} />
+                    </Link>
                     </div>
                   );
                 })}

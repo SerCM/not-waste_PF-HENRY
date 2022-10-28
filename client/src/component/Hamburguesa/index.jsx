@@ -4,6 +4,8 @@ import { useAuth0 } from "@auth0/auth0-react"; //esto es un hook que da auth0
 import { Link } from "react-router-dom";
 import("./perfile.css");
 
+const redirectUri = process.env.REACT_APP_AUTH0_REDIRECT_URI
+
 export const Profile = (props) => {
   const { logout } = useAuth0();
   return (
@@ -37,7 +39,7 @@ export const Profile = (props) => {
             <Dropdown.Item
               className="drop"
               type="button"
-              onClick={() => logout({ returnTo: "http://localhost:3000/home" })}
+              onClick={() => logout({ returnTo: `${redirectUri}/home` })}
             >
               Cerrar Sessión
             </Dropdown.Item>
@@ -88,7 +90,7 @@ export const Profile = (props) => {
             <Dropdown.Item
               className="drop"
               type="button"
-              onClick={() => logout({ returnTo: "http://localhost:3000/home" })}
+              onClick={() => logout({ returnTo: `${redirectUri}/home`  })}
             >
               Cerrar Sessión
             </Dropdown.Item>
@@ -125,7 +127,7 @@ export const Profile = (props) => {
             <Dropdown.Item
               className="drop"
               type="button"
-              onClick={() => logout({ returnTo: "http://localhost:3000/home" })}
+              onClick={() => logout({ returnTo: `${redirectUri}/home` })}
             >
               Cerrar Sessión
             </Dropdown.Item>

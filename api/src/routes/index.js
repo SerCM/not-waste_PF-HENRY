@@ -39,6 +39,7 @@ const {
   postOrder,
   deleteOrder,
   putOrder,
+  putOrderReview
 } = require("../controllers/order");
 const { getDiets } = require("../controllers/diets");
 const {
@@ -93,7 +94,7 @@ router.get("/order", getAllOrder);
 router.post("/order", postOrder);
 router.delete("/order/:id", deleteOrder);
 router.put("/order/:id", putOrder);
-
+router.put("/orderReview/:id", putOrderReview);
 //Ruta de Dietas
 router.get("/diets", getDiets);
 
