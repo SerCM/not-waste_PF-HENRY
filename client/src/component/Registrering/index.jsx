@@ -8,6 +8,9 @@ import VerifyProfile from "../VerifyProfile";
 import "../Registrering/Registering.css";
 import { useAuth0 } from "@auth0/auth0-react";
 
+const redirectUri = process.env.REACT_APP_AUTH0_REDIRECT_URI
+
+
 function Registrering() {
   const { isLoading } = useAuth0;
   let log = AuthProfile("profile"); // esto puede ser {}, true o false
@@ -15,7 +18,7 @@ function Registrering() {
 
   return (
     <>
-      {db.exists && window.location.assign("http://localhost:3000/home")}
+      {db.exists && window.location.assign(`${redirectUri}/home`)}
       <div>
         <NavBar />
         <div className="dashRegister">

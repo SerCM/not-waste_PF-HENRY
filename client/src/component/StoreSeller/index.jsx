@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getSellers } from "../../redux/actions";
+import { getSellers, restorePost, disablePost } from "../../redux/actions";
 import Footer from "../Footer";
 import { Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -17,6 +17,16 @@ function StoreSeller() {
     dispatch(getSellers());
   }, []);
 
+  const desabilitar = (e) => {
+    console.log("DESHABILITAR");
+    dispatch(disablePost(e.target.name));
+    window.location.reload(true);
+  };
+
+  const habilitar = (e) => {
+    dispatch(restorePost(e.target.name));
+    window.location.reload(true);
+  };
   return (
     <>
       <NavBar />

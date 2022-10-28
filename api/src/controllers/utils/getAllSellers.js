@@ -19,6 +19,7 @@ const getDbInfo = async () => {
             include: {
               model: Order,
             },
+            paranoid: false,
           },
           {
             model: Diet,

@@ -23,3 +23,15 @@
   font-weight: 600;
   text-shadow: 2px 5px #000;
 }
+
+.dis {
+  background-color: rgba(255, 99, 71, 0.5);
+}
+
+.ok {
+  background-color: white;
+}
+
+.habilitarBtn {
+  margin-top: 1rem;
+}
