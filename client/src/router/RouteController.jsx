@@ -12,8 +12,11 @@ import Order from "../component/Order";
 import ViewProductSeller from "../component/ViewProductsSeller";
 import MyShopping from "../component/MyShopping";
 import StoreSeller from "../component/StoreSeller/index";
+import OderDetail from "../component/OrderDetail/orderDetail";
 import ViewOrderSeller from "../component/ViewOrderSeller"
 import AdminListSeller from "../component/AdminListSeller/index";
+import Dashboard from "../component/Dashboard/Dashboard";
+
 
 function RouteController() {
   return (
@@ -21,7 +24,7 @@ function RouteController() {
       <Route exact path="/" element={<LandingPage />} />
       <Route exact path="/register" element={<Registrering />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/profile/:user" element={<Profile />} />
+      <Route path="/profile" element={<Profile />} />
       <Route exact path="/contact" element={<Contact />} />
       <Route exact path="/developers" element={<Developers />} />
       <Route path="/home/:postId" element={<PostDetail />} />
@@ -30,8 +33,10 @@ function RouteController() {
       <Route exact path="/viewproductseller" element={<ViewProductSeller />} />
       <Route path="/myShopping" element={<MyShopping />} />
       <Route path="/postSeller" element={<StoreSeller />} />
+      <Route path="/orderDetial/:id" element={<OderDetail/>} />
       <Route exact path="/ViewOrderSeller" element={<ViewOrderSeller />} />
       <Route path="/listSeller" element={<AdminListSeller />} />
+      <Route path="/dashboard" element={<Dashboard/>} />
     </Routes>
   );
 }

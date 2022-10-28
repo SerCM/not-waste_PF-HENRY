@@ -286,7 +286,19 @@ export function postDetail(id) {
     }
   };
 }
-
+export function postGet() {
+  return async function (dispatch) {
+    try {
+      let getPost = await axios.get("http://localhost:3001/post");
+      dispatch({
+        type: "GET_POSTEO",
+        payload: getPost.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 export function modifyPost(id, input) {
   return async function (dispatch) {
     const response = await axios.put(`http://localhost:3001/post/${id}`, input);
@@ -389,6 +401,20 @@ export function disableForcePost(id) {
     const res = await axios.put(
       `http://localhost:3001/post/disableForce/${id}`
     );
+    return res;
+  };
+}
+
+export function disablePost(id) {
+  return async function () {
+    const res = await axios.put(`http://localhost:3001/post/disable/${id}`);
+    return res;
+  };
+}
+
+export function restorePost(id) {
+  return async function () {
+    const res = await axios.put(`http://localhost:3001/post/restore/${id}`);
     return res;
   };
 }
