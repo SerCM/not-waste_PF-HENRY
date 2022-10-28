@@ -20,10 +20,14 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM("pendiente", "confirmado", "entregado", "cancelado"),
       defaultValue: "pendiente",
     },
-    review: {
+    reviewValue: {
       type: DataTypes.INTEGER,
       min: 0,
       max: 5,
+      // TODO agregar condición de que sólo se puede modificar cuando el pedido está en estado entregado
+    },
+    reviewComment: {
+      type: DataTypes.TEXT,
       // TODO agregar condición de que sólo se puede modificar cuando el pedido está en estado entregado
     },
     /* payId: {

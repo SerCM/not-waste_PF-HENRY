@@ -80,7 +80,13 @@ const deletePost = async (req, res) => {
 const getPostById = async (req, res) => {
   let { id } = req.params;
   try {
-    let postId = await Post.findByPk(id);
+    let postId = await Post.findAll({
+      where: {id},
+      include: {
+        model: Order,
+      },
+      paranoid: false,
+    });
 
     res.status(200).send(postId);
   } catch (e) {
