@@ -17,28 +17,30 @@ const Order = () => {
 
   let query = useQuery();
 
-  let postIdToModify = query.get('external_reference')
+  let postIdToModify = query.get("external_reference");
 
   let customers = useSelector((state) => state.customer);
   let customer = customers?.find((c) => c.email === user?.email);
-  let orderFinished = customer?.orders?.find(o => o.postId === postIdToModify)
+  let orderFinished = customer?.orders?.find(
+    (o) => o.postId === postIdToModify
+  );
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
-  if (orderFinished) {
-    notificaciones({email: customer.email, mensaje: "finalizaste tu compra. Te invitamos a que sihgas recorriendo nuestro sitio."})
-    dispatch(putOrder(orderFinished?.id, {state: 'confirmado'}));
+  if (orderFinished && orderFinished.state === "pendiente") {
+    setTimeout(() => {
+      window.location.reload(true);
+    }, 1000);
+    dispatch(putOrder(orderFinished?.id, { state: "confirmado" }));
   }
 
-  
   useEffect(() => {
     dispatch(getCustomer());
     dispatch(getProduct());
-  }, []);
+  }, [dispatch]);
 
   let ordersInProgress = customer?.orders.filter(
     (order) => order.state !== "entregado"
   );
-
 
   let ordersInProgressId = ordersInProgress?.map((p) => {
     return p.postId;
@@ -47,7 +49,6 @@ const Order = () => {
     products.find((prod) => prod.posts.find((p) => p.id === post))
   );
 
-  
   let ordersFinished = customer?.orders.filter(
     (order) => order.state === "entregado"
   );
@@ -80,11 +81,11 @@ const Order = () => {
                 </Card.Subtitle>
                 {productOrderInProgress?.map((p) => {
                   return (
-                  <div key={i++}>
-                    <Link to={`/orderDetial/${ordersInProgress[i].id}`}>
-                      <OrderItem product={p} order={ordersInProgress[i]} />
-                    </Link>
-                  </div>
+                    <div key={i++}>
+                      <Link to={`/orderDetial/${ordersInProgress[i].id}`}>
+                        <OrderItem product={p} order={ordersInProgress[i]} />
+                      </Link>
+                    </div>
                   );
                 })}
               </div>
@@ -97,9 +98,9 @@ const Order = () => {
                 {productOrderFinished?.map((p) => {
                   return (
                     <div key={j++}>
-                    <Link to={`/orderDelivered/${ordersFinished[j].id}`}>
-                      <OrderItem product={p} order={ordersFinished[j]} />
-                    </Link>
+                      <Link to={`/orderDelivered/${ordersFinished[j].id}`}>
+                        <OrderItem product={p} order={ordersFinished[j]} />
+                      </Link>
                     </div>
                   );
                 })}
