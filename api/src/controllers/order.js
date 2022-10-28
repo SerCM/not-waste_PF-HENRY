@@ -166,11 +166,27 @@ const putOrder = async (req, res) => {
     res.status(500).send(`${e}`);
   }
 };
-
+const putOrderReview = async (req, res) => {
+  const { id } = req.params;
+  let { review } = req.body;
+  try {
+    if (!review) {
+      throw new Error("No se recibio parametro review");
+    }
+    let orderMod = await Order.update(
+      { review },
+      { where: { id } });
+    let orderModificated = await Order.findByPk(id)
+    res.send(orderModificated);
+  } catch (e) {
+    res.status(500).send(`${e}`);
+  }
+};
 module.exports = {
   getOrderById,
   getAllOrder,
   postOrder,
   deleteOrder,
   putOrder,
+  putOrderReview
 };
