@@ -3,14 +3,16 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
-
+const dotenv = require("dotenv");
+const mercardopago = require("mercadopago")
+const ACCESS_TOKEN_MP_CRISTIAN = process.env
 require("./db.js");
 
 
 // Mercadopago -->
 const cors = require('cors')
-const mercardopago = require("mercadopago")
-const ACCESS_TOKEN_MP_CRISTIAN = process.env.ACCESS_TOKEN_MP_CRISTIAN
+
+
 
 mercardopago.configure({
   access_token: ACCESS_TOKEN_MP_CRISTIAN
@@ -27,7 +29,7 @@ server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
