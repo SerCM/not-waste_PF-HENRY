@@ -62,7 +62,7 @@ export function getCities() {
 export function reviewOrder(id, review) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(`${urlAPI}/${id}`, review);
+      const response = await axios.put(`${urlAPI}/orderReview/${id}`, review);
       dispatch({
         type: "PUT_ORDER",
         payload: response.data,
@@ -72,6 +72,7 @@ export function reviewOrder(id, review) {
     }
   };
 }
+
 
 export function getProduct() {
   return async function (dispatch) {
