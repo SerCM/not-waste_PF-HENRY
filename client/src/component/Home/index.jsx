@@ -34,6 +34,13 @@ function Home() {
     window.location.reload();
   }
 
+  let vendedoresconpost = []
+
+  sellers?.map((seller) => {
+    if (seller.products.find((p) => p.posts.length > 0)) vendedoresconpost.push(seller);
+  })
+
+  // return <CarouselSeller key={seller.id}, seller={seller}/>
   return (
     <div>
       <NavBar isSearchVisible />
@@ -51,10 +58,51 @@ function Home() {
       ) : (
         <div className="container-fluid my-3">
           <Filters />
-          {sellers?.map((seller) => {
-            if (seller.products.find((p) => p.posts.length > 0))
-              return <CarouselSeller key={seller.id} seller={seller} />;
-          })}
+
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                <div class="accordion-body">
+                  {vendedoresconpost.length && vendedoresconpost.slice(0, 3).map(seller => {
+                    return <CarouselSeller seller={seller} />
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {vendedoresconpost.slice(3, 6).length && <>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                    Mostrar mas
+                  </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                  <div class="accordion-body">
+                    {vendedoresconpost.length > 3 && vendedoresconpost.slice(3, 6).map(seller => {
+                      return <CarouselSeller seller={seller} />
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {vendedoresconpost.slice(6).length &&
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo123" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                      Mostrar todos
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseTwo123" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                    <div class="accordion-body">
+                      {vendedoresconpost.length > 6 && vendedoresconpost.slice(6).map(seller => {
+                        return <CarouselSeller seller={seller} />
+                      })}
+                    </div>
+                  </div>
+                </div>
+              }</>}
+          </div>
         </div>
       )}
       <Footer />
