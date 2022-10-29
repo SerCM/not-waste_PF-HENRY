@@ -115,7 +115,7 @@ export const Profile = (props) => {
 
           <Dropdown.Menu className="option">
             <Dropdown.Item className="drop">
-              <Link className="link" to="/home">
+              <Link className="link" to="/dashboard">
                 Dashboard
               </Link>
             </Dropdown.Item>
