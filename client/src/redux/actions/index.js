@@ -59,17 +59,10 @@ export function getCities() {
   };
 }
 
-export function reviewOrder(id, review) {
-  return async function (dispatch) {
-    try {
-      const response = await axios.put(`${urlAPI}/${id}`, review);
-      dispatch({
-        type: "PUT_ORDER",
-        payload: response.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+export function reviewOrder(id) {
+  return async function () {
+    const res = await axios.put(`${urlAPI}/post/disableForce/${id}`);
+    return res;
   };
 }
 
