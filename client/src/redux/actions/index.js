@@ -215,7 +215,7 @@ export function postOrder(input) {
 export function getOrders(customerId) {
   let url = `${urlAPI}/order`;
   if (customerId) {
-    url = `${urlAPI}/customer?customerId=${customerId}`;
+    url = `${url}/customer?customerId=${customerId}`;
   }
 
   return async function (dispatch) {
