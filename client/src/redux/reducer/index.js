@@ -15,7 +15,8 @@ const initialState = {
   postDetail: [],
   orderDetail: {},
   managers: [],
-  allPosts:[]
+  allPosts:[],
+  orders: []
 };
 
 export default function rootReducer(state = initialState, actions) {
@@ -103,7 +104,11 @@ export default function rootReducer(state = initialState, actions) {
           ...state,
           orderDetail: actions.payload
         }
-        
+        case "GET_ORDERS":
+        return {
+          ...state,
+          orders: actions.payload
+        }
     case "GET_MANAGERS":
       return {
         ...state,

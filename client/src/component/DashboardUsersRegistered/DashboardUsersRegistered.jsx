@@ -10,7 +10,7 @@ import { PieChart, Pie, Sector, Cell, ResponsiveContainer, BarChart, Bar, XAxis,
 function DashboardUsersRegistered({customers, sellers}) {
 
     const data = [
-        { name: 'Proveedores', value: sellers?.length },
+        { name: 'Vendedores', value: sellers?.length },
         { name: 'Consumidores', value: customers?.length },
     ];
     const COLORS = ['#FFBB28', '#FF8042'];
