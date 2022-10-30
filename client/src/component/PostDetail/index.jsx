@@ -33,13 +33,23 @@ const PostDetail = () => {
   let postO = post[0]
   let products = useSelector((state) => state.product);
   let product = products.find((p) => p.id === postO.productId);
+
+
   let sellers = useSelector((state) => state.seller);
   let customers = useSelector((state) => state.customer);
 
   const [orders, setOrders] = useState({});
   let customer = customers?.find((c) => c.email === user?.email);
   let productId = post.productId;
-  let ordersReview = post[0]?.orders?.map(e=>e);
+  let allOrders = post[0]?.orders?.map((e) => e);
+
+  // let productOrders = product?.posts?.orders?.filter(e=>e.orders)
+
+
+  let ordersComment = allOrders?.map(e=>e.reviewComment)
+  let ordersReview = allOrders?.map(e=>e.reviewValue)
+
+
 
   useEffect(() => {
     dispatch(postDetail(postId));
@@ -105,8 +115,9 @@ const PostDetail = () => {
                 </Card.Subtitle>
 
                 <Card.Link
-                  href={`https://maps.google.com/?q=${seller ? seller.adress : ""
-                    }, Buenos Aires, Argentina`}
+                  href={`https://maps.google.com/?q=${
+                    seller ? seller.adress : ""
+                  }, Buenos Aires, Argentina`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +135,7 @@ const PostDetail = () => {
                   </span>
                   {
                     <span className="mx-2 text-capitalize">
-                      ({seller?.cities[0].name})
+                      {/* ({seller?.cities?.name }) */}
                     </span>
                   }
                 </Card.Link>
@@ -152,9 +163,10 @@ const PostDetail = () => {
             </ListGroup>
           </Card.Body>
           <Card.Footer>
-            {postO.amount === 0 ?
+            {postO.amount === 0 ? (
               <div>no hay disponibilidad</div>
-              : <div className="d-flex align-items-center">
+            ) : (
+              <div className="d-flex align-items-center">
                 <span className="mx-2">
                   {new Date(postO.date).toLocaleDateString("es-AR")}
                 </span>
@@ -189,7 +201,7 @@ const PostDetail = () => {
                       name: product.name,
                       customerId: customer.id,
                       postId: postO.id,
-                      email: user.email
+                      email: user.email,
                     })
                   }
                   className="btn btn-dark m-1 p-1"
@@ -208,9 +220,14 @@ const PostDetail = () => {
                   </svg>
                 </Button>
               </div>
-            }
+            )}
           </Card.Footer>
-          {ordersReview?.map(e=>{return <div>{e.reviewValue}</div>}) + "review"}
+
+
+          <div>
+          {ordersComment.map(e=><Badge>{e}</Badge>)}
+          {ordersReview.map(e=><Badge>{e}</Badge>)}
+          </div>
         </Card>
         <Footer />
       </>
