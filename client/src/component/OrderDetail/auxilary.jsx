@@ -149,10 +149,9 @@ let stateOrder = orden?.map(e=>{return e.state}).toString()
             </ListGroup>
           </Card.Body>
           <Card.Footer className="">
+          
 <h6 className="d-flex justify-content-center ">Ya podés pasar a retirar el pedido</h6>
-            {/* <div className="d-flex align-items-center">
-              <Button className="btn btn-dark m-1 p-1">Añadir reseña</Button>
-            </div> */}
+
           </Card.Footer>
         </Card>
         </>
