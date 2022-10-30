@@ -17,7 +17,7 @@ const Order = () => {
 
   let query = useQuery();
 
-<<<<<< sofi
+
   let orderId = query.get('external_reference')
 
   let customers = useSelector((state) => state.customer);
