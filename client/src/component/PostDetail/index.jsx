@@ -33,8 +33,6 @@ const PostDetail = () => {
   let postO = post[0]
   let products = useSelector((state) => state.product);
   let product = products?.find((p) => p.id === postO.productId);
-
-
   let sellers = useSelector((state) => state.seller);
   let customers = useSelector((state) => state.customer);
 
@@ -115,9 +113,8 @@ const PostDetail = () => {
                 </Card.Subtitle>
 
                 <Card.Link
-                  href={`https://maps.google.com/?q=${
-                    seller ? seller.adress : ""
-                  }, Buenos Aires, Argentina`}
+                  href={`https://maps.google.com/?q=${seller ? seller.adress : ""
+                    }, Buenos Aires, Argentina`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +132,7 @@ const PostDetail = () => {
                   </span>
                   {
                     <span className="mx-2 text-capitalize">
-                      {/* ({seller?.cities?.name }) */}
+                      ({seller?.cities[0].name })
                     </span>
                   }
                 </Card.Link>
@@ -224,8 +221,6 @@ const PostDetail = () => {
               </div>
             )}
           </Card.Footer>
-
-
           <div>
           {ordersComment.map(e=><Badge>{e}</Badge>)}
           {ordersReview.map(e=><Badge>{e}</Badge>)}
