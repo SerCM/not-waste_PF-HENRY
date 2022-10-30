@@ -30,21 +30,22 @@ function StoreSeller() {
   return (
     <>
       <NavBar />
-      <h1 className="titulo-h1">Posteos</h1>
+
       <div className="card-title">
         {
           <div className="row g-0">
-            <div className="col-md-4">
+            <div className="d-flex align-items-center mw-10r">
               <Image
                 roundedCircle
                 className="seller-image"
                 src={seller?.image}
               />
               <div>
-                <h4 className="card-name">Proveedor: {seller?.name}</h4>
-                <h4 className="card-category">Categoria: {seller?.category}</h4>
+                <h1 className="card-name">{seller?.name}</h1>
+                <h5 className="card-category">{seller?.category}</h5>
               </div>
             </div>
+            <h4 className="titulo-h1">Posteos</h4>
             <div className="contenedor_card">
               {seller?.products.map((p) => {
                 return p.posts.map((post) => {
