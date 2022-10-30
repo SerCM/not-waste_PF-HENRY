@@ -58,20 +58,18 @@ const getAllOrder = async (req, res) => {
   try {
     orders = await getAllData();
     if (customerId) {
-      orders = orders.filter(o => {
-        return o.customerId === customerId
-      })
+      orders = orders.filter((o) => {
+        return o.customerId === customerId;
+      });
       if (!orders.length) {
-        throw new Error('No hay ordenes asociadas a ese consumidor')
-      };
+        throw new Error("No hay ordenes asociadas a ese consumidor");
+      }
     }
     if (state) {
-      orders = orders.filter(o =>
-        o.state === state)
+      orders = orders.filter((o) => o.state === state);
       if (!orders.length) {
-        throw new Error('No hay ordenes con ese estado')
-      };
-
+        throw new Error("No hay ordenes con ese estado");
+      }
     }
 
     res.status(200).send(orders);
@@ -80,9 +78,9 @@ const getAllOrder = async (req, res) => {
   }
 };
 
-
 const postOrder = async (req, res) => {
-  let { date, amount, state, postId, customerId, reviewValue, reviewComment } = req.body;
+  let { date, amount, state, postId, customerId, reviewValue, reviewComment } =
+    req.body;
   try {
     if (!amount) {
       throw new Error("Debe definirse una cantidad");
@@ -98,16 +96,18 @@ const postOrder = async (req, res) => {
       reviewComment,
       postId,
       customerId,
-
     });
     newOrder.setPost(postId);
     let post = await Post.findByPk(postId);
     if (newOrder.amount > post.amount || post.amount === 0) {
-      throw new Error('No se pueden generar nuevas ordenes porque el producto está agotado')
+      throw new Error(
+        "No se pueden generar nuevas ordenes porque el producto está agotado"
+      );
     }
     await Post.update(
       { amount: post.amount - newOrder.amount },
-      { where: { id: postId } });
+      { where: { id: postId } }
+    );
     res.send(newOrder);
   } catch (e) {
     res.status(500).send(`${e}`);
@@ -133,10 +133,8 @@ const putOrder = async (req, res) => {
     if (!state) {
       throw new Error("No se recibio parametro state");
     }
-    await Order.update(
-      { state },
-      { where: { id } });
-    let orderModificated = await Order.findByPk(id)
+    await Order.update({ state }, { where: { id } });
+    let orderModificated = await Order.findByPk(id);
     res.send(orderModificated);
   } catch (e) {
     res.status(500).send(`${e}`);
@@ -149,10 +147,8 @@ const putOrderReview = async (req, res) => {
     if (!reviewValue) {
       throw new Error("No se recibio parametro review");
     }
-    await Order.update(
-      { reviewValue, reviewComment },
-      { where: { id } });
-    let orderModificated = await Order.findByPk(id)
+    await Order.update({ reviewValue, reviewComment }, { where: { id } });
+    let orderModificated = await Order.findByPk(id);
     res.send(orderModificated);
   } catch (e) {
     res.status(500).send(`${e}`);
@@ -164,5 +160,5 @@ module.exports = {
   postOrder,
   deleteOrder,
   putOrder,
-  putOrderReview
+  putOrderReview,
 };

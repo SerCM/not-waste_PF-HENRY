@@ -26,6 +26,7 @@ function Cart(props) {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
   
 
+
   // useEffect(() => {
   //   dispatch(postOrder());
   // }, [dispatch]);
@@ -35,6 +36,7 @@ function Cart(props) {
     dispatch(postOrder(cart))
     .then(r => postPay({ price: price, postId: r.id }))
     .then(payId =>  window.location.replace(payId.redirect));
+
   };
 
   const handleDelete = (e) => {
