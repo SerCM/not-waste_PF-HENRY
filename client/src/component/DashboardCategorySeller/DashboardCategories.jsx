@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import "./dashboard.css";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts';
+import { PieChart, Pie, Legend, Cell } from 'recharts';
 
 function DashboardCategories({sellers}) {
     const data = [
@@ -20,9 +20,10 @@ function DashboardCategories({sellers}) {
                         data={data}
                         cx={250}
                         cy={100}
-                        innerRadius={40}
+                        innerRadius={40}    
                         outerRadius={80}
                         fill="#8884d8"
+                        label={data}
                         paddingAngle={5}
                         dataKey="value"
                     >
@@ -30,6 +31,7 @@ function DashboardCategories({sellers}) {
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS?.length]} />
                         ))}
                     </Pie>
+                    <Legend />
                 </PieChart>
             </div>
         </div>

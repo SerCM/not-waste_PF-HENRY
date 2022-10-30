@@ -5,9 +5,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCustomer, getSellers } from "../../redux/actions";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts';
+import { PieChart, Pie, Legend, Cell } from 'recharts';
 
-function DashboardUsersRegistered({customers, sellers}) {
+function DashboardUsersRegistered({ customers, sellers }) {
 
     const data = [
         { name: 'Vendedores', value: sellers?.length },
@@ -17,7 +17,7 @@ function DashboardUsersRegistered({customers, sellers}) {
     return (
 
         <div>
-            
+
             <div className="containerCarousel">
                 <h2 className="sellerTitle">Usuarios registrados </h2>
                 <PieChart width={400} height={200} onMouseEnter={PureComponent.onPieEnter}>
@@ -28,6 +28,7 @@ function DashboardUsersRegistered({customers, sellers}) {
                         innerRadius={40}
                         outerRadius={80}
                         fill="#8884d8"
+                        label={data}
                         paddingAngle={5}
                         dataKey="value"
                     >
@@ -35,6 +36,8 @@ function DashboardUsersRegistered({customers, sellers}) {
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS?.length]} />
                         ))}
                     </Pie>
+                    <Legend />
+
                 </PieChart>
             </div>
         </div>
