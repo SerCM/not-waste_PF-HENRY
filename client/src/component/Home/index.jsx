@@ -14,6 +14,7 @@ import "../Home/Home.css";
 import Message from "../Message";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "react-bootstrap"
+import Spinner from 'react-bootstrap/Spinner';
 
 function Home() {
   const dispatch = useDispatch();
@@ -63,9 +64,14 @@ function Home() {
             <div class="accordion-item">
               <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                 <div class="accordion-body">
-                  {vendedoresconpost.length && vendedoresconpost.slice(0, 3).map(seller => {
+                  {vendedoresconpost.length ? vendedoresconpost.slice(0, 3).map(seller => {
                     return <CarouselSeller seller={seller} />
-                  })}
+                  }) : (
+                    <Spinner animation="border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                  )
+                  }
                 </div>
               </div>
             </div>
