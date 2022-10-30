@@ -16,7 +16,6 @@ function Dashboard() {
     const customers = useSelector(state => state.customer)
     const sellers = useSelector(state => state.seller)
     const orders = useSelector(state => state.orders)
-    console.log("🚀 ~ file: Dashboard.jsx ~ line 19 ~ Dashboard ~ orders", orders)
 
     useEffect(() => {
         dispatch(getCustomer());
