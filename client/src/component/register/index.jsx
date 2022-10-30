@@ -6,7 +6,7 @@ import { getCities } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { postCustomer, postSeller } from "../../redux/actions";
 import "../register/register.css";
-import {registerSupplier, registerCustomer} from "./middleware";
+import { registerSupplier, registerCustomer } from "./middleware";
 import Cookies from "universal-cookie";
 
 const redirectUri = process.env.REACT_APP_AUTH0_REDIRECT_URI
@@ -109,7 +109,7 @@ function Register(props) {
   };
 
   const reload = () => {
-    window.location.assign(`${redirectUri}/home` );
+    window.location.assign(`${redirectUri}/home`);
   };
 
   const registrarproveedor = (e) => {
@@ -193,6 +193,8 @@ function Register(props) {
       cities: input.cities.filter((g) => g !== e.target.value),
     });
   };
+
+  let setedAdress = encodeURI(`https://www.google.com/maps/embed/v1/place?q=${input?.adress} CABA&key=AIzaSyAz3nI1sjcQ6eosyGvgwBZ8VKVnCBo0Zmg`)
 
   return (
     <>
@@ -401,8 +403,16 @@ function Register(props) {
                       <div className="invalid-feedback">{error.adress}</div>
                     )}
                   </div>
+                  
                 </div>
-
+                <br></br>
+                  {input.adress && !error.adress &&
+                    <iframe
+                      className="form-control ms-2"
+                      src={setedAdress}
+                      width="150"
+                      height="150"></iframe>
+                  }
                 <br />
 
                 <div className="input-group has-validation">
