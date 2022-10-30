@@ -200,15 +200,17 @@ export function postPay(price, postId) {
 }
 
 export function postOrder(input) {
+  
   return async function (dispatch) {
     try {
       const act = await axios.post(`${urlAPI}/order`, input);
-      console.log("🚀 ~ file: index.js ~ line 206 ~ act", act)
       dispatch({
         type: "POST_ORDER",
         payload: act.data,
         orders: act.data.id,
       });
+
+      return act.data;
     } catch (error) {
       console.log(error);
     }

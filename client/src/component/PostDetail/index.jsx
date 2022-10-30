@@ -31,7 +31,7 @@ const PostDetail = () => {
   let post = useSelector((state) => state.postDetail);
   let postO = post[0]
   let products = useSelector((state) => state.product);
-  let product = products.find((p) => p.id === postO.productId);
+  let product = products?.find((p) => p.id === postO.productId);
   let sellers = useSelector((state) => state.seller);
   let customers = useSelector((state) => state.customer);
 
@@ -182,7 +182,7 @@ const PostDetail = () => {
                       price: product.price,
                       name: product.name,
                       image: product.image,
-                      customerId: customer.id,
+                      customerId: customer?.id,
                       postId: postO.id,
                     })
                   }
