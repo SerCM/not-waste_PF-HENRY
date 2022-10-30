@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCustomer, getProduct, putOrder } from "../../redux/actions";
+import { getCustomer, getOrders, getProduct, putOrder } from "../../redux/actions";
 import "./order.css";
 import { Card, Badge, ListGroup, Button } from "react-bootstrap";
 import NavBar from "../NavBar";
@@ -17,33 +17,34 @@ const Order = () => {
 
   let query = useQuery();
 
-  let postIdToModify = query.get("external_reference");
+
+  let orderId = query.get('external_reference')
 
   let customers = useSelector((state) => state.customer);
   let customer = customers?.find((c) => c.email === user?.email);
-  let orderFinished = customer?.orders?.find(
-    (o) => o.postId === postIdToModify
-  );
+  let orderFinished = customer?.orders?.find(o => o.id === orderId)
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
-  if (orderFinished && orderFinished.state === "pendiente") {
-    setTimeout(() => {
-      window.location.reload(true);
-    }, 1000);
-    dispatch(putOrder(orderFinished?.id, { state: "confirmado" }));
+  if (orderFinished) {
+    dispatch(putOrder(orderFinished?.id, {state: 'confirmado'}));
+    dispatch(getOrders());
+
   }
 
   useEffect(() => {
     dispatch(getCustomer());
     dispatch(getProduct());
+    dispatch(getOrders());
+
   }, [dispatch]);
 
   let ordersInProgress = customer?.orders.filter(
     (order) => order.state !== "entregado"
   );
 
-  let ordersInProgressId = ordersInProgress?.map((p) => {
-    return p.postId;
+  let ordersInProgressId = ordersInProgress?.map((o) => {
+    return o.postId;
+
   });
   let productOrderInProgress = ordersInProgressId?.map((post) =>
     products.find((prod) => prod.posts.find((p) => p.id === post))

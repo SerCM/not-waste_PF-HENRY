@@ -73,9 +73,15 @@ export default function rootReducer(state = initialState, actions) {
     case "POST_ORDER":
       return {
         ...state,
-        currentOrder: actions.orders,
+        currentOrder: actions.payload,
+        orders: [...state.orders, actions.payload]
       };
-
+      case "PUT_ORDER":
+        return {
+          ...state,
+          currentOrder: actions.payload,
+          orders: [...state.orders, actions.payload]
+        };
     case "ADD_CART":
       return {
         ...state,
