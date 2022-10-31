@@ -1,5 +1,9 @@
 const { Router } = require("express");
-const { postCustomer, getCallCustomer } = require("../controllers/customer");
+const { postCustomer,
+   getCallCustomer,
+   disableCustomer,
+   restoreCustomer
+  } = require("../controllers/customer");
 const { getCityInfo } = require("../controllers/city");
 const {
   getSellers,
@@ -82,6 +86,8 @@ router.put("/post/disableForce/:id", disablePostForce);
 //Aca van las rutas del Customer
 router.get("/customer", getCallCustomer);
 router.post("/customer", postCustomer);
+router.put("/customer/disabled/:id", disableCustomer);
+router.put("/customer/restore/:id", restoreCustomer);
 
 //Rutas del Manager
 router.get("/manager/:id", getManagerById);
