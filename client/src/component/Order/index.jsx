@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   getCustomer,
   getOrders,
@@ -12,8 +13,11 @@ import NavBar from "../NavBar";
 import Footer from "../Footer/index";
 import OrderItem from "../OrderItem/OrderItem";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useParams, useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { notificaciones } from "../../redux/actions";
+// import  useAuth0  from "@auth0/auth0-react";
+import VerifyProfile from "../VerifyProfile";
+import AuthProfile from "../AuthProfile";
 
 const Order = () => {
   let { user } = useAuth0();
@@ -29,14 +33,27 @@ const Order = () => {
   let orderFinished = customer?.orders?.find((o) => o.id === orderId);
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
-  if (orderFinished && orderFinished.state === "pendiente") {
-    setTimeout(() => {
-      window.location.reload(true);
-    }, 1000);
-    dispatch(putOrder(orderFinished?.id, { state: "confirmado" }));
-    dispatch(getOrders());
-  }
 
+  const log = AuthProfile("profile"); // esto puede ser {}, true o false
+  const db = VerifyProfile(log.email);
+  // console.log(db);
+  useEffect(() => {
+    if (orderFinished && orderFinished.state === "pendiente") {
+      setTimeout(() => {
+        window.location.reload(true);
+      }, 1000);
+      dispatch(putOrder(orderFinished?.id, { state: "confirmado" }));
+      dispatch(getOrders());
+      dispatch(
+        notificaciones({
+          email: db.email,
+          mensaje: "Gracias por su compra en not Waste, vuelva pronto",
+        })
+      );
+    }
+  }, [orderFinished, dispatch]);
+
+  ///////////////////////////////////////////////
   useEffect(() => {
     dispatch(getCustomer());
     dispatch(getProduct());
