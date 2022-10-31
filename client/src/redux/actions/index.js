@@ -73,7 +73,6 @@ export function reviewOrder(id, review) {
   };
 }
 
-
 export function getProduct() {
   return async function (dispatch) {
     try {
@@ -198,7 +197,6 @@ export function postPay(price, postId, email) {
 }
 
 export function postOrder(input) {
-  
   return async function (dispatch) {
     try {
       const act = await axios.post(`${urlAPI}/order`, input);
@@ -444,4 +442,18 @@ export function notificaciones(email, mensaje) {
     .then((res) => res.json())
     .then((response) => console.log("Success:", response))
     .catch((error) => console.error("Error:", error));
+}
+
+export function disableOrder(id) {
+  return async function () {
+    const res = await axios.put(`${urlAPI}/order/disable/${id}`);
+    return res;
+  };
+}
+
+export function restoreOrder(id) {
+  return async function () {
+    const res = await axios.put(`${urlAPI}/order/restore/${id}`);
+    return res;
+  };
 }
