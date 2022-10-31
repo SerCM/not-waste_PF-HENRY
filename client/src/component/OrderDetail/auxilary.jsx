@@ -144,15 +144,14 @@ let stateOrder = orden?.map(e=>{return e.state}).toString()
                   })}
                 </>
               )}
-            {/* Monto Total: {orden?.map(e=>{return(<>{e.amount}</>)})} unidades */}
+            Monto Total: {orden?.map(e=>{return(<>{e.amount}</>)})} unidades
               </ListGroup.Item>
             </ListGroup>
           </Card.Body>
+          <Card.Footer className="">
+          
+<h6 className="d-flex justify-content-center ">Ya podés pasar a retirar el pedido</h6>
 
-          <Card.Footer>
-            {/* <div className="d-flex align-items-center">
-              <Button className="btn btn-dark m-1 p-1">Añadir reseña</Button>
-            </div> */}
           </Card.Footer>
         </Card>
         </>
