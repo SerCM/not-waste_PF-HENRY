@@ -9,7 +9,8 @@ import { PieChart, Pie, Sector, Cell, ResponsiveContainer, BarChart, Bar, XAxis,
 import DashboardUsersRegistered from "../DashboardUsersRegistered/DashboardUsersRegistered";
 import DashboardCategories from "../DashboardCategorySeller/DashboardCategories";
 import DashboardOrders from "../DashboardOrders/DashboardOrders";
-
+import NavBar from "../NavBar";
+import Footer from "../Footer/index";
 
 function Dashboard() {
     const dispatch = useDispatch();
@@ -26,11 +27,12 @@ function Dashboard() {
     return (
 
         <div>
+            <NavBar />
             <h1>Dashboard Admin</h1>
             <DashboardUsersRegistered customers={customers} sellers={sellers} />
             <DashboardCategories sellers={sellers}/>
             <DashboardOrders orders={orders} />
-             {/*<DashboardCumpliments /> */}
+            <Footer />
         </div>
     )
 }
