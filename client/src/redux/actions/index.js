@@ -457,3 +457,17 @@ export function restoreOrder(id) {
     return res;
   };
 }
+
+export function disabledCustomer(id) {
+  return async function() {
+    const res = await axios.put(`${urlAPI}/customer/disabled/${id}`);
+    return res
+  }
+}
+
+export function restoreCustomer(id) {
+  return async function() {
+    const res = axios.put(`${urlAPI}/customer/restore/${id}`);
+    return res
+  }
+}
