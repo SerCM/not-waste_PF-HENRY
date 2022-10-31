@@ -1,4 +1,4 @@
-import React  from "react"; //{ useEffect }
+import React from "react"; //{ useEffect }
 import Navbar from "../NavBar/index";
 import Footer from "../Footer/index";
 // import { getSellers } from "../../redux/actions";
@@ -12,6 +12,21 @@ import VerifyProfile from "../VerifyProfile";
 function Profile() {
   let log = AuthProfile("profile"); // esto puede ser {}, true o false
   let db = VerifyProfile(log.email);
+
+  const redirigir = (tipo) => {
+    setTimeout(() => {
+      window.location.replace("/home");
+    }, 7000);
+    if (tipo === "manager") return (
+      <div>
+        <h2>Esta seccion muestra los datos de perfil de sus vendedores y compradores.
+        </h2>
+        <br />
+        <h4>
+          Su usuario "administrador" no tiene datos para mostrar en esta seccion. Sera redirigido a la pagina principal.
+        </h4>
+      </div>)
+  }
 
   return (
     <>
@@ -66,9 +81,11 @@ function Profile() {
           </ListGroup.Item>
         </ListGroup>
       }
-      {db.exists && db.type === "manager" && <h1>Esta seccion muestra los datos de perfil de sus vendedores y compradores. Su usuario "administrador" no tiene datos para mostrar en esta seccion.</h1>}
+      {db.exists && db.type === "manager" && redirigir(db.type)}
+      {db.exists === false && <div class="spinner-grow" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>}
       <Footer />
-      {console.log(db)}
     </>
   );
 }

@@ -1,5 +1,9 @@
 const { Router } = require("express");
-const { postCustomer, getCallCustomer } = require("../controllers/customer");
+const { postCustomer,
+   getCallCustomer,
+   disableCustomer,
+   restoreCustomer
+  } = require("../controllers/customer");
 const { getCityInfo } = require("../controllers/city");
 const {
   getSellers,
@@ -39,13 +43,17 @@ const {
   postOrder,
   deleteOrder,
   putOrder,
-  putOrderReview
+  putOrderReview,
+  disableOrder,
+  restoreOrder,
 } = require("../controllers/order");
 const { getDiets } = require("../controllers/diets");
 const {
   post_create_preference,
   get_feedback,
 } = require("../controllers/mercadopago");
+
+const enviarMail = require("../controllers/notificaciones");
 
 const router = Router();
 
@@ -78,6 +86,8 @@ router.put("/post/disableForce/:id", disablePostForce);
 //Aca van las rutas del Customer
 router.get("/customer", getCallCustomer);
 router.post("/customer", postCustomer);
+router.put("/customer/disabled/:id", disableCustomer);
+router.put("/customer/restore/:id", restoreCustomer);
 
 //Rutas del Manager
 router.get("/manager/:id", getManagerById);
@@ -95,12 +105,18 @@ router.post("/order", postOrder);
 router.delete("/order/:id", deleteOrder);
 router.put("/order/:id", putOrder);
 router.put("/orderReview/:id", putOrderReview);
+router.put("/order/disable/:id", disableOrder);
+router.put("/order/restore/:id", restoreOrder);
+
 //Ruta de Dietas
 router.get("/diets", getDiets);
 
 //mercadopago -->
 router.post("/create_preference", post_create_preference);
-router.post("/feedback", get_feedback);
+router.get("/feedback", get_feedback);
 //<-- mercadopago
 
+//notificaciones -->
+router.post("/notificaciones", enviarMail);
+// <-- notificaciones
 module.exports = router;

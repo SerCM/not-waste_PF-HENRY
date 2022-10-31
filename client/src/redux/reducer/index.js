@@ -15,7 +15,8 @@ const initialState = {
   postDetail: [],
   orderDetail: {},
   managers: [],
-  allPosts:[]
+  allPosts:[],
+  orders: []
 };
 
 export default function rootReducer(state = initialState, actions) {
@@ -72,9 +73,15 @@ export default function rootReducer(state = initialState, actions) {
     case "POST_ORDER":
       return {
         ...state,
-        currentOrder: actions.orders,
+        currentOrder: actions.payload,
+        orders: [...state.orders, actions.payload]
       };
-
+      case "PUT_ORDER":
+        return {
+          ...state,
+          currentOrder: actions.payload,
+          orders: [...state.orders, actions.payload]
+        };
     case "ADD_CART":
       return {
         ...state,
@@ -103,7 +110,11 @@ export default function rootReducer(state = initialState, actions) {
           ...state,
           orderDetail: actions.payload
         }
-        
+        case "GET_ORDERS":
+        return {
+          ...state,
+          orders: actions.payload
+        }
     case "GET_MANAGERS":
       return {
         ...state,

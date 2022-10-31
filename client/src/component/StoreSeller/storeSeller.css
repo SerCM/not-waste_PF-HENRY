@@ -35,3 +35,10 @@
 .habilitarBtn {
   margin-top: 1rem;
 }
+
+.seller-image {
+  width: 100px;
+  height: 100px;
+  margin: 8px;
+  border: 1px solid #ccc;
+}

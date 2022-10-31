@@ -1,31 +1,26 @@
 import React, { PureComponent } from "react";
 import "./dashboard.css";
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import { useAuth0 } from "@auth0/auth0-react";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getCustomer, getSellers } from "../../redux/actions";
 import { PieChart, Pie, Legend, Cell } from 'recharts';
 
-function DashboardUsersRegistered({ customers, sellers }) {
-
+function DashboardCategories({sellers}) {
     const data = [
-        { name: 'Vendedores', value: sellers?.length },
-        { name: 'Consumidores', value: customers?.length },
-    ];
-    const COLORS = ['#FFBB28', '#FF8042'];
+        { name: 'Supermercados', value: sellers?.filter((s) => s.category === 'supermercado').length },
+        { name: 'Panaderías', value: sellers?.filter((s) => s.category === 'panaderia').length },
+        { name: 'Restaurantes', value: sellers?.filter((s) => s.category === 'restaurante').length }
+    ]
+    const COLORS = ['#FFBB28', '#FF8042', '#0088FE'];
     return (
 
         <div>
-
+            
             <div className="containerCarousel">
-                <h2 className="sellerTitle">Usuarios registrados </h2>
+                <h2 className="sellerTitle">Vendedores: categorías</h2>
                 <PieChart width={400} height={200} onMouseEnter={PureComponent.onPieEnter}>
                     <Pie
                         data={data}
                         cx={250}
                         cy={100}
-                        innerRadius={40}
+                        innerRadius={40}    
                         outerRadius={80}
                         fill="#8884d8"
                         label={data}
@@ -37,11 +32,11 @@ function DashboardUsersRegistered({ customers, sellers }) {
                         ))}
                     </Pie>
                     <Legend />
-
                 </PieChart>
             </div>
         </div>
     )
 }
 
-export default DashboardUsersRegistered;
+
+export default DashboardCategories;

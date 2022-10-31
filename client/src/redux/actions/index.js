@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const urlAPI = process.env.REACT_APP_API || "http://localhost:3001" ;
-
+const urlAPI = process.env.REACT_APP_API || "http://localhost:3001";
 
 export function getSellers(queryParams) {
   let url = new URL(`${urlAPI}/seller`);
@@ -63,7 +62,7 @@ export function getCities() {
 export function reviewOrder(id, review) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(`${urlAPI}/${id}`, review);
+      const response = await axios.put(`${urlAPI}/orderReview/${id}`, review);
       dispatch({
         type: "PUT_ORDER",
         payload: response.data,
@@ -91,9 +90,7 @@ export function getProduct() {
 export function prodDetail(id) {
   return async function (dispatch) {
     try {
-      let detailProduct = await await axios.get(
-        `${urlAPI}/product/${id}`
-      );
+      let detailProduct = await await axios.get(`${urlAPI}/product/${id}`);
       detailProduct = detailProduct.data[0];
       dispatch({
         type: "PROD_DETAIL",
@@ -183,10 +180,10 @@ export const postProduct = (payload) => {
   };
 };
 
-export function postPay(price, postId) {
+export function postPay(price, postId, email) {
   return fetch(`${urlAPI}/create_preference`, {
     method: "POST", // or 'PUT'
-    body: JSON.stringify(price, postId), // data can be `string` or {object}!
+    body: JSON.stringify(price, postId, email), // data can be `string` or {object}!
     headers: {
       "Content-Type": "application/json",
     },
@@ -203,11 +200,14 @@ export function postOrder(input) {
   return async function (dispatch) {
     try {
       const act = await axios.post(`${urlAPI}/order`, input);
+
       dispatch({
         type: "POST_ORDER",
         payload: act.data,
         orders: act.data.id,
       });
+
+      return act.data;
     } catch (error) {
       console.log(error);
     }
@@ -217,7 +217,7 @@ export function postOrder(input) {
 export function getOrders(customerId) {
   let url = `${urlAPI}/order`;
   if (customerId) {
-    url = `${urlAPI}/customer?customerId=${customerId}`;
+    url = `${url}/customer?customerId=${customerId}`;
   }
 
   return async function (dispatch) {
@@ -334,10 +334,7 @@ export function modifyPost(id, input) {
 export function putOrder(id, state) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(
-        `${urlAPI}/order/${id}`,
-        state
-      );
+      const response = await axios.put(`${urlAPI}/order/${id}`, state);
       dispatch({
         type: "PUT_ORDER",
         payload: response.data,
@@ -415,9 +412,7 @@ export function restoreSeller(id) {
 
 export function disableForcePost(id) {
   return async function () {
-    const res = await axios.put(
-      `${urlAPI}/post/disableForce/${id}`
-    );
+    const res = await axios.put(`${urlAPI}/post/disableForce/${id}`);
     return res;
   };
 }
@@ -434,4 +429,45 @@ export function restorePost(id) {
     const res = await axios.put(`${urlAPI}/post/restore/${id}`);
     return res;
   };
+}
+
+export function notificaciones(email, mensaje) {
+  return fetch(`${urlAPI}/notificaciones`, {
+    method: "POST",
+    body: JSON.stringify(email, mensaje),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((response) => console.log("Success:", response))
+    .catch((error) => console.error("Error:", error));
+}
+
+export function disableOrder(id) {
+  return async function () {
+    const res = await axios.put(`${urlAPI}/order/disable/${id}`);
+    return res;
+  };
+}
+
+export function restoreOrder(id) {
+  return async function () {
+    const res = await axios.put(`${urlAPI}/order/restore/${id}`);
+    return res;
+  };
+}
+
+export function disabledCustomer(id) {
+  return async function() {
+    const res = await axios.put(`${urlAPI}/customer/disabled/${id}`);
+    return res
+  }
+}
+
+export function restoreCustomer(id) {
+  return async function() {
+    const res = axios.put(`${urlAPI}/customer/restore/${id}`);
+    return res
+  }
 }

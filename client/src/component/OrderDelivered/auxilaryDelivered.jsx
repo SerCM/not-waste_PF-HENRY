@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-
 import { getCustomer, postDetail, prodDetail, putOrder, reviewOrder } from '../../redux/actions';
 import AuthProfile from '../AuthProfile';
 import VerifyProfile from '../VerifyProfile';
 import { useParams } from 'react-router-dom';
 import { Badge, Button, Card, ListGroup } from 'react-bootstrap';
+import swal from 'sweetalert';
 
 export function AuxilaryDelivered(props) {
-    let id = props.idProduct
-let orden = props.orden 
-console.log("🚀 ~ file: auxilary.jsx ~ line 15 ~ Auxilary ~ orden", orden)
+  let id = props.idProduct
+  let orden = props.orden 
 
 const dispatch = useDispatch()
     useEffect(()=>{ 
@@ -20,11 +19,38 @@ const dispatch = useDispatch()
     
     let product = useSelector((state) => state.prodDetails);
 
+    const [input, setInput] = useState({
+      reviewValue: "",
+      reviewComment: "",
+})
 
+
+    function handleReviewComment(e) {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      });
+    }
+    function handleReviewValue(e) {
+      setInput({
+        ...input,
+        reviewValue: e.target.value,
+      });
+    }
+    
     function handleSubmit (e) {
       e.preventDefault()
       console.log(e.target.value)
-      dispatch(reviewOrder(props.id, {review: e.target.value}))
+      swal({
+        title: "Reseña envidada con exito",
+        text: "Gracias por compratir opinion",
+        icon: "success",
+      });
+      dispatch(reviewOrder(props.id, (input)))
+      setInput({
+        reviewValue:"",
+        reviewComment:"",
+      })
     }
   return (
     <div>
@@ -87,33 +113,38 @@ const dispatch = useDispatch()
 
           <Card.Footer>
             <div>
-              <form onChange={handleSubmit}>
+              <form onSubmit={handleSubmit}>
               <div className="form-outline">
-              <textarea placeholder='Que te parecio el producto?' className="form-control" id="textAreaExample1" rows="4"></textarea>
+              <textarea 
+              onChange={(e) => handleReviewComment(e)}
+                name="reviewComment"
+                type="text"
+                value={input.name}
+                placeholder='Que te parecio el producto?' 
+                className="form-control" 
+                rows="4"
+                ></textarea>
                 </div>
               
-<div >
-<div>
-    <input  id="radio1" type="radio" name="review"  value="5"/>★★★★★
-</div>
-<div>
-    <input  id="radio1" type="radio" name="review"  value="4"/>★★★★
-</div>
-<div>
-    <input  id="radio1" type="radio" name="review"  value="3"/>★★★
-</div>
-<div>
-    <input  id="radio1" type="radio" name="review"  value="2"/>★★
-</div>
-<div>
-    <input  id="radio1" type="radio" name="review"  value="1"/>★
-</div>
-    <Button  type='submit' className=" btn btn-dark m-1 p-1">Añadir reseña</Button>
-</div>
+                <div>
+              <label>Temporada</label>
+
+              <select
+                
+                onChange={(e) => handleReviewValue(e)}
+              >
+                <option value="1">★</option>
+                <option value="2">★★</option>
+                <option value="3">★★★</option>
+                <option value="4">★★★★</option>
+                <option value="5">★★★★★</option>
+              </select>
+            </div>
+    <Button type='submit' className=" btn btn-dark m-1 p-1">Añadir reseña</Button>
               </form>
             </div>
           </Card.Footer>
-          <span pill bg="">reviews: {orden?.map(e=>{return(<>{e.review }  ★</>)})}</span>
+          <span bg="">reviews: {orden?.map(e=>{return(<>{e.review }  ★</>)})}</span>
         </Card>
     </div>
   )
