@@ -39,7 +39,9 @@ const {
   postOrder,
   deleteOrder,
   putOrder,
-  putOrderReview
+  putOrderReview,
+  disableOrder,
+  restoreOrder,
 } = require("../controllers/order");
 const { getDiets } = require("../controllers/diets");
 const {
@@ -47,7 +49,7 @@ const {
   get_feedback,
 } = require("../controllers/mercadopago");
 
-const enviarMail = require("../controllers/notificaciones")
+const enviarMail = require("../controllers/notificaciones");
 
 const router = Router();
 
@@ -97,6 +99,9 @@ router.post("/order", postOrder);
 router.delete("/order/:id", deleteOrder);
 router.put("/order/:id", putOrder);
 router.put("/orderReview/:id", putOrderReview);
+router.put("/order/disable/:id", disableOrder);
+router.put("/order/restore/:id", restoreOrder);
+
 //Ruta de Dietas
 router.get("/diets", getDiets);
 
@@ -106,6 +111,6 @@ router.get("/feedback", get_feedback);
 //<-- mercadopago
 
 //notificaciones -->
-router.post("/notificaciones", enviarMail)
+router.post("/notificaciones", enviarMail);
 // <-- notificaciones
 module.exports = router;

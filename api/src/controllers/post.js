@@ -52,11 +52,11 @@ const putPost = async (req, res) => {
     if (amount < 0) {
       throw new Error("El stock de esta publicación ha llegado a 0");
     }
-    let postToModify = await Post.update({
-      amount: amount
-    },
+    let postToModify = await Post.update(
+      {
+        amount: amount,
+      },
       { where: { id: id } }
-
     );
     let postModified = await Post.findByPk(id);
 
@@ -81,7 +81,7 @@ const getPostById = async (req, res) => {
   let { id } = req.params;
   try {
     let postId = await Post.findAll({
-      where: {id},
+      where: { id },
       include: {
         model: Order,
       },

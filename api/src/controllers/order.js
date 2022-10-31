@@ -154,6 +154,44 @@ const putOrderReview = async (req, res) => {
     res.status(500).send(`${e}`);
   }
 };
+
+const restoreOrder = async (req, res) => {
+  let { id } = req.params;
+  try {
+    await Order.restore({
+      where: {
+        id: id,
+      },
+    });
+    const restoredOrder = await Order.findOne({
+      where: {
+        id: id,
+      },
+    });
+    res.status(200).send(restoredOrder);
+  } catch (error) {
+    res.status(400).send("Hubo un problema recuperando la orden");
+  }
+};
+
+const disableOrder = async (req, res) => {
+  let { id } = req.params;
+  try {
+    await Order.destroy({
+      where: {
+        id: id,
+      },
+    });
+    const disableOrder = await Order.findOne({
+      where: {
+        id: id,
+      },
+    });
+    res.status(200).send(disableOrder);
+  } catch (error) {
+    res.status(400).send("Hubo un problema al eliminar la orden");
+  }
+};
 module.exports = {
   getOrderById,
   getAllOrder,
@@ -161,4 +199,6 @@ module.exports = {
   deleteOrder,
   putOrder,
   putOrderReview,
+  disableOrder,
+  restoreOrder,
 };
