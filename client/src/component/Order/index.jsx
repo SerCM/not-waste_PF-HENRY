@@ -15,9 +15,9 @@ import OrderItem from "../OrderItem/OrderItem";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation, Link } from "react-router-dom";
 import { notificaciones } from "../../redux/actions";
-// import  useAuth0  from "@auth0/auth0-react";
-import VerifyProfile from "../VerifyProfile";
+
 import AuthProfile from "../AuthProfile";
+import VerifyProfile from "../VerifyProfile";
 
 const Order = () => {
   let { user } = useAuth0();
@@ -67,6 +67,7 @@ const Order = () => {
   let ordersInProgressId = ordersInProgress?.map((o) => {
     return o.postId;
   });
+
   let productOrderInProgress = ordersInProgressId?.map((post) =>
     products.find((prod) => prod.posts.find((p) => p.id === post))
   );
@@ -83,55 +84,96 @@ const Order = () => {
 
   let i = 0;
   let j = 0;
+
+  const redirigir = (tipo) => {
+    setTimeout(() => {
+      window.location.replace("/home");
+    }, 7000);
+    if (tipo === "manager")
+      return (
+        <div>
+          <h2>
+            Esta seccion muestra los pedidos realizados por sus compradores.
+          </h2>
+          <br />
+          <h4>
+            Su usuario "administrador" no tiene datos para mostrar en esta
+            seccion. Sera redirigido a la pagina principal.
+          </h4>
+        </div>
+      );
+    if (tipo === "seller")
+      return (
+        <div>
+          <h2>Esta seccion muestra los pedidos realizados por compradores.</h2>
+          <br />
+          <h4>
+            Su usuario "Vendedor" no tiene datos para mostrar en esta seccion.
+            Sera redirigido a la pagina principal.
+          </h4>
+        </div>
+      );
+  };
+
   return (
     <>
+      {console.log(db)}
       <NavBar />
-      <Card className="w-50 mx-auto mt-16 mb-50">
-        <div className="d-flex position-relative justify-content-center">
-          <Card.Title className="text-white fw-bold bg-light rounded p-2 ">
-            <span className="text-dark text-uppercase justify-content-center">
-              Mis pedidos
-            </span>
-          </Card.Title>
+      {db.exists && db.type === "customer" && (
+        <Card className="w-50 mx-auto mt-16 mb-50">
+          <div className="d-flex position-relative justify-content-center">
+            <Card.Title className="text-white fw-bold bg-light rounded p-2 ">
+              <span className="text-dark text-uppercase justify-content-center">
+                Mis pedidos
+              </span>
+            </Card.Title>
+          </div>
+          <Card.Body className="p-0">
+            <ListGroup variant="flush">
+              <ListGroup.Item className="d-flex justify-content-between">
+                <div className="d-flex row">
+                  <Card.Subtitle className="mb-2 text-muted ">
+                    Pedidos en curso
+                  </Card.Subtitle>
+                  {console.log(productOrderInProgress)}
+                  {productOrderInProgress?.map((p) => {
+                    return (
+                      <div key={i++}>
+                        <Link to={`/orderDetial/${ordersInProgress[i].id}`}>
+                          <OrderItem product={p} order={ordersInProgress[i]} />
+                        </Link>
+                      </div>
+                    );
+                  })}
+                </div>
+              </ListGroup.Item>
+              <ListGroup.Item className="d-flex justify-content-between">
+                <div className="d-flex row">
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Pedidos finalizados
+                  </Card.Subtitle>
+                  {productOrderFinished?.map((p) => {
+                    return (
+                      <div key={j++}>
+                        <Link to={`/orderDelivered/${ordersFinished[j].id}`}>
+                          <OrderItem product={p} order={ordersFinished[j]} />
+                        </Link>
+                      </div>
+                    );
+                  })}
+                </div>
+              </ListGroup.Item>
+            </ListGroup>
+          </Card.Body>
+          <Card.Footer className="mb-4"></Card.Footer>
+        </Card>
+      )}
+      {db.exists && db.type !== "customer" && redirigir(db.type)}
+      {db.exists === false && (
+        <div class="spinner-grow" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
-        <Card.Body className="p-0">
-          <ListGroup variant="flush">
-            <ListGroup.Item className="d-flex justify-content-between">
-              <div className="d-flex row">
-                <Card.Subtitle className="mb-2 text-muted ">
-                  Pedidos en curso
-                </Card.Subtitle>
-                {productOrderInProgress?.map((p) => {
-                  return (
-                    <div key={i++}>
-                      <Link to={`/orderDetial/${ordersInProgress[i].id}`}>
-                        <OrderItem product={p} order={ordersInProgress[i]} />
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item className="d-flex justify-content-between">
-              <div className="d-flex row">
-                <Card.Subtitle className="mb-2 text-muted">
-                  Pedidos finalizados
-                </Card.Subtitle>
-                {productOrderFinished?.map((p) => {
-                  return (
-                    <div key={j++}>
-                      <Link to={`/orderDelivered/${ordersFinished[j].id}`}>
-                        <OrderItem product={p} order={ordersFinished[j]} />
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
-            </ListGroup.Item>
-          </ListGroup>
-        </Card.Body>
-        <Card.Footer className="mb-4"></Card.Footer>
-      </Card>
+      )}
       <Footer className="footer-orders" />
     </>
   );
