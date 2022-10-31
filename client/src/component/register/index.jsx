@@ -201,7 +201,8 @@ function Register(props) {
     });
   };
 
-  let setedAdress = encodeURI(`https://www.google.com/maps/embed/v1/place?q=${input?.adress} CABA&key=AIzaSyAz3nI1sjcQ6eosyGvgwBZ8VKVnCBo0Zmg`)
+  let setedAdress = encodeURI(`https://www.google.com/maps/embed/v1/place?q=${input?.cities[0]} ${input?.adress}  CABA&key=AIzaSyAz3nI1sjcQ6eosyGvgwBZ8VKVnCBo0Zmg`)
+  console.log("🚀 ~ file: index.jsx ~ line 205 ~ Register ~ setedAdress", setedAdress)
 
   return (
     <>
@@ -413,7 +414,7 @@ function Register(props) {
                   
                 </div>
                 <br></br>
-                  {input.adress && !error.adress &&
+                  {input.adress || input.cities &&
                 
                     <iframe
 
