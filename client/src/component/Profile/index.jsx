@@ -13,21 +13,21 @@ function Profile() {
   let log = AuthProfile("profile"); // esto puede ser {}, true o false
   let db = VerifyProfile(log.email);
 
-  const redirigir = () => {
+  const redirigir = (tipo) => {
     setTimeout(() => {
       window.location.replace("/home");
     }, 7000);
-    return (
-    <div>
-      <h2>Esta seccion muestra los datos de perfil de sus vendedores y compradores.
-      </h2>
-      <br/>
-      <h4>
-        Su usuario "administrador" no tiene datos para mostrar en esta seccion. Sera redirigido a la pagina principal.
-      </h4>
-    </div>)
+    if (tipo === "manager") return (
+      <div>
+        <h2>Esta seccion muestra los datos de perfil de sus vendedores y compradores.
+        </h2>
+        <br />
+        <h4>
+          Su usuario "administrador" no tiene datos para mostrar en esta seccion. Sera redirigido a la pagina principal.
+        </h4>
+      </div>)
   }
-  
+
   return (
     <>
       <Navbar />
@@ -81,9 +81,11 @@ function Profile() {
           </ListGroup.Item>
         </ListGroup>
       }
-      {db.exists && db.type === "manager" && redirigir()}
+      {db.exists && db.type === "manager" && redirigir(db.type)}
+      {db.exists === false && <div class="spinner-grow" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>}
       <Footer />
-      {console.log(db)}
     </>
   );
 }
