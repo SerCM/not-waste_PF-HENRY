@@ -12,6 +12,7 @@ import swal from 'sweetalert';
 
 const redirectUri = process.env.REACT_APP_AUTH0_REDIRECT_URI
 
+
 function Register(props) {
   const dispatch = useDispatch();
   const cities = useSelector((state) => state.cities);
@@ -413,7 +414,9 @@ function Register(props) {
                 </div>
                 <br></br>
                   {input.adress && !error.adress &&
+                
                     <iframe
+
                       className="form-control ms-2"
                       src={setedAdress}
                       width="150"
