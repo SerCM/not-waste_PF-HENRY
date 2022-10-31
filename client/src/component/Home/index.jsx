@@ -12,14 +12,14 @@ import Footer from "../Footer";
 import Filters from "../Filters/Filters";
 import "../Home/Home.css";
 import Message from "../Message";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import { Button } from "react-bootstrap"
 import Spinner from 'react-bootstrap/Spinner';
 
 function Home() {
   const dispatch = useDispatch();
   const sellers = useSelector((state) => state.seller);
-  const queryParams = useSelector((state) => state.queryParams);
+  // const queryParams = useSelector((state) => state.queryParams);
   const errorMessage = useSelector((state) => state.errorMessage);
 
   useEffect(() => {
