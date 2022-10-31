@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getCustomer } from "../../redux/actions";
+import { getCustomer, disabledCustomer, restoreCustomer } from "../../redux/actions";
 
 import AuthProfile from "../AuthProfile";
 import VerifyProfile from "../VerifyProfile";
@@ -18,11 +18,22 @@ export default function AdminListCustomer() {
   let db = VerifyProfile(log.email);
 
   const allCustomer = useSelector(state => state.customer)
-  console.log(allCustomer, 'SOY CUSTOMER')
+  // console.log(allCustomer, 'SOY CUSTOMER')
 
   useEffect(() => {
     dispatch(getCustomer())
   }, [dispatch])
+
+  function handleDisabledCustomer(e) {
+    dispatch(disabledCustomer(e.target.name));
+    window.location.reload(true)
+  }
+
+  function handleRestoreCustomer(e) {
+    dispatch(restoreCustomer(e.target.name));
+    window.location.reload(true)
+  }
+
   return (
     <div>
       <NavBar />
@@ -30,10 +41,10 @@ export default function AdminListCustomer() {
         db.type === 'manager' ?
           allCustomer?.map((cu, i) => {
             return (
-              <div className="row justify-content-center">
+              <div className="row justify-content-center" key={i}>
                 <div className="col-auto p-5">
                   <Card className='cardbox'>
-                    <Card.Body>
+                    <Card.Body className={cu.deletedAt ? "resaltar" : "sinResaltar"}>
                       <div className="d-flex">
                         <div className="contadminseller mx-5">
                           <h2>Nombre: {cu.name}</h2>
@@ -43,6 +54,7 @@ export default function AdminListCustomer() {
                               name={cu.id}
                               variant="danger"
                               id="buttondeshabi"
+                              onClick={(e) => handleDisabledCustomer(e)}
                             >
                               Deshabilitar
                             </Button>
@@ -51,6 +63,7 @@ export default function AdminListCustomer() {
                               variant="success"
                               className="ms-5"
                               id="buttondeshabi"
+                              onClick={(e) => handleRestoreCustomer(e)}
                             >
                               Habilitar
                             </Button>
