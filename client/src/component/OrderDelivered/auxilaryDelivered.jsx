@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-
 import { getCustomer, postDetail, prodDetail, putOrder, reviewOrder } from '../../redux/actions';
 import AuthProfile from '../AuthProfile';
 import VerifyProfile from '../VerifyProfile';
 import { useParams } from 'react-router-dom';
 import { Badge, Button, Card, ListGroup } from 'react-bootstrap';
+import swal from 'sweetalert';
 
 export function AuxilaryDelivered(props) {
   let id = props.idProduct
@@ -41,6 +41,11 @@ const dispatch = useDispatch()
     function handleSubmit (e) {
       e.preventDefault()
       console.log(e.target.value)
+      swal({
+        title: "Reseña envidada con exito",
+        text: "Gracias por compratir opinion",
+        icon: "success",
+      });
       dispatch(reviewOrder(props.id, (input)))
       setInput({
         reviewValue:"",
