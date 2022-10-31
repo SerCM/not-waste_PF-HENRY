@@ -44,9 +44,8 @@ const PostDetail = () => {
   // let productOrders = product?.posts?.orders?.filter(e=>e.orders)
 
 
-  let ordersComment = allOrders?.map(e=>e.reviewComment)
-  let ordersReview = allOrders?.map(e=>e.reviewValue)
-
+  let ordersComment = allOrders?.map(e=>e.reviewComment).filter(e => e !== null)
+  let ordersReview = allOrders?.map(e=>e.reviewValue).filter(e => e !== null)
 
 
   useEffect(() => {
@@ -222,8 +221,17 @@ const PostDetail = () => {
             )}
           </Card.Footer>
           <div>
-          {ordersComment.map(e=><Badge>{e}</Badge>)}
-          {ordersReview.map(e=><Badge>{e}</Badge>)}
+          { ordersReview.length >0 ? <Card.Subtitle className="mb-2 text-muted ">Reviews</Card.Subtitle>
+        : <Card.Subtitle className="mb-2 text-muted ">Sin reviews</Card.Subtitle>
+          }
+                 
+                
+<div className="row">
+  <div className="col-sm">  {ordersComment.map(e=><div>{e}</div>)}</div>
+
+  <div className="col-sm">  {ordersReview.map(e=><div className="col-sm">{e + "★"}</div>)}</div>
+
+</div>
           </div>
         </Card>
         <Footer />
