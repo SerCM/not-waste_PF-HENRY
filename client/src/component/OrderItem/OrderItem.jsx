@@ -14,7 +14,7 @@ const OrderItem = ({ product, order }) => {
             : "d-flex align-items-center my-2 justify-content-around"
         }
       >
-        <Card className="card-container">
+        <Card className="container-fluid">
           <Card.Title>
             Tu pedido realizado el{" "}
             {new Date(order?.createdAt).toLocaleDateString("es-AR")}
