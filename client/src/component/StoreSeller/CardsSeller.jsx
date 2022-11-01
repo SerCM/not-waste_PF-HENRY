@@ -22,7 +22,6 @@ function CardSeller({ product, post }) {
   readDates();
 
   const desabilitar = (e) => {
-    console.log("DESHABILITAR");
     dispatch(disablePost(e.target.name));
     window.location.reload(true);
   };

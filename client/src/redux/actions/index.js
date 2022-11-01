@@ -431,10 +431,10 @@ export function restorePost(id) {
   };
 }
 
-export function notificaciones(email, mensaje) {
+export function notificaciones(input) {
   return fetch(`${urlAPI}/notificaciones`, {
     method: "POST",
-    body: JSON.stringify(email, mensaje),
+    body: JSON.stringify(input),
     headers: {
       "Content-Type": "application/json",
     },

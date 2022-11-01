@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   getCustomer,
   getOrders,
@@ -12,17 +13,16 @@ import NavBar from "../NavBar";
 import Footer from "../Footer/index";
 import OrderItem from "../OrderItem/OrderItem";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useParams, useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { notificaciones } from "../../redux/actions";
+
 import AuthProfile from "../AuthProfile";
 import VerifyProfile from "../VerifyProfile";
 
 const Order = () => {
-
-  let log = AuthProfile("profile"); // esto puede ser {}, true o false
-  let db = VerifyProfile(log.email);
-
   let { user } = useAuth0();
+  const log = AuthProfile("profile"); // esto puede ser {}, true o false
+  const db = VerifyProfile(log.email);
 
   const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -35,14 +35,24 @@ const Order = () => {
   let orderFinished = customer?.orders?.find((o) => o.id === orderId);
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
-  if (orderFinished && orderFinished.state === "pendiente") {
-    setTimeout(() => {
-      window.location.reload(true);
-    }, 1000);
-    dispatch(putOrder(orderFinished?.id, { state: "confirmado" }));
-    dispatch(getOrders());
-  }
 
+  useEffect(() => {
+    if (orderFinished && orderFinished.state === "pendiente") {
+      setTimeout(() => {
+        window.location.reload(true);
+      }, 1000);
+      dispatch(putOrder(orderFinished?.id, { state: "confirmado" }));
+      dispatch(getOrders());
+      dispatch(
+        notificaciones({
+          email: db.email,
+          mensaje: "Gracias por su compra en not Waste, vuelva pronto",
+        })
+      );
+    }
+  }, [orderFinished, dispatch]);
+
+  ///////////////////////////////////////////////
   useEffect(() => {
     dispatch(getCustomer());
     dispatch(getProduct());
@@ -74,36 +84,50 @@ const Order = () => {
   let i = 0;
   let j = 0;
 
-
   const redirigir = (tipo) => {
     setTimeout(() => {
-  window.location.replace("/home")
+      window.location.replace("/home");
     }, 7000);
-    if (tipo === "manager") return (
-      <div>
-        <h2>Esta seccion muestra los pedidos realizados por sus compradores.
-        </h2>
-        <br />
-        <h4>
-          Su usuario "administrador" no tiene datos para mostrar en esta seccion. Sera redirigido a la pagina principal.
-        </h4>
-      </div>)
-    if (tipo === "seller") return (
-      <div>
-        <h2>Esta seccion muestra los pedidos realizados por compradores.
-        </h2>
-        <br />
-        <h4>
-          Su usuario "Vendedor" no tiene datos para mostrar en esta seccion. Sera redirigido a la pagina principal.
-        </h4>
-      </div>)
-  }
+    if (tipo === "manager")
+      return (
+        <div>
+          <h2>
+            Esta seccion muestra los pedidos realizados por sus compradores.
+          </h2>
+          <br />
+          <h4>
+            Su usuario "administrador" no tiene datos para mostrar en esta
+            seccion. Sera redirigido a la pagina principal.
+          </h4>
+        </div>
+      );
+    if (tipo === "seller")
+      return (
+        <div>
+          <h2>Esta seccion muestra los pedidos realizados por compradores.</h2>
+          <br />
+          <h4>
+            Su usuario "Vendedor" no tiene datos para mostrar en esta seccion.
+            Sera redirigido a la pagina principal.
+          </h4>
+        </div>
+      );
+      if (tipo === "bloqueado")
+      return (
+        <div>
+          <h4>
+            Su usuario se encuentra bloqueado. 
+            <br />
+            Sera redirigido a la pagina principal.
+          </h4>
+        </div>
+      );
+  };
 
   return (
     <>
-    {console.log(db)}
       <NavBar />
-      {db.exists && db.type === "customer" && 
+      {db.exists && db.type === "customer" && db.deletedAt === null && (
         <Card className="w-50 mx-auto mt-16 mb-50">
           <div className="d-flex position-relative justify-content-center">
             <Card.Title className="text-white fw-bold bg-light rounded p-2 ">
@@ -119,11 +143,10 @@ const Order = () => {
                   <Card.Subtitle className="mb-2 text-muted ">
                     Pedidos en curso
                   </Card.Subtitle>
-                  {console.log(productOrderInProgress)}
                   {productOrderInProgress?.map((p) => {
                     return (
                       <div key={i++}>
-                        <Link to={`/orderDetial/${ordersInProgress[i].id}`}>
+                        <Link className="link" to={`/orderDetial/${ordersInProgress[i].id}`}>
                           <OrderItem product={p} order={ordersInProgress[i]} />
                         </Link>
                       </div>
@@ -139,7 +162,7 @@ const Order = () => {
                   {productOrderFinished?.map((p) => {
                     return (
                       <div key={j++}>
-                        <Link to={`/orderDelivered/${ordersFinished[j].id}`}>
+                        <Link className="link" to={`/orderDelivered/${ordersFinished[j].id}`}>
                           <OrderItem product={p} order={ordersFinished[j]} />
                         </Link>
                       </div>
@@ -150,11 +173,15 @@ const Order = () => {
             </ListGroup>
           </Card.Body>
           <Card.Footer className="mb-4"></Card.Footer>
-        </Card>}
+        </Card>
+      )}
+      {db.exists && db.type === "customer" && db.deletedAt !== null && redirigir("bloqueado")}
       {db.exists && db.type !== "customer" && redirigir(db.type)}
-      {db.exists === false && <div class="spinner-grow" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>}
+      {db.exists === false && (
+        <div className="spinner-grow" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      )}
       <Footer className="footer-orders" />
     </>
   );

@@ -26,12 +26,25 @@ function Profile() {
           Su usuario "administrador" no tiene datos para mostrar en esta seccion. Sera redirigido a la pagina principal.
         </h4>
       </div>)
+    if (tipo === "bloqueado")
+      return (
+        <div>
+          <h4>
+            Su usuario se encuentra bloqueado.
+            <br />
+            Sera redirigido a la pagina principal.
+          </h4>
+        </div>
+      );
   }
 
   return (
     <>
       <Navbar />
-      {db.exists && db.type === "customer" &&
+      {db.exists === false && <div className="spinner-grow" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>}
+      {db.exists && db.deletedAt === null && db.type === "customer" &&
         <ListGroup variant="flush">
           <ListGroup.Item className="textx-capitalice">
             <strong>Nombre: {db.name}</strong>
@@ -42,7 +55,7 @@ function Profile() {
           </ListGroup.Item>
         </ListGroup>
       }
-      {db.exists && db.type === "seller" &&
+      {db.exists && db.deletedAt === null && db.type === "seller" &&
         <ListGroup variant="flush">
           <ListGroup.Item>
             <strong>Logo: </strong>
@@ -81,10 +94,8 @@ function Profile() {
           </ListGroup.Item>
         </ListGroup>
       }
+      {db.exists && db.deletedAt !== null && redirigir("bloqueado")}
       {db.exists && db.type === "manager" && redirigir(db.type)}
-      {db.exists === false && <div class="spinner-grow" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>}
       <Footer />
     </>
   );

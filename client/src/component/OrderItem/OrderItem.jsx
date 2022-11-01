@@ -43,9 +43,9 @@ const OrderItem = ({ product, order }) => {
                 src={product?.image}
               />
               <span>{order.amount}</span>
-              <span className="text-capitalize">{product.name}</span>
-              <span>{product.price}</span>
-              <span>Total: {product.price * order.amount}</span>
+              <span className="text-capitalize">{product && product.name}</span>
+              <span>{product && product.price}</span>
+              <span>Total: {product && order && product.price * order.amount}</span>
             </div>
           </Card.Body>
         </Card>
