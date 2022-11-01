@@ -35,6 +35,22 @@ export default function AdminListSeller() {
     window.location.reload(true);
   }
 
+  const redirigir = () => {
+    setTimeout(() => {
+      window.location.replace("/home");
+    }, 7000);
+   return (
+      <div>
+        <h2>
+        Seccion habilitada unicamente para administradores.
+        </h2>
+        <br />
+        <h4>
+        Sera redirigido a la pagina principal.
+        </h4>
+      </div>)
+  }
+
   return (
     <div>
       <NavBar />
@@ -86,9 +102,7 @@ export default function AdminListSeller() {
               </div>
             );
           }) : (
-            <div>
-              <h2>¡Panel unicamente habilidato para administradores!</h2>
-            </div>
+           redirigir()
           )
         }
       <Footer />

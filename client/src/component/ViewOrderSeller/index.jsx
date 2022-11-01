@@ -28,7 +28,7 @@ function ViewOrderSeller() {
                     Su usuario "Adminitrador" no tiene datos para mostrar en esta seccion.  Sera redirigido a la pagina principal.
                 </h4>
             </div>)
-          if (tipo === "customer") return (
+        if (tipo === "customer") return (
             <div>
                 <h2>
                     Esta seccion es para vendedores
@@ -38,17 +38,28 @@ function ViewOrderSeller() {
                     Sera redirigido a la pagina principal.
                 </h4>
             </div>)
+        if (tipo === "bloqueado")
+            return (
+                <div>
+                    <h4>
+                        Su usuario se encuentra bloqueado.
+                        <br />
+                        Sera redirigido a la pagina principal.
+                    </h4>
+                </div>
+            );
     }
 
     return (
         <>
             <NavBar />
-            {db.exists === false && <div class="spinner-grow" role="status">
-                <span class="visually-hidden">Loading...</span>
+            {db.exists === false && <div className="spinner-grow" role="status">
+                <span className="visually-hidden">Loading...</span>
             </div>}
-            {db.type === "seller" && db.products.length && <CreateCardsOrders {...db} />}
-            {db.type === "seller" && !db.products.length && <h1> Aun no tiene productos cargados, por favor dirijase a <Link to="/formproduct"> creacion de productos!
+            {db.type === "seller" && db.deletedAt === null && db.products.length && <CreateCardsOrders {...db} />}
+            {db.type === "seller" && db.deletedAt === null && !db.products.length && <h1> Aun no tiene productos cargados, por favor dirijase a <Link to="/formproduct"> creacion de productos!
             </Link></h1>}
+            {db.exists && db.type === "seller" && db.deletedAt !== null && redirigir("bloqueado")}
             {db.exists && db.type !== "seller" && redirigir(db.type)}
             <Footer />
         </>

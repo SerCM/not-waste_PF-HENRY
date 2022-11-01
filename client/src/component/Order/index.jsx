@@ -21,6 +21,8 @@ import VerifyProfile from "../VerifyProfile";
 
 const Order = () => {
   let { user } = useAuth0();
+  const log = AuthProfile("profile"); // esto puede ser {}, true o false
+  const db = VerifyProfile(log.email);
 
   const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -34,8 +36,6 @@ const Order = () => {
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
-  const log = AuthProfile("profile"); // esto puede ser {}, true o false
-  const db = VerifyProfile(log.email);
   // console.log(db);
   useEffect(() => {
     if (orderFinished && orderFinished.state === "pendiente") {
@@ -113,13 +113,22 @@ const Order = () => {
           </h4>
         </div>
       );
+      if (tipo === "bloqueado")
+      return (
+        <div>
+          <h4>
+            Su usuario se encuentra bloqueado. 
+            <br />
+            Sera redirigido a la pagina principal.
+          </h4>
+        </div>
+      );
   };
 
   return (
     <>
-      {console.log(db)}
       <NavBar />
-      {db.exists && db.type === "customer" && (
+      {db.exists && db.type === "customer" && db.deletedAt === null && (
         <Card className="w-50 mx-auto mt-16 mb-50">
           <div className="d-flex position-relative justify-content-center">
             <Card.Title className="text-white fw-bold bg-light rounded p-2 ">
@@ -135,11 +144,10 @@ const Order = () => {
                   <Card.Subtitle className="mb-2 text-muted ">
                     Pedidos en curso
                   </Card.Subtitle>
-                  {console.log(productOrderInProgress)}
                   {productOrderInProgress?.map((p) => {
                     return (
                       <div key={i++}>
-                        <Link to={`/orderDetial/${ordersInProgress[i].id}`}>
+                        <Link className="link" to={`/orderDetial/${ordersInProgress[i].id}`}>
                           <OrderItem product={p} order={ordersInProgress[i]} />
                         </Link>
                       </div>
@@ -155,7 +163,7 @@ const Order = () => {
                   {productOrderFinished?.map((p) => {
                     return (
                       <div key={j++}>
-                        <Link to={`/orderDelivered/${ordersFinished[j].id}`}>
+                        <Link className="link" to={`/orderDelivered/${ordersFinished[j].id}`}>
                           <OrderItem product={p} order={ordersFinished[j]} />
                         </Link>
                       </div>
@@ -168,10 +176,11 @@ const Order = () => {
           <Card.Footer className="mb-4"></Card.Footer>
         </Card>
       )}
+      {db.exists && db.type === "customer" && db.deletedAt !== null && redirigir("bloqueado")}
       {db.exists && db.type !== "customer" && redirigir(db.type)}
       {db.exists === false && (
-        <div class="spinner-grow" role="status">
-          <span class="visually-hidden">Loading...</span>
+        <div className="spinner-grow" role="status">
+          <span className="visually-hidden">Loading...</span>
         </div>
       )}
       <Footer className="footer-orders" />
