@@ -12,16 +12,14 @@ import Footer from "../Footer";
 import Filters from "../Filters/Filters";
 import "../Home/Home.css";
 import Message from "../Message";
-// import { v4 as uuidv4 } from "uuid";
 import { Button } from "react-bootstrap"
 import Spinner from 'react-bootstrap/Spinner';
 
 function Home() {
   const dispatch = useDispatch();
   const sellers = useSelector((state) => state.seller);
-  // const queryParams = useSelector((state) => state.queryParams);
   const errorMessage = useSelector((state) => state.errorMessage);
-
+  const queryParams = useSelector((state) => state.queryParams);
   useEffect(() => {
     dispatch(getCities());
     dispatch(getSellers());
@@ -41,7 +39,6 @@ function Home() {
     if (seller.products.find((p) => p.posts.length > 0)) vendedoresconpost.push(seller);
   })
 
-  // return <CarouselSeller key={seller.id}, seller={seller}/>
   return (
     <div>
       <NavBar isSearchVisible />
@@ -65,7 +62,7 @@ function Home() {
               <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                 <div className="accordion-body">
                   {vendedoresconpost.length ? vendedoresconpost.slice(0, 3).map(seller => {
-                    return <CarouselSeller seller={seller} />
+                    return <CarouselSeller seller={seller} queryParams={queryParams}/>
                   }) : (
                     <Spinner animation="border" role="status">
                       <span className="visually-hidden">Loading...</span>
