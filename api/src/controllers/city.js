@@ -18,6 +18,27 @@ const getCityInfo = (req, res) => {
   });
   return res.status(200).send(json);
 };
+
+const postCity = async (req, res) => {
+  let { name } = req.body;
+  try {
+    if (!name) {
+      throw new Error("El campo del nombre de la ciudad es obligatorio");
+    }
+
+    let newCity = await City.create({
+      name,
+    });
+    res.send(newCity);
+  }
+
+ catch (e) {
+  res.status(500).send(`${e}`);
+}
+
+}
+
 module.exports = {
   getCityInfo,
-};
+  postCity
+}
