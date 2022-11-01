@@ -16,6 +16,7 @@ const {
   getProductsById,
   restoreProduct,
   disableProduct,
+  reviewPromed,
 } = require("../controllers/product");
 const {
   getPosts,
