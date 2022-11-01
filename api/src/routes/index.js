@@ -111,7 +111,7 @@ router.put("/order/restore/:id", restoreOrder);
 
 //Ruta de Dietas
 router.get("/diets", getDiets);
-router.post("/city", postDiet);
+router.post("/diets", postDiet);
 
 //mercadopago -->
 router.post("/create_preference", post_create_preference);
