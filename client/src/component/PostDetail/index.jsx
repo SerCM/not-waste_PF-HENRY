@@ -69,7 +69,7 @@ const PostDetail = () => {
       dispatch(addCart(input));
       // alert(input.name + " se añadio correctamente");
       swal({
-        title: input.name,
+        title: input?.name,
         text: "Se añadió correctamente!",
         icon: "success",
       });
@@ -94,7 +94,7 @@ const PostDetail = () => {
                 {postO.amount + " disponible(s)"}
               </Badge>
               <Card.Title className="text-white fw-bold bg-light rounded p-2 ">
-                <span className="text-dark text-uppercase">{product.name}</span>
+                <span className="text-dark text-uppercase">{product?.name}</span>
               </Card.Title>
             </Card.ImgOverlay>
           </div>
@@ -141,7 +141,7 @@ const PostDetail = () => {
                   </span>
                   {
                     <span className="mx-2 text-capitalize">
-                      ({seller?.cities[0].name})
+                      ({seller?.cities[0]?.name})
                     </span>
                   }
                 </Card.Link>
@@ -159,7 +159,7 @@ const PostDetail = () => {
                           text="dark"
                           key={diet.id}
                         >
-                          {diet.name}
+                          {diet?.name}
                         </Badge>
                       );
                     })}
@@ -204,7 +204,7 @@ const PostDetail = () => {
                       date: postO.date,
                       image: product.image,
                       price: product.price,
-                      name: product.name,
+                      name: product?.name,
                       customerId: customer?.id,
                       postId: postO.id,
                       email: user.email,
