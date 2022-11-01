@@ -248,7 +248,7 @@ function FormProduct() {
               {diets?.map((e, i) => {
                 return (
                   <option value={e.name} key={i}>
-                    {e.name}
+                    {e.name.charAt(0).toUpperCase() + e.name.slice(1)}
                   </option>
                 );
               })}
@@ -256,7 +256,7 @@ function FormProduct() {
             <div>
               {input.diets?.map((diet, i) => (
                 <div key={i}>
-                  <p>{diet}</p>
+                  <p>{diet.charAt(0).toUpperCase() + diet.slice(1)}</p>
                   <button value={diet} onClick={(e) => handleDelete(e)}>
                     X
                   </button>
@@ -281,7 +281,7 @@ function FormProduct() {
         </Form>
       </div>}
       {db.type === "seller" && db.deletedAt !== null && redirigir("bloqueado")}
-      {db.type !== "seller" && redirigir(db.type)}
+      {/* {db.type !== "seller" && redirigir(db.type)} */}
       <Footer />
     </div>
   );
