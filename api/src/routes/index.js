@@ -1,6 +1,10 @@
 const { Router } = require("express");
-const { postCustomer, getCallCustomer } = require("../controllers/customer");
-const { getCityInfo } = require("../controllers/city");
+const { postCustomer,
+   getCallCustomer,
+   disableCustomer,
+   restoreCustomer
+  } = require("../controllers/customer");
+const { getCityInfo, postCity } = require("../controllers/city");
 const {
   getSellers,
   postSeller,
@@ -44,7 +48,7 @@ const {
   disableOrder,
   restoreOrder,
 } = require("../controllers/order");
-const { getDiets } = require("../controllers/diets");
+const { getDiets, postDiet } = require("../controllers/diets");
 const {
   post_create_preference,
   get_feedback,
@@ -83,6 +87,8 @@ router.put("/post/disableForce/:id", disablePostForce);
 //Aca van las rutas del Customer
 router.get("/customer", getCallCustomer);
 router.post("/customer", postCustomer);
+router.put("/customer/disabled/:id", disableCustomer);
+router.put("/customer/restore/:id", restoreCustomer);
 
 //Rutas del Manager
 router.get("/manager/:id", getManagerById);
@@ -92,6 +98,7 @@ router.put("/manager/:id", putManager);
 
 //Rutas de City
 router.get("/city", getCityInfo);
+router.post("/city", postCity);
 
 //Rutas de Order
 router.get("/order/:id", getOrderById);
@@ -105,6 +112,7 @@ router.put("/order/restore/:id", restoreOrder);
 
 //Ruta de Dietas
 router.get("/diets", getDiets);
+router.post("/city", postDiet);
 
 //mercadopago -->
 router.post("/create_preference", post_create_preference);

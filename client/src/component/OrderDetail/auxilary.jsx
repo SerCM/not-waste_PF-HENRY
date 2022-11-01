@@ -14,11 +14,9 @@ import { useParams } from "react-router-dom";
 import { Badge, Button, Card, ListGroup } from "react-bootstrap";
 
 export function Auxilary(props) {
-  // console.log(" props", props)
 
   let id = props.idProduct;
   let orden = props.orden;
-  console.log("🚀 ~ file: auxilary.jsx ~ line 15 ~ Auxilary ~ orden", orden);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -128,7 +126,7 @@ export function Auxilary(props) {
         <>
           <Card className="w-50 mx-auto mt-2 bgColor">
             <div className="d-flex position-relative">
-              <Card.Img variant="top" src={product.image} />
+              <Card.Img variant="top" src={product.image? product.image : "no hay imagen para este producto"} alt="no hay imagen para este producto" />
               <Card.ImgOverlay className="d-flex align-items-start flex-column justify-content-between">
                 <Badge pill bg="warning">
                   Estado:{" "}

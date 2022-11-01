@@ -32,7 +32,6 @@ function Cart(props) {
   // }, [dispatch]);
 
   const handlePayment =  (cart) => {
-    console.log('antes de pagar', currentOrder)
     dispatch(postOrder(cart))
     .then(r => postPay({ price: price, postId: r.id }))
     .then(payId =>  window.location.replace(payId.redirect));

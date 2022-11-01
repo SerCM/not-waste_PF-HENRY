@@ -30,8 +30,6 @@ function Cart(props) {
     cart.customerId = customer.id;
     /* dispatch(postOrder(cart));
     dispatch(postPay({ price: price })); */
-    console.log(user, "USER");
-    console.log(cart, "CART");
     /* if (isAuthenticated) {
       dispatch(postOrder(cart));
       dispatch(postPay({ price: price }));

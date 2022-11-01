@@ -12,7 +12,7 @@ import VerifyProfile from "../VerifyProfile";
 import { useParams } from "react-router-dom";
 import { Badge, Button, Card, ListGroup } from "react-bootstrap";
 import swal from "sweetalert";
-
+import "./orderDetail.css";
 export function AuxilaryDelivered(props) {
   let id = props.idProduct;
   let orden = props.orden;
@@ -43,16 +43,28 @@ export function AuxilaryDelivered(props) {
     });
   }
 
+  function handleReviewComment(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  }
+  function handleReviewValue(e) {
+    console.log(e.target.value);
+    setInput({
+      ...input,
+      reviewValue: e.target.value,
+    });
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(e.target.value);
     swal({
       title: "Reseña envidada con exito",
       text: "Gracias por compratir opinion",
       icon: "success",
     });
-    dispatch(reviewOrder(id, input));
-
+    dispatch(reviewOrder(props.id, input));
     setInput({
       reviewValue: "",
       reviewComment: "",
@@ -136,28 +148,82 @@ export function AuxilaryDelivered(props) {
               </div>
 
               <div>
-                <label>Temporada</label>
+                <label>Puntuación</label>
+                <div
+                  onChange={(e) => handleReviewValue(e)}
+                  className="clasificacion"
+                >
+                  <input
+                    className="inputs"
+                    id="radio1"
+                    type="radio"
+                    name="estrellas"
+                    value="5"
+                  />
 
-                <select onChange={(e) => handleReviewValue(e)}>
-                  <option value="1">★</option>
-                  <option value="2">★★</option>
-                  <option value="3">★★★</option>
-                  <option value="4">★★★★</option>
-                  <option value="5">★★★★★</option>
-                </select>
+                  <label className="labels" for="radio1">
+                    ★
+                  </label>
+
+                  <input
+                    className="inputs"
+                    id="radio2"
+                    type="radio"
+                    name="estrellas"
+                    value="4"
+                  />
+
+                  <label className="labels" for="radio2">
+                    ★
+                  </label>
+
+                  <input
+                    className="inputs"
+                    id="radio3"
+                    type="radio"
+                    name="estrellas"
+                    value="3"
+                  />
+
+                  <label className="labels" for="radio3">
+                    ★
+                  </label>
+
+                  <input
+                    className="inputs"
+                    id="radio4"
+                    type="radio"
+                    name="estrellas"
+                    value="2"
+                  />
+
+                  <label className="labels" for="radio4">
+                    ★
+                  </label>
+
+                  <input
+                    className="inputs"
+                    id="radio5"
+                    type="radio"
+                    name="estrellas"
+                    value="1"
+                  />
+
+                  <label className="labels" for="radio5">
+                    ★
+                  </label>
+                </div>
+                {/* 
+              <select onChange={(e) => handleReviewValue(e)}>
+
+              </select> */}
               </div>
-              <Button type="submit" className=" btn btn-dark m-1 p-1">
+              <Button type="submit" className="d-flex btn btn-dark m-1 p-1">
                 Añadir reseña
               </Button>
             </form>
           </div>
         </Card.Footer>
-        <span bg="">
-          reviews:{" "}
-          {orden?.map((e) => {
-            return <>{e.review} ★</>;
-          })}
-        </span>
       </Card>
     </div>
   );
