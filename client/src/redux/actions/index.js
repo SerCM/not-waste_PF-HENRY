@@ -431,10 +431,11 @@ export function restorePost(id) {
   };
 }
 
-export function notificaciones(email, mensaje) {
+export function notificaciones(input) {
+// console.log(JSON.stringify+ "Holaa")
   return fetch(`${urlAPI}/notificaciones`, {
     method: "POST",
-    body: JSON.stringify(email, mensaje),
+    body: JSON.stringify(input),
     headers: {
       "Content-Type": "application/json",
     },
@@ -456,4 +457,18 @@ export function restoreOrder(id) {
     const res = await axios.put(`${urlAPI}/order/restore/${id}`);
     return res;
   };
+}
+
+export function disabledCustomer(id) {
+  return async function() {
+    const res = await axios.put(`${urlAPI}/customer/disabled/${id}`);
+    return res
+  }
+}
+
+export function restoreCustomer(id) {
+  return async function() {
+    const res = axios.put(`${urlAPI}/customer/restore/${id}`);
+    return res
+  }
 }
