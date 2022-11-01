@@ -3,3 +3,11 @@
     position: fixed;
     bottom: 0px
 }
+
+.link {
+    text-decoration: none;
+    color: black;
+}
+.link:hover{
+    color:gray
+}
