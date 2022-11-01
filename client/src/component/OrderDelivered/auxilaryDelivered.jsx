@@ -40,7 +40,6 @@ const dispatch = useDispatch()
     
     function handleSubmit (e) {
       e.preventDefault()
-      console.log(e.target.value)
       swal({
         title: "Reseña envidada con exito",
         text: "Gracias por compratir opinion",

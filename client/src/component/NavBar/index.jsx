@@ -15,11 +15,15 @@ import Cart from "../Cart/index";
 
 function NavBar({ isSearchVisible }) {
   const { isAuthenticated } = useAuth0(); //isAuthenticated me informa si es usuario esta logueado o no
-  let db = VerifyProfile(AuthProfile("profile").email);
+  // let db = VerifyProfile(AuthProfile("profile").email);
+  const { isLoading } = useAuth0;
+  let log = AuthProfile("profile"); // esto puede ser {}, true o false
+  let db = VerifyProfile(log.email);
+
   return (
 
-    <nav  className="navbar navbar-expand-md" id="navbar">
-    
+    <nav className="navbar navbar-expand-md" id="navbar">
+
       <div className="container-fluid">
         <button
           className="navbar-toggler"
@@ -29,9 +33,9 @@ function NavBar({ isSearchVisible }) {
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
-        >     
-  
-    
+        >
+
+
           <span>
             <img src={burguermenu} alt="logoburg" width="30px" />
           </span>
@@ -43,26 +47,26 @@ function NavBar({ isSearchVisible }) {
           </Link>
         </h3>
         {isSearchVisible && (
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        <SearchBar />
-        </div>
-      )}
-      <Navbar className="navbar-nav ms-auto mx-5">
-            <Cart {...db} />
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <SearchBar />
+          </div>
+        )}
+        <Navbar className="navbar-nav ms-auto mx-5">
+          <Cart {...db} />
 
-            <div className="vr bg-dark"></div>
-            {isAuthenticated ? <Profile {...db}/> : <LogingButton />}
-            <div className="vr bg-dark"></div>
-            {!db.exists && (
-              <li className="nav-item">
-                {/* <Link to="/register" className="nav-link mx-4">
-                  REGISTER
-                </Link> */}
-              </li>
-            )}
-            <div className="vr bg-dark"></div>
-          </Navbar>
-      </div> 
+          <div className="vr bg-dark"></div>
+          {isAuthenticated && db.exists ? <Profile {...db} /> : <LogingButton />}
+          <div className="vr bg-dark"></div>
+          {isAuthenticated && !db.exists && (
+            <li className="nav-item">
+              <Link to="/register" className="nav-link mx-4">
+                Registrarse
+              </Link>
+            </li>
+          )}
+          <div className="vr bg-dark"></div>
+        </Navbar>
+      </div>
     </nav>
   );
 }

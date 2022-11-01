@@ -18,7 +18,6 @@ export default function AdminListCustomer() {
   let db = VerifyProfile(log.email);
 
   const allCustomer = useSelector(state => state.customer)
-  // console.log(allCustomer, 'SOY CUSTOMER')
 
   useEffect(() => {
     dispatch(getCustomer())
@@ -32,6 +31,22 @@ export default function AdminListCustomer() {
   function handleRestoreCustomer(e) {
     dispatch(restoreCustomer(e.target.name));
     window.location.reload(true)
+  }
+
+  const redirigir = () => {
+    setTimeout(() => {
+      window.location.replace("/home");
+    }, 7000);
+   return (
+      <div>
+        <h2>
+        Seccion habilitada unicamente para administradores.
+        </h2>
+        <br />
+        <h4>
+        Sera redirigido a la pagina principal.
+        </h4>
+      </div>)
   }
 
   return (
@@ -76,7 +91,7 @@ export default function AdminListCustomer() {
               </div>
             )
           }) : (
-            <div>Panel unicamente habilitado para administradores</div>
+            redirigir()
           )
       }
       <Footer />

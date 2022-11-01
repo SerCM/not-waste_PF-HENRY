@@ -8,6 +8,7 @@ import AuthProfile from '../AuthProfile';
 import VerifyProfile from '../VerifyProfile';
 import { useParams } from 'react-router-dom';
 import { AuxilaryDelivered } from './auxilaryDelivered';
+
 export default function OrderDelivered() {
 
     const dispatch = useDispatch()
@@ -37,16 +38,37 @@ let unidad = getPost?.filter(e=>e.id === idPosteo)
 
 let idProduct = unidad?.map(e=>e.productId).toString()
 
+const redirigir = () => {
+    setTimeout(() => {
+        window.location.replace("/home");
+    }, 7000);
+    return (
+        <div>
+            <h2>
+                Los compradores solo pueden acceder a las ordenes realizadas con su propia cuenta
+            </h2>
+            <br />
+            <h4>
+                Sera redirigido a la pagina principal.
+            </h4>
+        </div>)
+}
 
   return (
     <div>
     <NavBar/> 
-    {idProduct === "" ? <></> :
+    {idProduct === "" && <div className="spinner-grow" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>}
+    {ordenesId && profile.id && ordenesId[0].customerId === profile.id &&        
     <AuxilaryDelivered idProduct={idProduct&&idProduct}
     orden={ordenesId}
     id={id}
 />
     }
+     {ordenesId && profile.id && ordenesId[0].customerId !== profile.id &&
+        redirigir()
+      }
    <Footer/>
        </div>
   )

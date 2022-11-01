@@ -88,7 +88,6 @@ function FormProduct() {
         ...input,
         image: imageObj,
       };
-      console.log(inputMod, "INPUTMOD");
       dispatch(postProduct(inputMod));
       localStorage.removeItem("formProducts");
       setInput({
@@ -125,16 +124,55 @@ function FormProduct() {
 
   const changeStateImage = (e) => {
     const files = e.target.files[0];
-    //console.log(files);
     setInput({
       ...input,
       image: files,
     });
   };
 
+  const redirigir = (tipo) => {
+    setTimeout(() => {
+      window.location.replace("/home");
+    }, 7000);
+    if (tipo === "manager") return (
+      <div>
+        <h2>
+          Esta seccion es utilizada para la carga de productos por cada uno de sus vendedores.
+        </h2>
+        <br />
+        <h4>
+          Sera redirigido a la pagina principal.
+        </h4>
+      </div>)
+    if (tipo === "customer") return (
+      <div>
+        <h2>
+          Esta seccion es para vendedores
+        </h2>
+        <br />
+        <h4>
+          Sera redirigido a la pagina principal.
+        </h4>
+      </div>)
+    if (tipo === "bloqueado")
+      return (
+        <div>
+          <h4>
+            Su usuario se encuentra bloqueado.
+            <br />
+            Sera redirigido a la pagina principal.
+          </h4>
+        </div>
+      );
+  }
+
   return (
     <div>
       <NavBar />
+      {db.exists === false && <div class="spinner-grow" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>}
+      {db.type === "seller" && db.deletedAt === null &&
       <div className="m-2 row justify-content-center">
         <Form className="col-auto px-5 py-2 text-center" id="formId">
           <h1>¡Cargá tu producto!</h1>
@@ -241,7 +279,9 @@ function FormProduct() {
             </Button>
           </div>
         </Form>
-      </div>
+      </div>}
+      {db.type === "seller" && db.deletedAt !== null && redirigir("bloqueado")}
+      {db.type !== "seller" && redirigir(db.type)}
       <Footer />
     </div>
   );

@@ -19,7 +19,6 @@ export default function AdminListSeller() {
 
   let log = AuthProfile("profile"); // esto puede ser {}, true o false
   let db = VerifyProfile(log.email);
-  // console.log(db)
 
   useEffect(() => {
     dispatch(getSellers());
@@ -33,6 +32,22 @@ export default function AdminListSeller() {
   function handleRestoreSeller(e) {
     dispatch(restoreSeller(e.target.name));
     window.location.reload(true);
+  }
+
+  const redirigir = () => {
+    setTimeout(() => {
+      window.location.replace("/home");
+    }, 7000);
+   return (
+      <div>
+        <h2>
+        Seccion habilitada unicamente para administradores.
+        </h2>
+        <br />
+        <h4>
+        Sera redirigido a la pagina principal.
+        </h4>
+      </div>)
   }
 
   return (
@@ -86,9 +101,7 @@ export default function AdminListSeller() {
               </div>
             );
           }) : (
-            <div>
-              <h2>¡Panel unicamente habilidato para administradores!</h2>
-            </div>
+           redirigir()
           )
         }
       <Footer />
