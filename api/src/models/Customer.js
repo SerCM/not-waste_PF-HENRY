@@ -17,8 +17,15 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true
     },
+    
    
     // TODO cambiar datatype a ENUM con los partidos de buenos aires
    
+  },{
+    createdAt: true,
+    updatedAt: true,
+    deletedAt: "deletedAt",
+    paranoid: true,
+    timeStamps: true,
   });
 };

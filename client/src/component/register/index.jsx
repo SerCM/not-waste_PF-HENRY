@@ -183,12 +183,10 @@ function Register(props) {
     setTimeout(() => {
       reload();
     }, 3000);
-    // console.log({ name, email });
   };
 
   const handleDeleteCity = (e) => {
     e.preventDefault();
-    // console.log(e.target);
     if (input.cities.length === 1) {
       setError({
         ...error,
@@ -202,7 +200,6 @@ function Register(props) {
   };
 
   let setedAdress = encodeURI(`https://www.google.com/maps/embed/v1/place?q=${input?.cities[0]} ${input?.adress}  CABA&key=AIzaSyAz3nI1sjcQ6eosyGvgwBZ8VKVnCBo0Zmg`)
-  console.log("🚀 ~ file: index.jsx ~ line 205 ~ Register ~ setedAdress", setedAdress)
 
   return (
     <>
@@ -484,7 +481,6 @@ function Register(props) {
           </>
         )}
       </form>
-      {/* {console.log(VerifyProfile("Miguel@gmail.com"))} */}
     </>
   );
 }

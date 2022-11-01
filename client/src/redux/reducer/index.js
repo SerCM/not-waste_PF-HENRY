@@ -99,7 +99,6 @@ export default function rootReducer(state = initialState, actions) {
         postDetail: actions.payload,
       };
     case "MODIFY_POST":
-      console.log(actions.payload);
       return {
         ...state,
         postDetail: actions.payload,

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getSellers, disableSeller, restoreSeller } from "../../redux/actions";
+import { getCustomer, disabledCustomer, restoreCustomer } from "../../redux/actions";
 
 import AuthProfile from "../AuthProfile";
 import VerifyProfile from "../VerifyProfile";
@@ -11,27 +11,26 @@ import Footer from "../Footer/index";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
-import "./AdminListSeller.css";
-
-export default function AdminListSeller() {
+export default function AdminListCustomer() {
   const dispatch = useDispatch();
-  const allSellers = useSelector((state) => state.seller);
 
   let log = AuthProfile("profile"); // esto puede ser {}, true o false
   let db = VerifyProfile(log.email);
 
-  useEffect(() => {
-    dispatch(getSellers());
-  }, [dispatch]);
+  const allCustomer = useSelector(state => state.customer)
 
-  function handleDisableSeller(e) {
-    dispatch(disableSeller(e.target.name));
-    window.location.reload(true);
+  useEffect(() => {
+    dispatch(getCustomer())
+  }, [dispatch])
+
+  function handleDisabledCustomer(e) {
+    dispatch(disabledCustomer(e.target.name));
+    window.location.reload(true)
   }
 
-  function handleRestoreSeller(e) {
-    dispatch(restoreSeller(e.target.name));
-    window.location.reload(true);
+  function handleRestoreCustomer(e) {
+    dispatch(restoreCustomer(e.target.name));
+    window.location.reload(true)
   }
 
   const redirigir = () => {
@@ -53,42 +52,33 @@ export default function AdminListSeller() {
   return (
     <div>
       <NavBar />
-      <h1 className="text-center">Lista de proveedores</h1>
-        {
-          db.type === 'manager' ? 
-          allSellers?.map((se, i) => {
+      {
+        db.type === 'manager' ?
+          allCustomer?.map((cu, i) => {
             return (
               <div className="row justify-content-center" key={i}>
                 <div className="col-auto p-5">
-                  <Card style={{ width: '700px' }} className='cardbox'>
-                    <Card.Body className={se.deletedAt ? "resaltar" : "sinResaltar"}>
+                  <Card className='cardbox'>
+                    <Card.Body className={cu.deletedAt ? "resaltar" : "sinResaltar"}>
                       <div className="d-flex">
-                        <img
-                          src={se.image}
-                          alt="imgSeller"
-                          height="250px"
-                          width="250px"
-                          className="imgadmin"
-                        />
                         <div className="contadminseller mx-5">
-                          <h2>Nombre: {se.name}</h2>
-                          <h4>Categoria: {se.category}</h4>
-                          <h5>Ciudades: {se.cities.map((e) => e.name)}</h5>
+                          <h2>Nombre: {cu.name}</h2>
+                          <h3>Email: {cu.email}</h3>
                           <div className="mt-5">
                             <Button
-                              name={se.id}
-                              onClick={(e) => handleDisableSeller(e)}
+                              name={cu.id}
                               variant="danger"
                               id="buttondeshabi"
+                              onClick={(e) => handleDisabledCustomer(e)}
                             >
                               Deshabilitar
                             </Button>
                             <Button
-                              name={se.id}
-                              onClick={(e) => handleRestoreSeller(e)}
+                              name={cu.id}
                               variant="success"
                               className="ms-5"
                               id="buttondeshabi"
+                              onClick={(e) => handleRestoreCustomer(e)}
                             >
                               Habilitar
                             </Button>
@@ -99,12 +89,12 @@ export default function AdminListSeller() {
                   </Card>
                 </div>
               </div>
-            );
+            )
           }) : (
-           redirigir()
+            redirigir()
           )
-        }
+      }
       <Footer />
     </div>
-  );
+  )
 }

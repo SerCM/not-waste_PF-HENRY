@@ -17,6 +17,7 @@ const getCallCustomer = async (req, res) => {
           paranoid: false,
         },
       ],
+      paranoid: false,
     });
     if (email) {
       customers = customers.filter((s) => s.email === email);
@@ -59,7 +60,39 @@ const postCustomer = async (req, res) => {
     res.status(500).send(`${e}`);
   }
 };
+
+const disableCustomer = async (req, res) => {
+  let { id } = req.params;
+  try {
+    await Customer.destroy({
+      where: {id: id}
+    });
+    const customerDisabled = await Customer.findOne({
+      where: {id: id}
+    })
+    res.status(200).send(customerDisabled)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const restoreCustomer = async (req, res) => {
+  let { id } = req.params;
+  try {
+    await Customer.restore({
+      where: {id: id}
+    });
+    const customerRestore = await Customer.findOne({
+      where: {id: id}
+    })
+    res.status(200).send(customerRestore)
+  } catch (error) {
+    console.log(error)
+  }
+}
 module.exports = {
   postCustomer,
   getCallCustomer,
+  disableCustomer,
+  restoreCustomer
 };

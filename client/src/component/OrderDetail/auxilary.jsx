@@ -6,6 +6,7 @@ import {
   postDetail,
   prodDetail,
   disableOrder,
+  modifyPost,
 } from "../../redux/actions";
 import AuthProfile from "../AuthProfile";
 import VerifyProfile from "../VerifyProfile";
@@ -13,11 +14,9 @@ import { useParams } from "react-router-dom";
 import { Badge, Button, Card, ListGroup } from "react-bootstrap";
 
 export function Auxilary(props) {
-  // console.log(" props", props)
 
   let id = props.idProduct;
   let orden = props.orden;
-  console.log("🚀 ~ file: auxilary.jsx ~ line 15 ~ Auxilary ~ orden", orden);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -34,8 +33,13 @@ export function Auxilary(props) {
     .toString();
 
   const desabilitar = (e) => {
-    console.log("DESHABILITAR");
-    dispatch(disableOrder(e.target.name));
+    let orderFinded = orden.find((o) => o.id === e);
+    let postId = orderFinded.postId;
+    let postFinded = product.posts.find((p) => p.id === postId);
+    let amountFind = postFinded.amount;
+
+    dispatch(disableOrder(e));
+    dispatch(modifyPost(postId, { amount: amountFind + 1 }));
     window.location.replace("/customer/orders");
   };
 
@@ -110,7 +114,7 @@ export function Auxilary(props) {
               <Button className="btn btn-dark m-1 p-1">Finalizar compra</Button>
               <Button
                 name={orden[0].id}
-                onClick={(e) => desabilitar(e)}
+                onClick={(e) => desabilitar(e.target.name)}
                 variant="danger"
               >
                 Deshabilitar
@@ -122,7 +126,7 @@ export function Auxilary(props) {
         <>
           <Card className="w-50 mx-auto mt-2 bgColor">
             <div className="d-flex position-relative">
-              <Card.Img variant="top" src={product.image} />
+              <Card.Img variant="top" src={product.image? product.image : "no hay imagen para este producto"} alt="no hay imagen para este producto" />
               <Card.ImgOverlay className="d-flex align-items-start flex-column justify-content-between">
                 <Badge pill bg="warning">
                   Estado:{" "}
