@@ -102,6 +102,12 @@ export function prodDetail(id) {
   };
 }
 
+export function cleanDetail() {
+  return{
+    type: "CLEAN_DETAIL"
+  }
+}
+
 export function getDiet() {
   return async function (dispatch) {
     try {

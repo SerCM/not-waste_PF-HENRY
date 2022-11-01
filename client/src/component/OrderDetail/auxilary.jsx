@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import {
   getCustomer,
@@ -7,6 +8,7 @@ import {
   prodDetail,
   disableOrder,
   modifyPost,
+  cleanDetail,
 } from "../../redux/actions";
 import AuthProfile from "../AuthProfile";
 import VerifyProfile from "../VerifyProfile";
@@ -25,6 +27,12 @@ export function Auxilary(props) {
   // let product = useSelector((state) => state.prodDetails);
 
   let product = useSelector((state) => state.prodDetails);
+
+  useEffect(() => {
+    return function () {
+        dispatch(cleanDetail())
+    }
+},[dispatch])
 
   let stateOrder = orden
     ?.map((e) => {
@@ -45,6 +53,7 @@ export function Auxilary(props) {
 
   return (
     <div>
+      <Link to='/customer/orders'>VOLVER</Link>
       {stateOrder === "pendiente" ? (
         <Card className="w-50 mx-auto mt-2 bgColor">
           <div className="d-flex position-relative">
@@ -121,6 +130,7 @@ export function Auxilary(props) {
               </Button>
             </div>
           </Card.Footer>
+          <Link to=''>VOLVER</Link>
         </Card>
       ) : (
         <>
