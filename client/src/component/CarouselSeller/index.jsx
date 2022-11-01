@@ -4,7 +4,13 @@ import Styles from "./CarouselSeller.module.css";
 import { Image } from "react-bootstrap";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 
-function CarouselSeller({ seller }) {
+function CarouselSeller({ seller, queryParams }) {
+  let products = seller.products;
+  if (queryParams?.description) {
+    products = seller?.products?.filter((p) => 
+      p?.description.toLowerCase().includes(queryParams?.description?.toLowerCase()));
+  }
+
   return (
     <div className={seller.deletedAt ? Styles.container2 : Styles.container}>
       <div className={Styles.containerCarousel}>
@@ -24,8 +30,8 @@ function CarouselSeller({ seller }) {
           </div>
         </div>
         <div className={Styles.containerCards}>
-          {seller.products.map((product) => {
-            return product.posts.map((post) => {
+          {products?.map((product) => {
+            return product?.posts?.map((post) => {
               return <PostCard key={post.id} product={product} post={post} />;
             });
           })}
