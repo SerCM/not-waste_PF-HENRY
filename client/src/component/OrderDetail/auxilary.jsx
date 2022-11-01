@@ -14,7 +14,6 @@ import { useParams } from "react-router-dom";
 import { Badge, Button, Card, ListGroup } from "react-bootstrap";
 
 export function Auxilary(props) {
-  // console.log(" props", props)
 
   let id = props.idProduct;
   let orden = props.orden;

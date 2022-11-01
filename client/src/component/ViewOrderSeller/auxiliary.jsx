@@ -7,7 +7,6 @@ import { cancelado, entregado } from "./middleware";
 const CreateCardsOrders = (db) => {
 
     let compradores = useSelector((state) => state.customer)
-    // console.log(db)
     // hace referencia a que no se puede activar un producto en una fecha anterior ------------->
     var today = new Date();
     var dd = today.getDate();
@@ -48,14 +47,6 @@ const CreateCardsOrders = (db) => {
         ordenesViejas = orders.filter(orden => orden.date < today)
         ordenesFuturas = orders.filter(orden => orden.date > today)
     }
-
-    // console.log('products', products)
-    // console.log('post', posts)
-    // console.log('orders', orders)
-    // console.log("deldia", ordenesDelDia)
-    // console.log("viejas", ordenesViejas)
-    // console.log("futuras", ordenesFuturas)
-    // console.log("compradores", compradores)
 
      const marcarComoEntregado = (id) => {
          setTimeout(() => {

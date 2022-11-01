@@ -18,7 +18,6 @@ export default function AdminListCustomer() {
   let db = VerifyProfile(log.email);
 
   const allCustomer = useSelector(state => state.customer)
-  // console.log(allCustomer, 'SOY CUSTOMER')
 
   useEffect(() => {
     dispatch(getCustomer())
