@@ -124,6 +124,11 @@ export const Profile = (props) => {
                 Vendedores
               </Link>
             </Dropdown.Item>
+            <Dropdown.Item className="drop">
+              <Link className="link" to="/listCustomer">
+                Consumidores
+              </Link>
+            </Dropdown.Item>
             <Dropdown.Item
               className="drop"
               type="button"

@@ -6,6 +6,7 @@ import {
   postDetail,
   prodDetail,
   disableOrder,
+  modifyPost,
 } from "../../redux/actions";
 import AuthProfile from "../AuthProfile";
 import VerifyProfile from "../VerifyProfile";
@@ -34,8 +35,13 @@ export function Auxilary(props) {
     .toString();
 
   const desabilitar = (e) => {
-    console.log("DESHABILITAR");
-    dispatch(disableOrder(e.target.name));
+    let orderFinded = orden.find((o) => o.id === e);
+    let postId = orderFinded.postId;
+    let postFinded = product.posts.find((p) => p.id === postId);
+    let amountFind = postFinded.amount;
+
+    dispatch(disableOrder(e));
+    dispatch(modifyPost(postId, { amount: amountFind + 1 }));
     window.location.replace("/customer/orders");
   };
 
@@ -110,7 +116,7 @@ export function Auxilary(props) {
               <Button className="btn btn-dark m-1 p-1">Finalizar compra</Button>
               <Button
                 name={orden[0].id}
-                onClick={(e) => desabilitar(e)}
+                onClick={(e) => desabilitar(e.target.name)}
                 variant="danger"
               >
                 Deshabilitar
