@@ -95,7 +95,7 @@ function Register(props) {
       categories &&
       categories.map((category) => (
         <option key={uuidv4()} value={category}>
-          {category}
+          {category.charAt(0).toUpperCase() + category.slice(1)}
         </option>
       ))
     );
@@ -364,7 +364,7 @@ function Register(props) {
                   {cities?.map((cities, i) => {
                     return (
                       <option key={i} value={cities.name}>
-                        {cities.name}
+                        {cities.name.charAt(0).toUpperCase() + cities.name.slice(1)}
                       </option>
                     );
                   })}
@@ -374,7 +374,7 @@ function Register(props) {
                 <div>
                   {input.cities?.map((ci, i) => (
                     <div key={i}>
-                      <p>{ci}</p>
+                      <p>{ci.charAt(0).toUpperCase() + ci.slice(1)}</p>
                       <button
                         value={ci}
                         name="cities"
