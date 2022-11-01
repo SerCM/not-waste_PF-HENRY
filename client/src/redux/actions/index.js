@@ -432,7 +432,6 @@ export function restorePost(id) {
 }
 
 export function notificaciones(input) {
-// console.log(JSON.stringify+ "Holaa")
   return fetch(`${urlAPI}/notificaciones`, {
     method: "POST",
     body: JSON.stringify(input),

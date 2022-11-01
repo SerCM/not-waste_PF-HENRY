@@ -36,7 +36,6 @@ const Order = () => {
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
-  // console.log(db);
   useEffect(() => {
     if (orderFinished && orderFinished.state === "pendiente") {
       setTimeout(() => {

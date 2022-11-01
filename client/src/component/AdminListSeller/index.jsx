@@ -19,7 +19,6 @@ export default function AdminListSeller() {
 
   let log = AuthProfile("profile"); // esto puede ser {}, true o false
   let db = VerifyProfile(log.email);
-  // console.log(db)
 
   useEffect(() => {
     dispatch(getSellers());
