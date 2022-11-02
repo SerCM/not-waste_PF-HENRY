@@ -112,11 +112,11 @@ const Order = () => {
           </h4>
         </div>
       );
-      if (tipo === "bloqueado")
+    if (tipo === "bloqueado")
       return (
         <div>
           <h4>
-            Su usuario se encuentra bloqueado. 
+            Su usuario se encuentra bloqueado.
             <br />
             Sera redirigido a la pagina principal.
           </h4>
@@ -146,7 +146,10 @@ const Order = () => {
                   {productOrderInProgress?.map((p) => {
                     return (
                       <div key={i++}>
-                        <Link className="link" to={`/orderDetial/${ordersInProgress[i].id}`}>
+                        <Link
+                          className="link"
+                          to={`/orderDetial/${ordersInProgress[i].id}`}
+                        >
                           <OrderItem product={p} order={ordersInProgress[i]} />
                         </Link>
                       </div>
@@ -154,6 +157,7 @@ const Order = () => {
                   })}
                 </div>
               </ListGroup.Item>
+              div
               <ListGroup.Item className="d-flex justify-content-between">
                 <div className="d-flex row">
                   <Card.Subtitle className="mb-2 text-muted">
@@ -162,7 +166,10 @@ const Order = () => {
                   {productOrderFinished?.map((p) => {
                     return (
                       <div key={j++}>
-                        <Link className="link" to={`/orderDelivered/${ordersFinished[j].id}`}>
+                        <Link
+                          className="link"
+                          to={`/orderDelivered/${ordersFinished[j].id}`}
+                        >
                           <OrderItem product={p} order={ordersFinished[j]} />
                         </Link>
                       </div>
@@ -175,7 +182,10 @@ const Order = () => {
           <Card.Footer className="mb-4"></Card.Footer>
         </Card>
       )}
-      {db.exists && db.type === "customer" && db.deletedAt !== null && redirigir("bloqueado")}
+      {db.exists &&
+        db.type === "customer" &&
+        db.deletedAt !== null &&
+        redirigir("bloqueado")}
       {db.exists && db.type !== "customer" && redirigir(db.type)}
       {db.exists === false && (
         <div className="spinner-grow" role="status">
