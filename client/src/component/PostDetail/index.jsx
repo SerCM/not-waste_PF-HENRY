@@ -184,7 +184,7 @@ const PostDetail = () => {
             {postO.amount === 0 ? (
               <div>no hay disponibilidad</div>
             ) : (
-              <div className="d-flex align-items-center">
+              <div className="d-flex align-items-center flex-wrap">
                 <span className="mx-2">
                   {new Date(postO.date).toLocaleDateString("es-AR")}
                 </span>
@@ -209,6 +209,16 @@ const PostDetail = () => {
                     );
                   })}
                 </DropdownButton>
+                {!db.exists ? (
+                  <div>
+                    <span className="bold">
+                      Para poder agregar tus productos al carrito haz click en:{" "}
+                    </span>
+                    <LogingButton />
+                  </div>
+                ) : (
+                  ""
+                )}
                 {db.exists && db.type === "customer" && db.deletedAt === null && (
                   <Button
                     onClick={() =>
