@@ -135,9 +135,12 @@ const Order = () => {
                 Mis pedidos
               </span>
             </Card.Title>
+            {!productOrderFinished && !productOrderInProgress 
+            && <span>Aún no se han realizado pedidos</span>}
           </div>
           <Card.Body className="p-0">
             <ListGroup variant="flush">
+              {productOrderInProgress && 
               <ListGroup.Item className="d-flex justify-content-between">
                 <div className="d-flex row">
                   <Card.Subtitle className="mb-2 text-muted ">
@@ -156,9 +159,9 @@ const Order = () => {
                     );
                   })}
                 </div>
-              </ListGroup.Item>
-              div
-              <ListGroup.Item className="d-flex justify-content-between">
+              </ListGroup.Item>}
+              {orderFinished &&
+                <ListGroup.Item className="d-flex justify-content-between">
                 <div className="d-flex row">
                   <Card.Subtitle className="mb-2 text-muted">
                     Pedidos finalizados
@@ -176,7 +179,7 @@ const Order = () => {
                     );
                   })}
                 </div>
-              </ListGroup.Item>
+              </ListGroup.Item>}
             </ListGroup>
           </Card.Body>
           <Card.Footer className="mb-4"></Card.Footer>
