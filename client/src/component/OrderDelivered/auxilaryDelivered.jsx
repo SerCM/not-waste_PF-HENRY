@@ -12,7 +12,7 @@ import VerifyProfile from "../VerifyProfile";
 import { useParams } from "react-router-dom";
 import { Badge, Button, Card, ListGroup } from "react-bootstrap";
 import swal from "sweetalert";
-import "./orderDetail.css";
+import "./orderDelivered.css";
 export function AuxilaryDelivered(props) {
   let id = props.idProduct;
   let orden = props.orden;
