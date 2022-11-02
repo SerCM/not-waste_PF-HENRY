@@ -33,11 +33,15 @@ function Home() {
     window.location.reload();
   }
 
-  let vendedoresconpost = []
+  let sellersWithPosts = sellers;
+  if (queryParams?.description) {
+    sellersWithPosts = sellers.map(seller => ({
+      ...seller,
+      products: seller.products.filter(p =>
+         { return p?.description?.toLowerCase().includes(queryParams?.description?.toLowerCase()) && p?.posts.length > 0}),
+    }))
+  }
 
-  sellers?.map((seller) => {
-    if (seller.products.find((p) => p.posts.length > 0)) vendedoresconpost.push(seller);
-  })
 
   return (
     <div>
@@ -61,8 +65,9 @@ function Home() {
             <div className="accordion-item">
               <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                 <div className="accordion-body">
-                  {vendedoresconpost.length ? vendedoresconpost.slice(0, 3).map(seller => {
-                    return <CarouselSeller seller={seller} queryParams={queryParams}/>
+                  {sellersWithPosts.length  ? sellersWithPosts.slice(0, 3).map(seller => {
+                    if (seller.products.length > 0) 
+                    return <CarouselSeller seller={seller} queryParams={queryParams} />
                   }) : (
                     <Spinner animation="border" role="status">
                       <span className="visually-hidden">Loading...</span>
@@ -73,7 +78,7 @@ function Home() {
               </div>
             </div>
 
-            {vendedoresconpost.slice(3, 6).length && <>
+            {sellersWithPosts.slice(3, 6).length && <>
               <div className="accordion-item">
                 <h2 className="accordion-header" id="panelsStayOpen-headingTwo">
                   <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
@@ -82,14 +87,15 @@ function Home() {
                 </h2>
                 <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                   <div className="accordion-body">
-                    {vendedoresconpost.length > 3 && vendedoresconpost.slice(3, 6).map(seller => {
+                    {sellersWithPosts.length > 3 && sellersWithPosts.slice(3, 6).map(seller => {
+                     if (seller.products.length > 0) 
                       return <CarouselSeller seller={seller} />
                     })}
                   </div>
                 </div>
               </div>
 
-              {vendedoresconpost.slice(6).length &&
+              {sellersWithPosts.slice(6).length &&
                 <div className="accordion-item">
                   <h2 className="accordion-header" id="panelsStayOpen-headingTwo">
                     <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo123" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
@@ -98,7 +104,8 @@ function Home() {
                   </h2>
                   <div id="panelsStayOpen-collapseTwo123" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                     <div className="accordion-body">
-                      {vendedoresconpost.length > 6 && vendedoresconpost.slice(6).map(seller => {
+                      {sellersWithPosts.length > 6 && sellersWithPosts.slice(6).map(seller => {
+                        if (seller.products.length > 0) 
                         return <CarouselSeller seller={seller} />
                       })}
                     </div>
