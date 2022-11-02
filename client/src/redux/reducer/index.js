@@ -77,6 +77,7 @@ export default function rootReducer(state = initialState, actions) {
         seller: actions.payload,
       };
     case "POST_ORDER":
+      console.log("🚀 ~ file: index.js ~ line 83 ~ rootReducer ~ actions.payload", actions.payload)
       return {
         ...state,
         currentOrder: actions.payload,

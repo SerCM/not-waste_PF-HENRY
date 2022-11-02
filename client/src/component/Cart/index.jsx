@@ -39,9 +39,11 @@ function Cart(props) {
   // }, [dispatch]);
 
   const handlePayment = (cart) => {
-    dispatch(postOrder(cart[0]))
-      .then((r) => postPay({ price: price, postId: r.id }))
-      .then((payId) => window.location.replace(payId.redirect));
+    let postId = cart?.map(c => c?.postid);
+    console.log("🚀 ~ file: index.jsx ~ line 43 ~ handlePayment ~ postId", postId)
+    dispatch(postOrder(cart))
+      .then((r) => postPay({ price: price, postId: postId}))
+      .then((payId) => window.location.replace(payId.redirect))
   };
 
   const handleDelete = (e) => {
@@ -111,18 +113,18 @@ function Cart(props) {
                           </div>
                         </ListGroup.Item>
                         {cart?.map(c => {
-                        
-                          return(
-                          <ListGroup.Item className="d-flex column">
-                            <ProductItem cart={c}></ProductItem>
-                            <button
-                              type="button"
-                              className="close"
-                              onClick={(e) => handleDelete(e)}
-                            >
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </ListGroup.Item>)
+
+                          return (
+                            <ListGroup.Item className="d-flex column">
+                              <ProductItem cart={c}></ProductItem>
+                              <button
+                                type="button"
+                                className="close"
+                                onClick={(e) => handleDelete(e)}
+                              >
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </ListGroup.Item>)
                         }
                         )}
                       </ListGroup>
