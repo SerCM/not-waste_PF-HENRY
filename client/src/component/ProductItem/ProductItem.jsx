@@ -14,9 +14,9 @@ const ProductItem = ({ cart }) => {
         <>
 
             <div className='d-flex align-items-center justify-content-between'>
-                <span className='mr-2 font-weight-normal'>{cart.amount}</span>
-                <span className='ms-2 text-capitalize font-weight-normal'>{cart.name}</span>
-                <Image roundedCircle className='product-image' src={cart.image} />
+                <span className='mr-2 font-weight-normal'>{cart?.amount}</span>
+                <span className='ms-2 text-capitalize font-weight-normal'>{cart?.name}</span>
+                <Image roundedCircle className='product-image' src={cart?.image} />
                 
             </div>
         </>

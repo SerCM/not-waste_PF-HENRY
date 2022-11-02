@@ -64,7 +64,7 @@ export function reviewOrder(id, input, idProduct) {
     try {
       fetch(`${urlAPI}/product/${idProduct}`, {
         method: "PUT",
-        body: JSON.stringify({cantPuntuaciones: input.cantvaluaciones, puntuacion: input.promValue, review: true}), // data can be `string` or {object}!
+        body: JSON.stringify({ cantPuntuaciones: input.cantvaluaciones, puntuacion: input.promValue, review: true }), // data can be `string` or {object}!
         headers: {
           "Content-Type": "application/json",
         },
@@ -110,7 +110,7 @@ export function prodDetail(id) {
 }
 
 export function cleanDetail() {
-  return{
+  return {
     type: "CLEAN_DETAIL"
   }
 }
@@ -251,11 +251,28 @@ export function getOrders(customerId) {
   };
 }
 
-export function addCart(payload) {
+export function addCart(payload, verificator) {
+  if (verificator) {
+    console.log("MODIFY_CART")
+    return {
+      type: 'MODIFY_CART',
+      payload
+    }
+  } else {
+    console.log("ADD_CART")
+    return {
+      type: "ADD_CART",
+      payload
+    };
+  }
+}
+
+export function deleteCart(postId) {
+  console.log("🚀 ~ file: index.js ~ line 271 ~ deleteCart ~ postId", postId)
   return {
-    type: "ADD_CART",
-    payload,
-  };
+    type: "DELETE_CART",
+    payload: postId
+  }
 }
 
 export function postPost(data) {
@@ -472,14 +489,14 @@ export function restoreOrder(id) {
 }
 
 export function disabledCustomer(id) {
-  return async function() {
+  return async function () {
     const res = await axios.put(`${urlAPI}/customer/disabled/${id}`);
     return res
   }
 }
 
 export function restoreCustomer(id) {
-  return async function() {
+  return async function () {
     const res = axios.put(`${urlAPI}/customer/restore/${id}`);
     return res
   }

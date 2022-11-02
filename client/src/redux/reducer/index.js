@@ -15,7 +15,7 @@ const initialState = {
   postDetail: [],
   orderDetail: {},
   managers: [],
-  allPosts:[],
+  allPosts: [],
   orders: []
 };
 
@@ -68,7 +68,7 @@ export default function rootReducer(state = initialState, actions) {
     case "CLEAN_DETAIL":
       return {
         ...state,
-        prodDetails:[]
+        prodDetails: []
       }
 
     case "POST_PRODUCT":
@@ -82,17 +82,28 @@ export default function rootReducer(state = initialState, actions) {
         currentOrder: actions.payload,
         orders: [...state.orders, actions.payload]
       };
-      case "PUT_ORDER":
-        return {
-          ...state,
-          currentOrder: actions.payload,
-          orders: [...state.orders, actions.payload]
-        };
+    case "PUT_ORDER":
+      return {
+        ...state,
+        currentOrder: actions.payload,
+        orders: [...state.orders, actions.payload]
+      };
     case "ADD_CART":
       return {
         ...state,
         cart: [...state.cart, actions.payload],
       };
+    case "MODIFY_CART":
+      
+      return {
+        ...state,
+        cart: [state.cart.filter(c => c.postId !== actions.payload.postId), actions.payload]
+      }
+    case "DELETE_CART":
+      return {
+        ...state,
+        cart: state.cart.filter(c => c.postId !== actions.payload)
+      }
     case "POST_PAY":
       return {
         ...state,
@@ -109,26 +120,26 @@ export default function rootReducer(state = initialState, actions) {
         postDetail: actions.payload,
       };
 
-      case "ORDER_DETAIL":
-        return {
-          ...state,
-          orderDetail: actions.payload
-        }
-        case "GET_ORDERS":
-        return {
-          ...state,
-          orders: actions.payload
-        }
+    case "ORDER_DETAIL":
+      return {
+        ...state,
+        orderDetail: actions.payload
+      }
+    case "GET_ORDERS":
+      return {
+        ...state,
+        orders: actions.payload
+      }
     case "GET_MANAGERS":
       return {
         ...state,
         managers: actions.payload,
       };
-      case "GET_POSTEO":
-        return {
-          ...state,
-          allPosts: actions.payload,
-        };
+    case "GET_POSTEO":
+      return {
+        ...state,
+        allPosts: actions.payload,
+      };
     default:
       return state;
   }
