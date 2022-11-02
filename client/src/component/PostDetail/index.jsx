@@ -18,6 +18,7 @@ import {
   DropdownButton,
 } from "react-bootstrap";
 import NavBar from "../NavBar";
+import LogingButton from "../LoginButton/index";
 import Footer from "../Footer/index";
 import amountPostArray from "../../utils/amountPostArray";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -47,7 +48,7 @@ const PostDetail = () => {
   let customer = customers?.find((c) => c.email === user?.email);
   let productId = post.productId;
   let allOrders = post[0]?.orders?.map((e) => e);
-  let cart = useSelector(state => state.cart)
+  let cart = useSelector((state) => state.cart);
   // let productOrders = product?.posts?.orders?.filter(e=>e.orders)
 
   let ordersComment = allOrders
@@ -68,7 +69,6 @@ const PostDetail = () => {
   }
 
   const handleCart = (input) => {
-
     if (input.amount > 0) {
       if (cart.find(c => c?.postId === input?.postId)) {
         console.log('hola')
