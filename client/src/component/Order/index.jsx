@@ -32,8 +32,8 @@ const Order = () => {
 
   let customers = useSelector((state) => state.customer);
   let customer = customers?.find((c) => c.email === user?.email);
-  let orderFinished = customer?.orders?.filter((o) => orderId.includes(o.id));
-  let orderPending = customer?.orders?.filter((o) => orderId.includes(o.id) && o.state === "pendiente")
+  let orderFinished = customer?.orders?.filter((o) => orderId?.includes(o.id));
+  let orderPending = customer?.orders?.filter((o) => orderId?.includes(o.id) && o.state === "pendiente")
   console.log("🚀 ~ file: index.jsx ~ line 37 ~ Order ~ orderPending", orderPending)
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
