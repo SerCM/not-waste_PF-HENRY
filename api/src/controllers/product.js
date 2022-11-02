@@ -91,40 +91,55 @@ const postProduct = async (req, res) => {
 
 const putProduct = async (req, res) => {
   const { id } = req.params;
-  let { name, price, realValue, description, image, diets } = req.body;
+  let { name, price, realValue, description, image, diets, puntuacion, cantPuntuaciones } = req.body;
   let productToModify = await Product.findByPk(id);
-  try {
-    if (!name) {
-      throw new Error("Debe definirse un nombre");
-    }
-    if (!price) {
-      throw new Error("Debe definirse un precio");
-    }
-    if (!realValue) {
-      throw new Error("Debe definirse un valor real");
-    }
-    if (!description) {
-      throw new Error("Debe definirse una descripción");
-    }
-    let productToModify = await Product.upsert({
-      id,
-      name,
-      price,
-      realValue,
-      description,
-      image,
-    });
-    if (diets) {
-      let dietDb = await Diet.findAll({
-        where: { name: diets },
+
+  if (puntuacion && cantPuntuaciones) {
+    let productoModificado = await Product.upsert({
+      id: productToModify.id,
+      name: productToModify.name,
+      price: productToModify.price,
+      realValue: productToModify.realValue,
+      description: productToModify.description,
+      puntuacion,
+      cantPuntuaciones
+    })
+    res.send(productoModificado)
+  }
+  else {
+    try {
+      if (!name) {
+        throw new Error("Debe definirse un nombre");
+      }
+      if (!price) {
+        throw new Error("Debe definirse un precio");
+      }
+      if (!realValue) {
+        throw new Error("Debe definirse un valor real");
+      }
+      if (!description) {
+        throw new Error("Debe definirse una descripción");
+      }
+      let productToModify = await Product.upsert({
+        id,
+        name,
+        price,
+        realValue,
+        description,
+        image,
       });
+      if (diets) {
+        let dietDb = await Diet.findAll({
+          where: { name: diets },
+        });
 
-      productToModify[0].setDiets(dietDb);
+        productToModify[0].setDiets(dietDb);
+      }
+
+      res.send(productToModify);
+    } catch (e) {
+      res.status(500).send(`${e.message}`);
     }
-
-    res.send(productToModify);
-  } catch (e) {
-    res.status(500).send(`${e.message}`);
   }
 };
 

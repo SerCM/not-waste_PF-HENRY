@@ -59,10 +59,17 @@ export function getCities() {
   };
 }
 
-export function reviewOrder(id, review) {
+export function reviewOrder(id, input, idProduct) {
   return async function (dispatch) {
     try {
-      const response = await axios.put(`${urlAPI}/orderReview/${id}`, review);
+      fetch(`${urlAPI}/product/${idProduct}`, {
+        method: "PUT",
+        body: JSON.stringify({cantPuntuaciones: input.cantvaluaciones, puntuacion: input.promValue, review: true}), // data can be `string` or {object}!
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      const response = await axios.put(`${urlAPI}/orderReview/${id}`, input);
       dispatch({
         type: "PUT_ORDER",
         payload: response.data,
@@ -100,6 +107,12 @@ export function prodDetail(id) {
       console.log(error);
     }
   };
+}
+
+export function cleanDetail() {
+  return{
+    type: "CLEAN_DETAIL"
+  }
 }
 
 export function getDiet() {
