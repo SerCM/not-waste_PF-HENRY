@@ -19,7 +19,7 @@ function PostCard({ product, post }) {
     <Card
       className={product.deletedAt || post.deletedAt ? "postCard1" : "postCard"}
     >
-      <Card.Link className="card-link" href={`/home/${post.id}`}>
+      <Link className="card-link" to={`/home/${post.id}`}>
         <Card.Img className="card-image" variant="top" src={product.image} />
         <Card.ImgOverlay>
           <Badge pill bg="warning" text="white">
@@ -49,7 +49,7 @@ function PostCard({ product, post }) {
           <span className="mx-2 text-black-50">|</span>
           <span>$ {product.price}</span>
         </Card.Footer>
-      </Card.Link>
+      </Link>
     </Card>
   );
 }

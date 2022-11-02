@@ -40,8 +40,13 @@ function Cart(props) {
   // }, [dispatch]);
 
   const handlePayment = (cart) => {
-    dispatch(postOrder(cart[0]))
-      .then((r) => postPay({ price: price, postId: r.id }))
+    let postId = cart?.map((c) => c?.postid);
+    console.log(
+      "🚀 ~ file: index.jsx ~ line 43 ~ handlePayment ~ postId",
+      postId
+    );
+    dispatch(postOrder(cart))
+      .then((r) => postPay({ price: price, postId: postId }))
       .then((payId) => window.location.replace(payId.redirect));
   };
 
