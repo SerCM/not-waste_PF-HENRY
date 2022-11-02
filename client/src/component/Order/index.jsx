@@ -32,16 +32,17 @@ const Order = () => {
 
   let customers = useSelector((state) => state.customer);
   let customer = customers?.find((c) => c.email === user?.email);
-  let orderFinished = customer?.orders?.find((o) => o.id === orderId);
+  let orderFinished = customer?.orders?.filter((o) => orderId.includes(o.id));
+  let orderPending = customer?.orders?.filter((o) => orderId.includes(o.id) && o.state === "pendiente")
+  console.log("🚀 ~ file: index.jsx ~ line 37 ~ Order ~ orderPending", orderPending)
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (orderFinished && orderFinished.state === "pendiente") {
+    useEffect(() => {
+    if (orderPending?.length > 0 ) {
       setTimeout(() => {
         window.location.reload(true);
       }, 1000);
-      dispatch(putOrder(orderFinished?.id, { state: "confirmado" }));
+      orderFinished?.map(of => dispatch(putOrder(of?.id, { state: "confirmado" })));
       dispatch(getOrders());
       dispatch(
         notificaciones({
@@ -135,12 +136,14 @@ const Order = () => {
                 Mis pedidos
               </span>
             </Card.Title>
-            {!productOrderFinished && !productOrderInProgress 
-            && <span>Aún no se han realizado pedidos</span>}
+           
           </div>
           <Card.Body className="p-0">
+          {ordersInProgress.length < 1 && ordersFinished.length < 1
+            && 
+            <Card.Subtitle variant="flush" className="d-flex justify-content-center">Aún no se han realizado pedidos</Card.Subtitle>}
             <ListGroup variant="flush">
-              {productOrderInProgress && 
+              {ordersInProgress.length > 0 && 
               <ListGroup.Item className="d-flex justify-content-between">
                 <div className="d-flex row">
                   <Card.Subtitle className="mb-2 text-muted ">
