@@ -31,18 +31,14 @@ function Cart(props) {
 
   let price = 0;
   for (let i = 0; i < cart.length; i++) {
-
     if (cart[i].price)
     price = price + cart[i]?.amount * cart[i]?.price
-
   }
-
   const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   // useEffect(() => {
   //   dispatch(postOrder());
   // }, [dispatch]);
-
 
   const handlePayment = async (cart) => {
     // let postId = cart?.map(c => c?.postid);
@@ -55,7 +51,6 @@ function Cart(props) {
       .then(payId => window.location.replace(payId.redirect))
 
   }
-
 
   const handleDelete = (e, postId) => {
     e.preventDefault();
@@ -125,10 +120,8 @@ function Cart(props) {
                             </span>
                           </div>
                         </ListGroup.Item>
-
                         {cart?.map(c => {
                           if(c?.amount)
-
                           return (
                             <ListGroup.Item key={c.postId} className="d-flex column">
                               <ProductItem cart={c}></ProductItem>
@@ -139,16 +132,17 @@ function Cart(props) {
                               >
                                 <span aria-hidden="true">&times;</span>
                               </button>
-                            </ListGroup.Item>
-                          );
-                        })}
+                            </ListGroup.Item>)
+                        }
+                        )}
                       </ListGroup>
                     </Card.Body>
                     <Card.Footer className="d-flex justify-content-center">
                       <Button
                         variant="dark"
                         className="d-flex w-50 justify-content-center"
-                        onClick={price}
+                        onClick={() => handlePayment(cart)}
+                        value={price}
                       >
                         Pagar
                       </Button>
