@@ -16,7 +16,7 @@ import "./orderDelivered.css";
 export function AuxilaryDelivered(props) {
   let id = props.idProduct;
   let orden = props.orden;
-
+console.log(props)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(prodDetail(id));
@@ -24,10 +24,11 @@ export function AuxilaryDelivered(props) {
   // let product = useSelector((state) => state.prodDetails);
 
   let product = useSelector((state) => state.prodDetails);
-
   const [input, setInput] = useState({
     reviewValue: "",
     reviewComment: "",
+    promValue: 0,
+    cantvaluaciones: 0
   });
 
   function handleReviewComment(e) {
@@ -36,26 +37,69 @@ export function AuxilaryDelivered(props) {
       [e.target.name]: e.target.value,
     });
   }
+
+  (function() {
+    /**
+     * Ajuste decimal de un número.
+     *
+     * @param {String}  tipo  El tipo de ajuste.
+     * @param {Number}  valor El numero.
+     * @param {Integer} exp   El exponente (el logaritmo 10 del ajuste base).
+     * @returns {Number} El valor ajustado.
+     */
+  function decimalAdjust(type, value, exp) {
+    // Si el exp no está definido o es cero...
+    if (typeof exp === 'undefined' || +exp === 0) {
+      return Math[type](value);
+    }
+    value = +value;
+    exp = +exp;
+    // Si el valor no es un número o el exp no es un entero...
+    if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+      return NaN;
+    }
+    // Shift
+    value = value.toString().split('e');
+    value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+    // Shift back
+    value = value.toString().split('e');
+    return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+  }
+
+  // Decimal round
+  if (!Math.round10) {
+    Math.round10 = function(value, exp) {
+      return decimalAdjust('round', value, exp);
+    };
+  }
+  // Decimal floor
+  if (!Math.floor10) {
+    Math.floor10 = function(value, exp) {
+      return decimalAdjust('floor', value, exp);
+    };
+  }
+  // Decimal ceil
+  if (!Math.ceil10) {
+    Math.ceil10 = function(value, exp) {
+      return decimalAdjust('ceil', value, exp);
+    };
+  }
+})();
+
   function handleReviewValue(e) {
+    let nuevapuntuacion = product.puntuacion * product.cantPuntuaciones
+    nuevapuntuacion = nuevapuntuacion + Number(e.target.value)
+    let nuevacantdepuntuaciones = product.cantPuntuaciones + 1
+    let prompuntuacion = nuevapuntuacion / nuevacantdepuntuaciones
+    prompuntuacion = Math.round10(prompuntuacion, -1)
     setInput({
       ...input,
       reviewValue: e.target.value,
+      promValue: prompuntuacion,
+      cantvaluaciones: nuevacantdepuntuaciones
     });
   }
 
-  function handleReviewComment(e) {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  }
-  function handleReviewValue(e) {
-    console.log(e.target.value);
-    setInput({
-      ...input,
-      reviewValue: e.target.value,
-    });
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -64,10 +108,12 @@ export function AuxilaryDelivered(props) {
       text: "Gracias por compratir opinion",
       icon: "success",
     });
-    dispatch(reviewOrder(props.id, input));
+    dispatch(reviewOrder(props.id, input, props.idProduct));
     setInput({
       reviewValue: "",
       reviewComment: "",
+      promValue: 0,
+      cantvaluaciones: 0
     });
   }
   return (
@@ -132,7 +178,7 @@ export function AuxilaryDelivered(props) {
           </ListGroup>
         </Card.Body>
 
-        <Card.Footer>
+        {orden && orden[0].reviewValue === null && <Card.Footer>
           <div>
             <form onSubmit={handleSubmit}>
               <div className="form-outline">
@@ -223,7 +269,8 @@ export function AuxilaryDelivered(props) {
               </Button>
             </form>
           </div>
-        </Card.Footer>
+        </Card.Footer>}
+        {orden && orden[0].reviewValue !== null && <Card.Footer>Reseña ya enviada: {orden[0].reviewValue} ★ - Comentarios: {orden[0].reviewComment && orden[0].reviewComment}</Card.Footer>}
       </Card>
     </div>
   );
