@@ -10,7 +10,7 @@ import {
 import AuthProfile from "../AuthProfile";
 import VerifyProfile from "../VerifyProfile";
 import { useParams } from "react-router-dom";
-import { Badge, Button, Card, ListGroup } from "react-bootstrap";
+import { Badge, Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import swal from "sweetalert";
 import "./orderDelivered.css";
 export function AuxilaryDelivered(props) {
@@ -136,6 +136,7 @@ console.log(props)
         </div>
         <Card.Body className="p-0">
           <ListGroup variant="flush">
+            <ListGroupItem> Pedido realizado el dia: {orden[0].createdAt.slice(0,10)} Fecha de Entrega: {orden[0].date}</ListGroupItem>
             <ListGroup.Item className="d-flex justify-content-between">
               <div>
                 <Card.Subtitle className="mb-2 text-muted ">
