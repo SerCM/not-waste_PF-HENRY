@@ -24,14 +24,6 @@ module.exports = (sequelize) => {
       stock: {
         type: DataTypes.INTEGER,
       },
-      puntuacion: {
-        type: DataTypes.REAL,
-        defaultValue: 0
-      },
-      cantPuntuaciones: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-      },
       description: {
         type: DataTypes.STRING,
         allowNull: false,
