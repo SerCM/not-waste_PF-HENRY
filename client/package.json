@@ -18,6 +18,7 @@
     "cloudinary-react": "^1.8.1",
     "install": "^0.13.0",
     "mercadopago": "^1.5.14",
+    "pathstorage": "^1.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "2.5.0",
     "react-dom": "^18.2.0",

@@ -30,8 +30,9 @@ function Cart(props) {
 
   let price = 0;
   for (let i = 0; i < cart.length; i++) {
-    price = price + cart[i].amount * cart[i].price
+    price = price + cart[i].amount * cart[i].price;
   }
+
   const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   // useEffect(() => {
@@ -110,29 +111,27 @@ function Cart(props) {
                             </span>
                           </div>
                         </ListGroup.Item>
-                        {cart?.map(c => {
-                        
-                          return(
-                          <ListGroup.Item className="d-flex column">
-                            <ProductItem cart={c}></ProductItem>
-                            <button
-                              type="button"
-                              className="close"
-                              onClick={(e) => handleDelete(e)}
-                            >
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </ListGroup.Item>)
-                        }
-                        )}
+                        {cart?.map((c) => {
+                          return (
+                            <ListGroup.Item className="d-flex column">
+                              <ProductItem cart={c}></ProductItem>
+                              <button
+                                type="button"
+                                className="close"
+                                onClick={(e) => handleDelete(e)}
+                              >
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </ListGroup.Item>
+                          );
+                        })}
                       </ListGroup>
                     </Card.Body>
                     <Card.Footer className="d-flex justify-content-center">
                       <Button
                         variant="dark"
                         className="d-flex w-50 justify-content-center"
-                        onClick={() => handlePayment(cart)}
-                        value={price}
+                        onClick={price}
                       >
                         Pagar
                       </Button>
