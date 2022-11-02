@@ -180,7 +180,7 @@ const PostDetail = () => {
               <div>no hay disponibilidad</div>
             ) : (
               <div className="d-flex align-items-center my-2 justify-content-around">
-                <div className="container-fluid">
+                <div className="d-flex container-fluid flex-wrap">
                   <span className="mx-2">
                     {new Date(postO.date).toLocaleDateString("es-AR")}
                   </span>
@@ -205,10 +205,11 @@ const PostDetail = () => {
                       );
                     })}
                   </DropdownButton>
+
                   {!db.exists ? (
                     <div>
-                      <span>
-                        para poder agregar tus productos al carrito haz click
+                      <span className="bold">
+                        Para poder agregar tus productos al carrito haz click
                         en:{" "}
                       </span>
                       <LogingButton />
