@@ -38,13 +38,17 @@ function Cart(props) {
   //   dispatch(postOrder());
   // }, [dispatch]);
 
-  const handlePayment = (cart) => {
-    let postId = cart?.map(c => c?.postid);
-    console.log("🚀 ~ file: index.jsx ~ line 43 ~ handlePayment ~ postId", postId)
-    dispatch(postOrder(cart))
-      .then((r) => postPay({ price: price, postId: postId}))
-      .then((payId) => window.location.replace(payId.redirect))
-  };
+  const handlePayment = async (cart) => {
+    // let postId = cart?.map(c => c?.postid);
+
+    Promise.all(cart.map(c =>
+      dispatch(postOrder(c))
+    ))
+      .then(newOrders => { return newOrders.map(no => no.id).toString() })    
+      .then(orderId => postPay({ price: price, postId: orderId }))
+      .then(payId => window.location.replace(payId.redirect))
+
+  }
 
   const handleDelete = (e) => {
     e.preventDefault();

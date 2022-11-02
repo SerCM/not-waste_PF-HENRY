@@ -10,7 +10,6 @@ import CartButton from '../CartButton';
 
 const ProductItem = ({ cart }) => {
 
-    console.log('cart', cart)
     return (
         <>
 

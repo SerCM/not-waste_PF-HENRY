@@ -64,7 +64,7 @@ export function reviewOrder(id, input, idProduct) {
     try {
       fetch(`${urlAPI}/product/${idProduct}`, {
         method: "PUT",
-        body: JSON.stringify({ cantPuntuaciones: input.cantvaluaciones, puntuacion: input.promValue, review: true }), // data can be `string` or {object}!
+        body: JSON.stringify({cantPuntuaciones: input.cantvaluaciones, puntuacion: input.promValue, review: true}), // data can be `string` or {object}!
         headers: {
           "Content-Type": "application/json",
         },
@@ -110,7 +110,7 @@ export function prodDetail(id) {
 }
 
 export function cleanDetail() {
-  return {
+  return{
     type: "CLEAN_DETAIL"
   }
 }
@@ -194,7 +194,6 @@ export const postProduct = (payload) => {
 };
 
 export function postPay(price, postId, email) {
-  console.log('entra pago', price, postId)
   return fetch(`${urlAPI}/create_preference`, {
     method: "POST", // or 'PUT'
     body: JSON.stringify(price, postId, email), // data can be `string` or {object}!
@@ -213,17 +212,15 @@ export function postPay(price, postId, email) {
 export function postOrder(input) {
   return async function (dispatch) {
     try {
-      let act = input?.map(async i => {
-        await axios.post(`${urlAPI}/order`, i)
-        dispatch({
-          type: "POST_ORDER",
-          payload: act.data,
-        })
-        return act.data;
-      }
-        )
+      const act = await axios.post(`${urlAPI}/order`, input);
 
+      dispatch({
+        type: "POST_ORDER",
+        payload: act.data,
+        orders: act.data.id,
+      });
 
+      return act.data;
     } catch (error) {
       console.log(error);
     }
@@ -475,14 +472,14 @@ export function restoreOrder(id) {
 }
 
 export function disabledCustomer(id) {
-  return async function () {
+  return async function() {
     const res = await axios.put(`${urlAPI}/customer/disabled/${id}`);
     return res
   }
 }
 
 export function restoreCustomer(id) {
-  return async function () {
+  return async function() {
     const res = axios.put(`${urlAPI}/customer/restore/${id}`);
     return res
   }
