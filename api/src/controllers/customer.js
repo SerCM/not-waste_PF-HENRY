@@ -1,4 +1,5 @@
 const { Customer, City, Order } = require("../db");
+const nodemailer = require("nodemailer");
 
 const getCallCustomer = async (req, res) => {
   const { email } = req.query;
@@ -63,36 +64,61 @@ const postCustomer = async (req, res) => {
 
 const disableCustomer = async (req, res) => {
   let { id } = req.params;
+  let{db} =req.params
   try {
-    await Customer.destroy({
-      where: {id: id}
-    });
-    const customerDisabled = await Customer.findOne({
-      where: {id: id}
-    })
-    res.status(200).send(customerDisabled)
+    if (id === true) {
+      const enviarMsj = async (req, res) => {
+        const config = {
+          host: "smtp.gmail.com",
+          port: 587,
+          auth: {
+            user: "gabrielkpo774@gmail.com",
+            pass: "wmdlkwiwxyfelinf",
+          },
+          tls: {
+            rejectUnauthorized: false,
+          },
+        };
+        const mensajeBaneo = {
+          from: "gabrielkpo774@gmail.com",
+          to: req.params.db.email,
+          subjet: "Correo de prueba",
+          text: `Su cuenta se encuentra baneado, comuniquese con el administrador`,
+        };
+        const transport = nodemailer.createTransport(config);
+        const info = await transport.sendMail(mensajeBaneo);
+        res.send(info);
+      };
+      await Customer.destroy({
+        where: { id: id },
+      });
+      const customerDisabled = await Customer.findOne({
+        where: { id: id },
+      });
+      res.status(200).send(customerDisabled, enviarMsj);
+    }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const restoreCustomer = async (req, res) => {
   let { id } = req.params;
   try {
     await Customer.restore({
-      where: {id: id}
+      where: { id: id },
     });
     const customerRestore = await Customer.findOne({
-      where: {id: id}
-    })
-    res.status(200).send(customerRestore)
+      where: { id: id },
+    });
+    res.status(200).send(customerRestore);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 module.exports = {
   postCustomer,
   getCallCustomer,
   disableCustomer,
-  restoreCustomer
+  restoreCustomer,
 };

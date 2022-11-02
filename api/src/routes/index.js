@@ -1,9 +1,10 @@
 const { Router } = require("express");
-const { postCustomer,
-   getCallCustomer,
-   disableCustomer,
-   restoreCustomer
-  } = require("../controllers/customer");
+const {
+  postCustomer,
+  getCallCustomer,
+  disableCustomer,
+  restoreCustomer,
+} = require("../controllers/customer");
 const { getCityInfo, postCity } = require("../controllers/city");
 const {
   getSellers,
@@ -53,7 +54,7 @@ const {
   get_feedback,
 } = require("../controllers/mercadopago");
 
-const enviarMail = require("../controllers/notificaciones");
+const { enviarMail } = require("../controllers/notificaciones");
 
 const router = Router();
 
@@ -121,4 +122,5 @@ router.get("/feedback", get_feedback);
 //notificaciones -->
 router.post("/notificaciones", enviarMail);
 // <-- notificaciones
+
 module.exports = router;

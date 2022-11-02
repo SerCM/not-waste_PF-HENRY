@@ -1,34 +1,35 @@
 // const nodemailer = require("nodemailer")
 
-const nodemailer = require("nodemailer")
+const nodemailer = require("nodemailer");
 
 const enviarMail = async (req, res) => {
-    try {
-          const config = {
+  try {
+    const config = {
       host: "smtp.gmail.com",
       port: 587,
       auth: {
-        user: "richardjavierojeda2021@gmail.com",
-        pass: "mvvmrowmzzaaqfvk",
+        user: "gabrielkpo774@gmail.com",
+        pass: "wmdlkwiwxyfelinf",
       },
       tls: {
-        rejectUnauthorized: false
-    }
+        rejectUnauthorized: false,
+      },
     };
     const mensajedejavi = {
-      from: "richardjavierojeda2021@gmail.com",
+      from: "gabrielkpo774@gmail.com",
       to: req.body.email,
       subjet: "Correo de prueba",
       text: `${req.body.mensaje}`,
     };
     const transport = nodemailer.createTransport(config);
     const info = await transport.sendMail(mensajedejavi);
-    res.send(info)
-    } catch (error) {
-       console.log(error)
-    }
-  
-  };
-  // enviarMail(req.body.email)
+    res.send(info);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-module.exports = enviarMail
+
+module.exports  = {
+  enviarMail,
+}

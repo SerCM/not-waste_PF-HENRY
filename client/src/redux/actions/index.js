@@ -1,4 +1,9 @@
 import axios from "axios";
+import VerifyProfile from "../../component/VerifyProfile";
+import AuthProfile from "../../component/AuthProfile";
+
+let log = AuthProfile("profile");
+let db = VerifyProfile(log.email);
 
 const urlAPI = process.env.REACT_APP_API || "http://localhost:3001";
 
@@ -459,15 +464,15 @@ export function restoreOrder(id) {
 }
 
 export function disabledCustomer(id) {
-  return async function() {
+  return async function () {
     const res = await axios.put(`${urlAPI}/customer/disabled/${id}`);
-    return res
-  }
+    return res;
+  };
 }
 
-export function restoreCustomer(id) {
-  return async function() {
+export function restoreCustomer(id, db) {
+  return async function () {
     const res = axios.put(`${urlAPI}/customer/restore/${id}`);
-    return res
-  }
+    return res;
+  };
 }
