@@ -18,6 +18,7 @@ import {
   DropdownButton,
 } from "react-bootstrap";
 import NavBar from "../NavBar";
+import LogingButton from "../LoginButton/index";
 import Footer from "../Footer/index";
 import amountPostArray from "../../utils/amountPostArray";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -47,7 +48,7 @@ const PostDetail = () => {
   let customer = customers?.find((c) => c.email === user?.email);
   let productId = post.productId;
   let allOrders = post[0]?.orders?.map((e) => e);
-  let cart = useSelector(state => state.cart)
+  let cart = useSelector((state) => state.cart);
   // let productOrders = product?.posts?.orders?.filter(e=>e.orders)
 
   let ordersComment = allOrders
@@ -68,7 +69,6 @@ const PostDetail = () => {
   }
 
   const handleCart = (input) => {
-
     if (input.amount > 0) {
       dispatch(addCart(input));
       // alert(input.name + " se añadio correctamente");
@@ -179,112 +179,130 @@ const PostDetail = () => {
             {postO.amount === 0 ? (
               <div>no hay disponibilidad</div>
             ) : (
-              <div className="d-flex align-items-center">
-                <span className="mx-2">
-                  {new Date(postO.date).toLocaleDateString("es-AR")}
-                </span>
-                <span className="mx-2">
-                  {new Date(postO.date).toLocaleTimeString("es-AR")}
-                </span>
-                <DropdownButton
-                  variant="light"
-                  className="mx-4"
-                  key={`newOrder_${orders.amount}`}
-                  title={orders.amount || "Cantidad"}
-                >
-                  {amountPostArray(postO).map((a) => {
-                    return (
-                      <Dropdown.Item
-                        onClick={() => handleAmount(a)}
-                        key={`${a}+${postO.date}`}
-                        as="button"
-                      >
-                        {a}
-                      </Dropdown.Item>
-                    );
-                  })}
-                </DropdownButton>
-                {db.exists && db.type === "customer" && db.deletedAt === null && (
-                  <Button
-                    onClick={() =>
-                      handleCart({
-                        amount: orders.amount,
-                        date: postO.date,
-                        image: product.image,
-                        price: product.price,
-                        name: product?.name,
-                        customerId: customer?.id,
-                        postId: postO.id,
-                        email: user.email,
-                      })
-                    }
-                    className="btn btn-dark m-1 p-1"
+              <div className="d-flex align-items-center my-2 justify-content-around">
+                <div className="container-fluid">
+                  <span className="mx-2">
+                    {new Date(postO.date).toLocaleDateString("es-AR")}
+                  </span>
+                  <span className="mx-2">
+                    {new Date(postO.date).toLocaleTimeString("es-AR")}
+                  </span>
+                  <DropdownButton
+                    variant="light"
+                    className="mx-4"
+                    key={`newOrder_${orders.amount}`}
+                    title={orders.amount || "Cantidad"}
                   >
-                    {" "}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      className="bi bi-cart-plus"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
-                      <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                    </svg>
-                  </Button>
-                )}
-                {db.exists && db.type === "customer" && db.deletedAt !== null && (
-                  <Button className="btn btn-dark m-1 p-1">
-                    {" "}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      className="bi bi-cart-plus me-3"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
-                      <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                    </svg>
-                    Su cuenta se encuentra Bloqueada para realizar compras.{" "}
-                  </Button>
-                )}
-                {db.exists && db.type === "seller" && (
-                  <Button className="btn btn-dark m-1 p-1">
-                    {" "}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      className="bi bi-cart-plus me-3"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
-                      <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                    </svg>
-                    Las cuentas de tipo Vendedor no pueden realizar compras{" "}
-                  </Button>
-                )}
-                {db.exists && db.type === "manager" && (
-                  <Button className="btn btn-dark m-1 p-1">
-                    {" "}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      className="bi bi-cart-plus me-3"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
-                      <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                    </svg>
-                    Las cuentas de tipo Adminitrador no pueden realizar compras{" "}
-                  </Button>
-                )}
+                    {amountPostArray(postO).map((a) => {
+                      return (
+                        <Dropdown.Item
+                          onClick={() => handleAmount(a)}
+                          key={`${a}+${postO.date}`}
+                          as="button"
+                        >
+                          {a}
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </DropdownButton>
+                  {!db.exists ? (
+                    <div>
+                      <span>
+                        para poder agregar tus productos al carrito haz click
+                        en:{" "}
+                      </span>
+                      <LogingButton />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {db.exists &&
+                    db.type === "customer" &&
+                    db.deletedAt === null && (
+                      <Button
+                        onClick={() =>
+                          handleCart({
+                            amount: orders.amount,
+                            date: postO.date,
+                            image: product.image,
+                            price: product.price,
+                            name: product?.name,
+                            customerId: customer?.id,
+                            postId: postO.id,
+                            email: user.email,
+                          })
+                        }
+                        className="btn btn-dark m-1 p-1"
+                      >
+                        {" "}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          className="bi bi-cart-plus"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                          <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                        </svg>
+                      </Button>
+                    )}
+                  {db.exists &&
+                    db.type === "customer" &&
+                    db.deletedAt !== null && (
+                      <Button className="btn btn-dark m-1 p-1">
+                        {" "}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          className="bi bi-cart-plus me-3"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                          <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                        </svg>
+                        Su cuenta se encuentra Bloqueada para realizar compras.{" "}
+                      </Button>
+                    )}
+                  {db.exists && db.type === "seller" && (
+                    <Button className="btn btn-dark m-1 p-1">
+                      {" "}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        className="bi bi-cart-plus me-3"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                      </svg>
+                      Las cuentas de tipo Vendedor no pueden realizar compras{" "}
+                    </Button>
+                  )}
+                  {db.exists && db.type === "manager" && (
+                    <Button className="btn btn-dark m-1 p-1">
+                      {" "}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        className="bi bi-cart-plus me-3"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                      </svg>
+                      Las cuentas de tipo Adminitrador no pueden realizar
+                      compras{" "}
+                    </Button>
+                  )}
+                </div>
               </div>
             )}
           </Card.Footer>
