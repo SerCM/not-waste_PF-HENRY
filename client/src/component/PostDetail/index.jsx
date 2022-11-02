@@ -18,6 +18,7 @@ import {
   DropdownButton,
 } from "react-bootstrap";
 import NavBar from "../NavBar";
+import LogingButton from "../LoginButton/index";
 import Footer from "../Footer/index";
 import amountPostArray from "../../utils/amountPostArray";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -47,7 +48,7 @@ const PostDetail = () => {
   let customer = customers?.find((c) => c.email === user?.email);
   let productId = post.productId;
   let allOrders = post[0]?.orders?.map((e) => e);
-  let cart = useSelector(state => state.cart)
+  let cart = useSelector((state) => state.cart);
   // let productOrders = product?.posts?.orders?.filter(e=>e.orders)
 
   let ordersComment = allOrders
@@ -68,16 +69,20 @@ const PostDetail = () => {
   }
 
   const handleCart = (input) => {
-
     if (input.amount > 0) {
-      dispatch(addCart(input));
-      // alert(input.name + " se añadio correctamente");
-      swal({
-        title: input?.name,
-        text: "Se añadió correctamente!",
-        icon: "success",
-      });
+      if (cart.find((c) => c?.postId === input?.postId)) {
+        console.log("hola");
+        dispatch(addCart(input, true));
+      } else {
+        dispatch(addCart(input, false));
+      }
     }
+
+    swal({
+      title: input?.name,
+      text: "Se añadió correctamente!",
+      icon: "success",
+    });
   };
 
   let seller;
@@ -179,7 +184,7 @@ const PostDetail = () => {
             {postO.amount === 0 ? (
               <div>no hay disponibilidad</div>
             ) : (
-              <div className="d-flex align-items-center">
+              <div className="d-flex align-items-center flex-wrap">
                 <span className="mx-2">
                   {new Date(postO.date).toLocaleDateString("es-AR")}
                 </span>
@@ -204,6 +209,16 @@ const PostDetail = () => {
                     );
                   })}
                 </DropdownButton>
+                {!db.exists ? (
+                  <div>
+                    <span className="bold">
+                      Para poder agregar tus productos al carrito haz click en:{" "}
+                    </span>
+                    <LogingButton />
+                  </div>
+                ) : (
+                  ""
+                )}
                 {db.exists && db.type === "customer" && db.deletedAt === null && (
                   <Button
                     onClick={() =>

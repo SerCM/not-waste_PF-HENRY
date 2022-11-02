@@ -2,8 +2,9 @@ import NavBar from "../NavBar"
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-
 import "./developers.css"
+// import cristian from "../img/cristian.jpg"
+// import nicolas from "../img/nicolas.jpg"
 function Developers () {
 
 const Linkedin = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
@@ -83,7 +84,7 @@ const  email = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fi
     </Card>
     <Card style={{ width: '18rem' }}>
         <Card.Title className='a'>Cristian Serrano</Card.Title>
-      <Card.Img variant="top" src="https://cdn-icons-png.flaticon.com/512/5039/5039041.png" />
+      {/* <Card.Img variant="top" src={cristian} /> */}
       <Card.Body>
         <Card.Text>
         </Card.Text>
@@ -98,7 +99,7 @@ const  email = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fi
     </Card>
     <Card style={{ width: '18rem' }}>
         <Card.Title className='a'>Pablo Nicolas Villar</Card.Title>
-      <Card.Img variant="top" src="https://cdn-icons-png.flaticon.com/512/5039/5039041.png" />
+      {/* <Card.Img variant="top" src={nicolas} /> */}
       <Card.Body>
         <Card.Text>
         </Card.Text>
