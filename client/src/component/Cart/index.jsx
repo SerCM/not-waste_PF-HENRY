@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   postOrder,
   postPay,
-  addCart,
+  deleteCart,
   modifyPost,
   getOrders,
 } from "../../redux/actions";
@@ -24,13 +24,17 @@ function Cart(props) {
   const handleShow = () => setShow(true);
 
   let cart = useSelector((state) => state.cart);
+  console.log("🚀 ~ file: index.jsx ~ line 27 ~ Cart ~ cart", cart)
   let currentOrder = useSelector((state) => state.currentOrder);
   let orders = useSelector((state) => state.orders);
   const productId = cart?.productId;
 
   let price = 0;
   for (let i = 0; i < cart.length; i++) {
-    price = price + cart[i].amount * cart[i].price;
+
+    if (cart[i].price)
+    price = price + cart[i]?.amount * cart[i]?.price
+
   }
 
   const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -39,21 +43,25 @@ function Cart(props) {
   //   dispatch(postOrder());
   // }, [dispatch]);
 
-  const handlePayment = (cart) => {
-    let postId = cart?.map((c) => c?.postid);
-    console.log(
-      "🚀 ~ file: index.jsx ~ line 43 ~ handlePayment ~ postId",
-      postId
-    );
-    dispatch(postOrder(cart))
-      .then((r) => postPay({ price: price, postId: postId }))
-      .then((payId) => window.location.replace(payId.redirect));
+
+  const handlePayment = async (cart) => {
+    // let postId = cart?.map(c => c?.postid);
+
+    Promise.all(cart.map(c =>
+      dispatch(postOrder(c))
+    ))
+      .then(newOrders => { return newOrders.map(no => no.id).toString() })    
+      .then(orderId => postPay({ price: price, postId: orderId }))
+      .then(payId => window.location.replace(payId.redirect))
+
+  }
+
+
+  const handleDelete = (e, postId) => {
+    e.preventDefault();
+    dispatch(deleteCart(postId));
   };
 
-  const handleDelete = (e) => {
-    e.preventDefault();
-    dispatch(addCart(null));
-  };
   return (
     <div>
       {props.type === "customer" ? (
@@ -105,6 +113,7 @@ function Cart(props) {
                     </Card.Header>
                     <Card.Body>
                       <ListGroup
+
                         variant="flush"
                         className="d-flex justify-content-between"
                       >
@@ -116,14 +125,17 @@ function Cart(props) {
                             </span>
                           </div>
                         </ListGroup.Item>
-                        {cart?.map((c) => {
+
+                        {cart?.map(c => {
+                          if(c?.amount)
+
                           return (
-                            <ListGroup.Item className="d-flex column">
+                            <ListGroup.Item key={c.postId} className="d-flex column">
                               <ProductItem cart={c}></ProductItem>
                               <button
                                 type="button"
                                 className="close"
-                                onClick={(e) => handleDelete(e)}
+                                onClick={(e) => handleDelete(e, c?.postId)}
                               >
                                 <span aria-hidden="true">&times;</span>
                               </button>
