@@ -216,7 +216,7 @@ export function Auxilary(props) {
               <h6 className="d-flex  ">
                 Podés pasar a retirar el pedido en nuestra direccion:
               </h6>
-              <h4 className="p">{seller.name}</h4>
+              <h4 className="p">{seller && seller.name}</h4>
               <Card.Link
                 href={`https://maps.google.com/?q=${
                   seller ? seller.adress : ""
