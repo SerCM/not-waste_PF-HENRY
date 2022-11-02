@@ -91,9 +91,8 @@ export default function rootReducer(state = initialState, actions) {
     case "ADD_CART":
       return {
         ...state,
-        cart: actions.payload,
+        cart: [...state.cart, actions.payload],
       };
-
     case "POST_PAY":
       return {
         ...state,

@@ -28,7 +28,10 @@ function Cart(props) {
   let orders = useSelector((state) => state.orders);
   const productId = cart?.productId;
 
-  const price = cart?.amount * cart?.price;
+  let price = 0;
+  for (let i = 0; i < cart.length; i++) {
+    price = price + cart[i].amount * cart[i].price
+  }
   const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   // useEffect(() => {
@@ -36,14 +39,13 @@ function Cart(props) {
   // }, [dispatch]);
 
   const handlePayment = (cart) => {
-    dispatch(postOrder(cart))
+    dispatch(postOrder(cart[0]))
       .then((r) => postPay({ price: price, postId: r.id }))
       .then((payId) => window.location.replace(payId.redirect));
   };
 
   const handleDelete = (e) => {
     e.preventDefault();
-
     dispatch(addCart(null));
   };
   return (
@@ -85,7 +87,7 @@ function Cart(props) {
                   <span className="mx-4 mt-2">Tu Carrito</span>
                 </Offcanvas.Title>
               </Offcanvas.Header>
-              {cart?.amount ? (
+              {cart?.length ? (
                 <Offcanvas.Body>
                   <Card>
                     <Card.Header className="d-flex row">
@@ -108,16 +110,21 @@ function Cart(props) {
                             </span>
                           </div>
                         </ListGroup.Item>
-                        <ListGroup.Item className="d-flex column">
-                          <ProductItem cart={cart}></ProductItem>
-                          <button
-                            type="button"
-                            className="close"
-                            onClick={(e) => handleDelete(e)}
-                          >
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </ListGroup.Item>
+                        {cart?.map(c => {
+                        
+                          return(
+                          <ListGroup.Item className="d-flex column">
+                            <ProductItem cart={c}></ProductItem>
+                            <button
+                              type="button"
+                              className="close"
+                              onClick={(e) => handleDelete(e)}
+                            >
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </ListGroup.Item>)
+                        }
+                        )}
                       </ListGroup>
                     </Card.Body>
                     <Card.Footer className="d-flex justify-content-center">
