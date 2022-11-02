@@ -1,0 +1,29 @@
+.clasificacion {
+  text-align: left;
+}
+
+.labels {
+  font-size: 20px;
+}
+
+.inputs[type="radio"] {
+  display: none;
+}
+
+.labels {
+  color: grey;
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+.labels:hover,
+.labels:hover ~ .labels {
+  color: orange;
+}
+
+.inputs[type="radio"]:checked ~ .labels {
+  color: orange;
+}

@@ -21,6 +21,7 @@ function OderDetail() {
   }, [dispatch]);
 
   let getPost = useSelector((state) => state.allPosts);
+  let getProduct = useSelector((state) => state.product);
 
   const prod = useParams();
   let id = prod.id;
@@ -37,35 +38,45 @@ function OderDetail() {
 
   let idProduct = unidad?.map((e) => e.productId).toString();
 
+  let product = getProduct?.find((p) => p.id === idProduct);
+  let sellerId = product?.sellerId;
+
   const redirigir = () => {
     setTimeout(() => {
-        window.location.replace("/home");
+      window.location.replace("/home");
     }, 7000);
     return (
-        <div>
-            <h2>
-                Los compradores solo pueden acceder a las ordenes realizadas con su propia cuenta
-            </h2>
-            <br />
-            <h4>
-                Sera redirigido a la pagina principal.
-            </h4>
-        </div>)
-}
+      <div>
+        <h2>
+          Los compradores solo pueden acceder a las ordenes realizadas con su
+          propia cuenta
+        </h2>
+        <br />
+        <h4>Sera redirigido a la pagina principal.</h4>
+      </div>
+    );
+  };
 
   return (
     <div>
       <NavBar />
-      {idProduct === "" && <div className="spinner-grow" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>}
-      
-      {ordenesId && profile.id && ordenesId[0].customerId === profile.id &&
-        <Auxilary idProduct={idProduct && idProduct} orden={ordenesId} />
-      }
-      {ordenesId && profile.id && ordenesId[0].customerId !== profile.id &&
-        redirigir()
-      }
+      {idProduct === "" && (
+        <div className="spinner-grow" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      )}
+
+      {ordenesId && profile.id && ordenesId[0].customerId === profile.id && (
+        <Auxilary
+          idProduct={idProduct && idProduct}
+          orden={ordenesId}
+          seller={sellerId}
+        />
+      )}
+      {ordenesId &&
+        profile.id &&
+        ordenesId[0].customerId !== profile.id &&
+        redirigir()}
       <Footer />
     </div>
   );
