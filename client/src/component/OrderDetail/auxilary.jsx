@@ -21,6 +21,18 @@ export function Auxilary(props) {
   let orden = props.orden;
   let sellerId = props.seller;
 
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+      dd = '0' + dd
+  }
+  if (mm < 10) {
+      mm = '0' + mm
+  }
+  today = yyyy + '-' + mm + '-' + dd;  //<------------ hace referencia a que no se puede activar un producto en una fecha anterior
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(prodDetail(id));
@@ -130,7 +142,7 @@ export function Auxilary(props) {
                 onClick={(e) => desabilitar(e.target.name)}
                 variant="danger"
               >
-                Deshabilitar
+                Cancelar
               </Button>
             </div>
           </Card.Footer>
@@ -166,6 +178,7 @@ export function Auxilary(props) {
             </div>
             <Card.Body className="p-0">
               <ListGroup variant="flush">
+              <ListGroup.Item> Pedido realizado el dia: {orden[0].createdAt.slice(0,10)} Fecha de Entrega: {orden[0].date}</ListGroup.Item>
                 <ListGroup.Item className="d-flex justify-content-between">
                   <div>
                     <Card.Subtitle className="mb-2 text-muted ">
@@ -212,10 +225,16 @@ export function Auxilary(props) {
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>
+            
             <Card.Footer className="">
+              {orden && orden[0].date === today && 
               <h6 className="d-flex  ">
                 Podés pasar a retirar el pedido en nuestra direccion:
-              </h6>
+              </h6>}
+              {orden && orden[0].date < today && 
+              <h6 className="d-flex  ">
+                El producto se podra retirar el dia {orden[0].date} por nuestra direccion:
+              </h6>}
               <h4 className="p">{seller && seller.name}</h4>
               <Card.Link
                 href={`https://maps.google.com/?q=${
