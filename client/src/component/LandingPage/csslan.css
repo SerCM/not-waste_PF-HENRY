@@ -1,5 +1,5 @@
 .headerPri {
-    background-image: url('https://img.freepik.com/foto-gratis/arreglo-paquetes-comida-deliciosa_23-2149182241.jpg?w=996&t=st=1666462685~exp=1666463285~hmac=f3a5c0d7fb699450366380391f022473dcbca4ac2ba0711338539d717b987642');
+    background-image: url(https://www.food-safety.com/ext/resources/Newsletters/GettyImages-1225416626.jpg?1616167053);
     height: 670px;
     background-size: cover;
     position: relative;
@@ -30,6 +30,12 @@
 
 #titleUs {
     color: #F4511F;
+    text-shadow: 2px 2px black;
+    font-size: 45px;
+}
+
+#subtitleUs {
+    color: #d6846b;
     text-shadow: 2px 2px black;
 }
 
@@ -66,7 +72,7 @@
 }
 
 #row-us{
-    background-image: url(https://cdn.pixabay.com/photo/2013/11/24/11/26/background-217211_960_720.jpg);
+    background-image: url(https://www.greenbiz.com/sites/default/files/images/articles/featured/shutterstock542582539.jpg);
     background-size: cover;
     width: 100%;
     height: 100%;
@@ -76,8 +82,9 @@
 }
 
 .textUs {
-    color: rgb(0, 0, 0);
+    color: black;
     text-shadow: 1px 1px white;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -96,7 +103,7 @@
 }
 
 #row-faqs {
-    background-image: url(https://img.freepik.com/foto-gratis/arreglo-paquetes-comida-sabrosa_23-2149182194.jpg?w=996&t=st=1666539579~exp=1666540179~hmac=996768ee903bf031651805e0c8df16fb25579c8da16dfe65ae43c95d2a3dd87d);
+    background-image: url(https://images.unsplash.com/photo-1613892735667-5bfb98d16ba8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);
     background-size: cover;
     width: 100%;
     height: 100%;
@@ -106,10 +113,11 @@
 }
 
 .pfaqs {
-    color: black;
+    color: white;
     font-size: 16px;
     font-weight: bold;
-    text-shadow: 1px 1px white;
+    font-size: 18px;
+    text-shadow: 2px 2px black;
 }
 
 #row-phrase {
