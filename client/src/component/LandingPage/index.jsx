@@ -34,7 +34,7 @@ function LandingPage() {
   //   "https://img.freepik.com/vector-gratis/gente-trabajo-equipo-piezas-rompecabezas_24877-54950.jpg?w=740&t=st=1666535575~exp=1666536175~hmac=6cdc1b8bf3f29e5df21fdcff558d7f8547d742fc8c6d1c31500b82992df37a94";
   // const imgfaqs = 
   // "https://img.freepik.com/vector-gratis/dibujado-mano-gente-haciendo-preguntas-ilustracion_23-2148906555.jpg?w=996&t=st=1666537925~exp=1666538525~hmac=37ed79719c77117538eac1bf0a56d09311b5c6313a410cbaf719cc2854325ee3"
-    return (
+  return (
     // <main className={style.main}>
     //   <div>
     //     <nav className="navbar navbar-expand-md bg-ligth">
@@ -258,7 +258,7 @@ function LandingPage() {
 
         <div className="container">
           <div className="title font-weight-bold">
-          VENDER TU EXCEDENTE<br /> NUNCA HABÍA SIDO TAN FÁCIL!<br />
+            VENDER TU EXCEDENTE<br /> NUNCA HABÍA SIDO TAN FÁCIL!<br />
             <button className="btn mt-4" id="btnInicio"><Link to="/home" className="text-decoration-none" id="inicioBtn">Inicio</Link></button>
           </div>
         </div>
@@ -310,16 +310,16 @@ function LandingPage() {
               <div className="col-md-5 text-center">
                 <img className="imgusRedonda" src='https://img.freepik.com/vector-gratis/gente-trabajo-equipo-piezas-rompecabezas_24877-54950.jpg?w=740&t=st=1666535575~exp=1666536175~hmac=6cdc1b8bf3f29e5df21fdcff558d7f8547d742fc8c6d1c31500b82992df37a94' alt="logous" />
               </div>
-              <div className="col-md-7 mt-4">
-                <h1 className="fw-bold mb-3" id="titleUs">Sobre nosotros</h1>
-                <p className="textUs">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p className="textUs">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <div className="col-md-6 mt-1 ms-2">
+                <h1 className="fw-bold mb-2" id="titleUs">Sobre nosotros</h1>
+                <h4 className="fw-bold mb-2" id="subtitleUs">Mas de 1/3 de la comida se desperdicia</h4>
+                <h5 className="mb-4 fw-bold">y queremos cambiar eso...</h5>
+                <div className="col-8">
+                  <p className="textUs">Asegurar que toda la comida se come, no se tira.
+                    Cada día, comida en perfecto estado acaba desperdiciada solo porque no se ha vendido a tiempo.
+                    En Not Waste damos la oportunidad de comprar a muy buen precio packs sorpresa con toda esta
+                    comida directamente de los negocios.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -330,8 +330,8 @@ function LandingPage() {
             <h3 className="textphrase mt-4 fw-bold">-Francisco VI</h3>
           </div>
         </div>
-        <div className="row" id="row-faqs">
-        <div className="container">
+        {/* <div className="row" id="row-faqs">
+          <div className="container">
             <div className="row flex-row-reverse">
               <div className="col-md-5 text-center">
                 <img className="imgfaqs" src="https://img.freepik.com/vector-gratis/dibujado-mano-gente-haciendo-preguntas-ilustracion_23-2148906555.jpg?w=996&t=st=1666537925~exp=1666538525~hmac=37ed79719c77117538eac1bf0a56d09311b5c6313a410cbaf719cc2854325ee3" alt="logofaqs" />
@@ -349,7 +349,7 @@ function LandingPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </main>
       <Footer />
     </div>
