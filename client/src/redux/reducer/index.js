@@ -77,6 +77,7 @@ export default function rootReducer(state = initialState, actions) {
         seller: actions.payload,
       };
     case "POST_ORDER":
+      console.log("🚀 ~ file: index.js ~ line 83 ~ rootReducer ~ actions.payload", actions.payload)
       return {
         ...state,
         currentOrder: actions.payload,
@@ -91,9 +92,8 @@ export default function rootReducer(state = initialState, actions) {
     case "ADD_CART":
       return {
         ...state,
-        cart: actions.payload,
+        cart: [...state.cart, actions.payload],
       };
-
     case "POST_PAY":
       return {
         ...state,

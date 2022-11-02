@@ -281,7 +281,7 @@ function FormProduct() {
         </Form>
       </div>}
       {db.type === "seller" && db.deletedAt !== null && redirigir("bloqueado")}
-      {/* {db.type !== "seller" && redirigir(db.type)} */}
+      {db.exists && db.type !== "seller" && redirigir(db.type)}
       <Footer />
     </div>
   );

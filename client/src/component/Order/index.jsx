@@ -112,11 +112,11 @@ const Order = () => {
           </h4>
         </div>
       );
-      if (tipo === "bloqueado")
+    if (tipo === "bloqueado")
       return (
         <div>
           <h4>
-            Su usuario se encuentra bloqueado. 
+            Su usuario se encuentra bloqueado.
             <br />
             Sera redirigido a la pagina principal.
           </h4>
@@ -135,9 +135,14 @@ const Order = () => {
                 Mis pedidos
               </span>
             </Card.Title>
+           
           </div>
           <Card.Body className="p-0">
+          {ordersInProgress.length < 1 && ordersFinished.length < 1
+            && 
+            <Card.Subtitle variant="flush" className="d-flex">Aún no se han realizado pedidos</Card.Subtitle>}
             <ListGroup variant="flush">
+              {ordersInProgress.length > 0 && 
               <ListGroup.Item className="d-flex justify-content-between">
                 <div className="d-flex row">
                   <Card.Subtitle className="mb-2 text-muted ">
@@ -146,15 +151,19 @@ const Order = () => {
                   {productOrderInProgress?.map((p) => {
                     return (
                       <div key={i++}>
-                        <Link className="link" to={`/orderDetial/${ordersInProgress[i].id}`}>
+                        <Link
+                          className="link"
+                          to={`/orderDetial/${ordersInProgress[i].id}`}
+                        >
                           <OrderItem product={p} order={ordersInProgress[i]} />
                         </Link>
                       </div>
                     );
                   })}
                 </div>
-              </ListGroup.Item>
-              <ListGroup.Item className="d-flex justify-content-between">
+              </ListGroup.Item>}
+              {orderFinished &&
+                <ListGroup.Item className="d-flex justify-content-between">
                 <div className="d-flex row">
                   <Card.Subtitle className="mb-2 text-muted">
                     Pedidos finalizados
@@ -162,20 +171,26 @@ const Order = () => {
                   {productOrderFinished?.map((p) => {
                     return (
                       <div key={j++}>
-                        <Link className="link" to={`/orderDelivered/${ordersFinished[j].id}`}>
+                        <Link
+                          className="link"
+                          to={`/orderDelivered/${ordersFinished[j].id}`}
+                        >
                           <OrderItem product={p} order={ordersFinished[j]} />
                         </Link>
                       </div>
                     );
                   })}
                 </div>
-              </ListGroup.Item>
+              </ListGroup.Item>}
             </ListGroup>
           </Card.Body>
           <Card.Footer className="mb-4"></Card.Footer>
         </Card>
       )}
-      {db.exists && db.type === "customer" && db.deletedAt !== null && redirigir("bloqueado")}
+      {db.exists &&
+        db.type === "customer" &&
+        db.deletedAt !== null &&
+        redirigir("bloqueado")}
       {db.exists && db.type !== "customer" && redirigir(db.type)}
       {db.exists === false && (
         <div className="spinner-grow" role="status">

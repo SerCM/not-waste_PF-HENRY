@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import "./orderDetail.css";
 
 import {
   getCustomer,
@@ -16,9 +17,21 @@ import { useParams } from "react-router-dom";
 import { Badge, Button, Card, ListGroup } from "react-bootstrap";
 
 export function Auxilary(props) {
-
   let id = props.idProduct;
   let orden = props.orden;
+  let sellerId = props.seller;
+
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+      dd = '0' + dd
+  }
+  if (mm < 10) {
+      mm = '0' + mm
+  }
+  today = yyyy + '-' + mm + '-' + dd;  //<------------ hace referencia a que no se puede activar un producto en una fecha anterior
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -27,12 +40,15 @@ export function Auxilary(props) {
   // let product = useSelector((state) => state.prodDetails);
 
   let product = useSelector((state) => state.prodDetails);
+  let sellers = useSelector((state) => state.allSeller);
+
+  let seller = sellers?.find((s) => s.id === sellerId);
 
   useEffect(() => {
     return function () {
-        dispatch(cleanDetail())
-    }
-},[dispatch])
+      dispatch(cleanDetail());
+    };
+  }, [dispatch]);
 
   let stateOrder = orden
     ?.map((e) => {
@@ -53,7 +69,7 @@ export function Auxilary(props) {
 
   return (
     <div>
-      <Link to='/customer/orders'>VOLVER</Link>
+      <Link to="/customer/orders">VOLVER</Link>
       {stateOrder === "pendiente" ? (
         <Card className="w-50 mx-auto mt-2 bgColor">
           <div className="d-flex position-relative">
@@ -126,17 +142,25 @@ export function Auxilary(props) {
                 onClick={(e) => desabilitar(e.target.name)}
                 variant="danger"
               >
-                Deshabilitar
+                Cancelar
               </Button>
             </div>
           </Card.Footer>
-          <Link to=''>VOLVER</Link>
+          <Link to="">VOLVER</Link>
         </Card>
       ) : (
         <>
           <Card className="w-50 mx-auto mt-2 bgColor">
             <div className="d-flex position-relative">
-              <Card.Img variant="top" src={product.image? product.image : "no hay imagen para este producto"} alt="no hay imagen para este producto" />
+              <Card.Img
+                variant="top"
+                src={
+                  product.image
+                    ? product.image
+                    : "no hay imagen para este producto"
+                }
+                alt="no hay imagen para este producto"
+              />
               <Card.ImgOverlay className="d-flex align-items-start flex-column justify-content-between">
                 <Badge pill bg="warning">
                   Estado:{" "}
@@ -154,6 +178,7 @@ export function Auxilary(props) {
             </div>
             <Card.Body className="p-0">
               <ListGroup variant="flush">
+              <ListGroup.Item> Pedido realizado el dia: {orden[0].createdAt.slice(0,10)} Fecha de Entrega: {orden[0].date}</ListGroup.Item>
                 <ListGroup.Item className="d-flex justify-content-between">
                   <div>
                     <Card.Subtitle className="mb-2 text-muted ">
@@ -200,10 +225,42 @@ export function Auxilary(props) {
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>
+            
             <Card.Footer className="">
-              <h6 className="d-flex justify-content-center ">
-                Ya podés pasar a retirar el pedido
-              </h6>
+              {orden && orden[0].date === today && 
+              <h6 className="d-flex  ">
+                Podés pasar a retirar el pedido en nuestra direccion:
+              </h6>}
+              {orden && orden[0].date < today && 
+              <h6 className="d-flex  ">
+                El producto se podra retirar el dia {orden[0].date} por nuestra direccion:
+              </h6>}
+              <h4 className="p">{seller && seller.name}</h4>
+              <Card.Link
+                href={`https://maps.google.com/?q=${
+                  seller ? seller.adress : ""
+                }, Buenos Aires, Argentina`}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-geo-alt"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                  <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                </svg>
+                <span className="mx-2 text-capitalize">
+                  {seller ? seller.adress : ""}
+                </span>
+                {
+                  <span className="mx-2 text-capitalize">
+                    ({seller?.cities[0]?.name})
+                  </span>
+                }
+              </Card.Link>
             </Card.Footer>
           </Card>
         </>

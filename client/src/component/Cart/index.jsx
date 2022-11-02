@@ -5,7 +5,13 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { Button, Card, ListGroup } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
-import { postOrder, postPay, addCart, modifyPost, getOrders } from "../../redux/actions";
+import {
+  postOrder,
+  postPay,
+  addCart,
+  modifyPost,
+  getOrders,
+} from "../../redux/actions";
 import { useEffect } from "react";
 
 function Cart(props) {
@@ -18,29 +24,30 @@ function Cart(props) {
   const handleShow = () => setShow(true);
 
   let cart = useSelector((state) => state.cart);
-  let currentOrder = useSelector(state => state.currentOrder)
-  let orders = useSelector(state => state.orders)
+  let currentOrder = useSelector((state) => state.currentOrder);
+  let orders = useSelector((state) => state.orders);
   const productId = cart?.productId;
-  
-  const price = cart?.amount * cart?.price;
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
-  
 
+  let price = 0;
+  for (let i = 0; i < cart.length; i++) {
+    price = price + cart[i].amount * cart[i].price
+  }
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   // useEffect(() => {
   //   dispatch(postOrder());
   // }, [dispatch]);
 
-  const handlePayment =  (cart) => {
+  const handlePayment = (cart) => {
+    let postId = cart?.map(c => c?.postid);
+    console.log("🚀 ~ file: index.jsx ~ line 43 ~ handlePayment ~ postId", postId)
     dispatch(postOrder(cart))
-    .then(r => postPay({ price: price, postId: r.id }))
-    .then(payId =>  window.location.replace(payId.redirect));
-
+      .then((r) => postPay({ price: price, postId: postId}))
+      .then((payId) => window.location.replace(payId.redirect))
   };
 
   const handleDelete = (e) => {
     e.preventDefault();
-
     dispatch(addCart(null));
   };
   return (
@@ -82,7 +89,7 @@ function Cart(props) {
                   <span className="mx-4 mt-2">Tu Carrito</span>
                 </Offcanvas.Title>
               </Offcanvas.Header>
-              {cart?.amount ? (
+              {cart?.length ? (
                 <Offcanvas.Body>
                   <Card>
                     <Card.Header className="d-flex row">
@@ -105,16 +112,21 @@ function Cart(props) {
                             </span>
                           </div>
                         </ListGroup.Item>
-                        <ListGroup.Item className="d-flex column">
-                          <ProductItem cart={cart}></ProductItem>
-                          <button
-                            type="button"
-                            className="close"
-                            onClick={(e) => handleDelete(e)}
-                          >
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </ListGroup.Item>
+                        {cart?.map(c => {
+
+                          return (
+                            <ListGroup.Item className="d-flex column">
+                              <ProductItem cart={c}></ProductItem>
+                              <button
+                                type="button"
+                                className="close"
+                                onClick={(e) => handleDelete(e)}
+                              >
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </ListGroup.Item>)
+                        }
+                        )}
                       </ListGroup>
                     </Card.Body>
                     <Card.Footer className="d-flex justify-content-center">
