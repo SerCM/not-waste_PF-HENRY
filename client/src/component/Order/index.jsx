@@ -135,12 +135,14 @@ const Order = () => {
                 Mis pedidos
               </span>
             </Card.Title>
-            {!productOrderFinished && !productOrderInProgress 
-            && <span>Aún no se han realizado pedidos</span>}
+           
           </div>
           <Card.Body className="p-0">
+          {ordersInProgress.length < 1 && ordersFinished.length < 1
+            && 
+            <Card.Subtitle variant="flush" className="d-flex">Aún no se han realizado pedidos</Card.Subtitle>}
             <ListGroup variant="flush">
-              {productOrderInProgress && 
+              {ordersInProgress.length > 0 && 
               <ListGroup.Item className="d-flex justify-content-between">
                 <div className="d-flex row">
                   <Card.Subtitle className="mb-2 text-muted ">

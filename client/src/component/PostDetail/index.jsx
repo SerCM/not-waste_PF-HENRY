@@ -47,7 +47,7 @@ const PostDetail = () => {
   let customer = customers?.find((c) => c.email === user?.email);
   let productId = post.productId;
   let allOrders = post[0]?.orders?.map((e) => e);
-
+  let cart = useSelector(state => state.cart)
   // let productOrders = product?.posts?.orders?.filter(e=>e.orders)
 
   let ordersComment = allOrders
@@ -68,6 +68,7 @@ const PostDetail = () => {
   }
 
   const handleCart = (input) => {
+
     if (input.amount > 0) {
       dispatch(addCart(input));
       // alert(input.name + " se añadio correctamente");
