@@ -37,8 +37,14 @@ function Home() {
   if (queryParams?.description) {
     sellersWithPosts = sellers.map(seller => ({
       ...seller,
-      products: seller.products.filter(p =>
-         { return p?.description?.toLowerCase().includes(queryParams?.description?.toLowerCase()) && p?.posts.length > 0}),
+      products: seller.products.filter(p => { return p?.description?.toLowerCase().includes(queryParams?.description?.toLowerCase()) && p?.posts.length > 0 }),
+    }))
+  }
+
+  if (queryParams?.city) {
+    sellersWithPosts = sellers.map(seller => ({
+      ...seller,
+      products: seller.products.filter(p => { return p?.posts.length > 0 }),
     }))
   }
 
@@ -46,7 +52,7 @@ function Home() {
   return (
     <div>
       <NavBar isSearchVisible />
-      {errorMessage ? (
+      {errorMessage || sellersWithPosts[0]?.products?.length === 0 ? (
         <div className="mx-4">
           <Button variant="light" onClick={e => handleCleanFilters(e)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -55,7 +61,7 @@ function Home() {
             </svg>
             <span className="mx-2 align-items-center">Limpiar filtros</span>
           </Button>
-          <Message className="d-flex " message={errorMessage} type="error" />
+          <Message className="d-flex justify-content-center" message="No se encontraron proveedores/productos con los filtros aplicados" type="error" />
         </div>
       ) : (
         <div className="container-fluid my-3">
@@ -65,9 +71,9 @@ function Home() {
             <div className="accordion-item">
               <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                 <div className="accordion-body">
-                  {sellersWithPosts.length  ? sellersWithPosts.slice(0, 3).map(seller => {
-                    if (seller.products.length > 0) 
-                    return <CarouselSeller seller={seller} queryParams={queryParams} />
+                  {sellersWithPosts.length ? sellersWithPosts.slice(0, 3).map(seller => {
+                    if (seller.products.length > 0)
+                      return <CarouselSeller seller={seller} queryParams={queryParams} />
                   }) : (
                     <Spinner animation="border" role="status">
                       <span className="visually-hidden">Loading...</span>
@@ -88,8 +94,8 @@ function Home() {
                 <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                   <div className="accordion-body">
                     {sellersWithPosts.length > 3 && sellersWithPosts.slice(3, 6).map(seller => {
-                     if (seller.products.length > 0) 
-                      return <CarouselSeller seller={seller} />
+                      if (seller.products.length > 0)
+                        return <CarouselSeller seller={seller} />
                     })}
                   </div>
                 </div>
@@ -105,8 +111,8 @@ function Home() {
                   <div id="panelsStayOpen-collapseTwo123" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                     <div className="accordion-body">
                       {sellersWithPosts.length > 6 && sellersWithPosts.slice(6).map(seller => {
-                        if (seller.products.length > 0) 
-                        return <CarouselSeller seller={seller} />
+                        if (seller.products.length > 0)
+                          return <CarouselSeller seller={seller} />
                       })}
                     </div>
                   </div>
