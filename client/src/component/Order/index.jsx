@@ -157,7 +157,7 @@ const Order = () => {
                   })}
                 </div>
               </ListGroup.Item>}
-              {orderFinished.length > 0 &&
+              {ordersFinished.length > 0 &&
                 <ListGroup.Item className="d-flex justify-content-between">
                 <div className="d-flex row">
                   <Card.Subtitle className="mb-2 text-muted">
