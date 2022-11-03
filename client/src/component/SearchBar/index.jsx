@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import '../SearchBar/SearchBar.css';
-import { useDispatch, useSelector } from 'react-redux'
+import "../SearchBar/SearchBar.css";
+import { useDispatch, useSelector } from "react-redux";
 import { getSellers } from "../../redux/actions";
-
 
 function SearchBar() {
   const dispatch = useDispatch();
-  const [input, setInput] = useState('');
-  const queryParams = useSelector(state => state.queryParams)
+  const [input, setInput] = useState("");
+  const queryParams = useSelector((state) => state.queryParams);
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -16,7 +15,7 @@ function SearchBar() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(getSellers({...queryParams, description: input}));
+    dispatch(getSellers({ ...queryParams, description: input }));
   }
 
   return (
@@ -27,20 +26,23 @@ function SearchBar() {
           type="text"
           placeholder="Buscar..."
           aria-label="Buscar"
-          onChange={e => {handleInputChange(e)}}
+          onChange={(e) => {
+            handleInputChange(e);
+          }}
         />
         <button
           className="btn"
           id="buttonSearch"
           type="submit"
-          onClick={e => {handleSubmit(e)}}
-        >Buscar
+          onClick={(e) => {
+            handleSubmit(e);
+          }}
+        >
+          Buscar
         </button>
       </div>
-
     </div>
-  )
+  );
 }
 
-
-export default SearchBar
+export default SearchBar;
