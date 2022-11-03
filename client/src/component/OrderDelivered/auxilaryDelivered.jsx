@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  cleanDetail,
   getCustomer,
   postDetail,
   prodDetail,
@@ -116,6 +117,13 @@ console.log(props)
       cantvaluaciones: 0
     });
   }
+
+  useEffect(() => {
+    return function () {
+      dispatch(cleanDetail());
+    };
+  }, [dispatch]);
+
   return (
     <div>
       <Card className="w-50 mx-auto mt-2 bgColor">
