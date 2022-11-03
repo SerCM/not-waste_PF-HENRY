@@ -71,6 +71,7 @@ function CardSeller({ product, post }) {
                 name={post.id}
                 onClick={(e) => desabilitar(e)}
                 variant="danger"
+                className="btn-deshabilitar"
               >
                 Deshabilitar
               </Button>
@@ -78,7 +79,7 @@ function CardSeller({ product, post }) {
                 name={post.id}
                 onClick={(e) => habilitar(e)}
                 variant="success"
-                className="ms-5"
+                className="btn-habilitar ms-5"
               >
                 Habilitar
               </Button>

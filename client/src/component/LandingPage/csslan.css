@@ -7,7 +7,7 @@
 
 #btnInicio{
     background-color: #F4511F;
-    border-radius: 20px;
+    border-radius: 10px;
     font-weight: bold;
     padding-left: 20px;
     padding-right: 20px;
@@ -20,7 +20,8 @@
 }
 
 #btnInicio:hover {
-    background-color: black;
+    background-color: #f8955f;
+  border-color: black;
 }
 
 #inicioBtn {

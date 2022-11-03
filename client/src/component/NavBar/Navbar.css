@@ -1,3 +1,24 @@
 #navbar {
-  background-color: #b6e388;
+  background-color: #f4511f;
+}
+
+.btn {
+  color: white;
+  background-color: #f4511f;
+  border: 2px solid #a0000a;
+  border-radius: 10px;
+  box-shadow: 2px 0px 5px black;
+}
+
+.btn:hover {
+  background-color: #f8955f;
+  border-color: black;
+}
+
+.hambur {
+  margin-right: 60px;
+}
+
+.cart:hover {
+  box-shadow: 2px 0px 5px black;
 }

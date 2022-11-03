@@ -16,14 +16,17 @@
   color: red;
 }
 .titulo-h1 {
-  color: rgb(11, 129, 56);
+  color: #d6846b;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 55px;
   text-transform: uppercase;
   font-weight: 600;
   text-shadow: 2px 5px #000;
+  text-align: center;
 }
-
+.center {
+  margin: auto;
+}
 .dis {
   background-color: rgba(255, 99, 71, 0.5);
 }
@@ -37,8 +40,26 @@
 }
 
 .seller-image {
-  width: 100px;
   height: 100px;
   margin: 8px;
   border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.btn-deshabilitar {
+  background-color: #ff6347;
+  color: black;
+}
+.btn-deshabilitar:hover {
+  background-color: #aa1001;
+  color: white;
+}
+
+.btn-habilitar {
+  background-color: #98ec77;
+  color: black;
+}
+.btn-habilitar:hover {
+  background-color: #329711;
+  color: white;
 }

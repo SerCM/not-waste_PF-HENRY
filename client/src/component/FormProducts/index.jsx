@@ -169,8 +169,8 @@ function FormProduct() {
   return (
     <div>
       <NavBar />
-      {db.exists === false && <div class="spinner-grow" role="status">
-        <span class="visually-hidden">Loading...</span>
+      {db.exists === false && <div className="spinner-grow" role="status">
+        <span className="visually-hidden">Loading...</span>
       </div>}
       {db.type === "seller" && db.deletedAt === null &&
       <div className="m-2 row justify-content-center">
@@ -265,15 +265,13 @@ function FormProduct() {
             </div>
           </Form.Group>
           <div className="">
-            <Button type="submit" className="bg-light mx-5">
-              <Link to="/home" className="text-decoration-none">
+            <Button type="submit" className="btn-volver mx-5" onClick={() => window.location.replace("/home")}>
                 Volver
-              </Link>
             </Button>
             <Button
               type="submit"
               onClick={(e) => handleSubmit(e)}
-              className="mx-5"
+              className="btn-crearproducto mx-5"
             >
               Crear Producto
             </Button>

@@ -128,16 +128,11 @@ const Order = () => {
   return (
     <>
       <NavBar />
-      {db.exists && db.type === "customer" && db.deletedAt === null && (
+      {db.exists && db.type === "customer" && db.deletedAt === null && ( <>
+        <div className="d-flex justify-content-center my-5">
+        <h1>Mis Pedidos</h1>
+      </div>
         <Card className="w-50 mx-auto mt-5 mb-50">
-          <div className="d-flex position-relative justify-content-center">
-            <Card.Title className="text-white fw-bold bg-light rounded p-2 ">
-              <span className="text-dark text-uppercase justify-content-center">
-                Mis pedidos
-              </span>
-            </Card.Title>
-           
-          </div>
           <Card.Body className="p-0">
           {ordersInProgress.length < 1 && ordersFinished.length < 1
             && 
@@ -187,7 +182,7 @@ const Order = () => {
           </Card.Body>
           <Card.Footer className="mb-4"></Card.Footer>
         </Card>
-      )}
+        </>)}
       {db.exists &&
         db.type === "customer" &&
         db.deletedAt !== null &&

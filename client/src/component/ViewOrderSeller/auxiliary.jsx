@@ -65,7 +65,7 @@ const CreateCardsOrders = (db) => {
     let producto = products.find((p) => p.id === post.productId);
     let total = orden.amount * producto.price;
     return (
-      <Card className="w-50 mx-auto mt-5 mb-50">
+      <Card className="p-0">
         <div className="list-group-item list-group-item-action list-group-item-light">
           <img
             className="rounded float-start pe-2"
@@ -73,71 +73,78 @@ const CreateCardsOrders = (db) => {
             alt="producto sin imagen"
             height="100px"
           />
-          <figure className="text-end">
-            <ul className="list-inline-end">
-              <li className="list-inline-item">
-                Cliente: <strong>{comprador.name}</strong>
-              </li>
-              <li className="list-inline-item">
-                Cant: <strong>{orden.amount}</strong>
-              </li>
-              <li className="list-inline-item">
-                Total: $<strong>{total}</strong>
-              </li>
-            </ul>
-          </figure>
-          <figure className="text-start">
-            <ul className="list-inline">
-              <li className="list-inline-item">Prodcucto: {producto.name} |</li>
-              <li className="list-inline-item">
-                Precio Unit. ${producto.price} |
-              </li>
-              <li className="list-inline-item">
-                Fecha de entrega: {orden.date}
-              </li>
-              <li className="list-inline-item">
-                Estado: <strong>{orden.state}</strong>
-              </li>
-              {orden.state === "confirmado" && orden.date === today && (
-                <div
-                  className="form-check form-switch m-1"
-                  onChange={() => marcarComoEntregado(orden.id)}
-                >
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="flexSwitchCheckDefault"
-                  />
-                  <label
-                    className="form-check-label"
-                    for="flexSwitchCheckDefault"
+          <div>
+            <figure className="text-end">
+              <ul className="list-inline-end">
+                <li className="list-inline-item">
+                  Cliente: <strong>{comprador.name}</strong>
+                </li>
+                <li className="list-inline-item">
+                  Cant: <strong>{orden.amount}</strong>
+                </li>
+                <li className="list-inline-item">
+                  Total: $<strong>{total}</strong>
+                </li>
+              </ul>
+            </figure>
+            <figure className="text-start">
+              <ul className="list-inline">
+                <li className="list-inline-item">
+                  Prodcucto: {producto.name} |
+                </li>
+                <li className="list-inline-item">
+                  Precio Unit. ${producto.price} |
+                </li>
+                <li className="list-inline-item">
+                  Fecha de entrega: {orden.date}
+                </li>
+                <li className="list-inline-item">
+                  Estado: <strong>{orden.state}</strong>
+                </li>
+                {orden.state === "confirmado" && orden.date === today && (
+                 
+                  <div
+                    className="form-check form-switch m-1"
+                    onChange={() => marcarComoEntregado(orden.id)}
+                  > 
+                  <br/>
+                    <input
+                      className="form-check-input mt-1"
+                      type="checkbox"
+                      role="switch"
+                      id="flexSwitchCheckDefault"
+                    />
+                    <label
+                      className="form-check-label"
+                      for="flexSwitchCheckDefault"
+                    >
+                      <strong>Marcar el pedido como Entregado</strong>
+                    </label>
+                  </div>
+                )}
+                {orden.state === "confirmado" && orden.date < today && (
+                  <div
+                    className="form-check form-switch m-1"
+                    onChange={() => marcarComoCancelado(orden.id)}
                   >
-                    <strong>Marcar el pedido como Entregado</strong>
-                  </label>
-                </div>
-              )}
-              {orden.state === "confirmado" && orden.date < today && (
-                <div
-                  className="form-check form-switch m-1"
-                  onChange={() => marcarComoCancelado(orden.id)}
-                >
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="flexSwitchCheckDefault"
-                  />
-                  <label
-                    className="form-check-label"
-                    for="flexSwitchCheckDefault"
-                  >
-                    <strong>Marcar el pedido como Cancelado</strong>
-                  </label>
-                </div>
-              )}
-            </ul>
-          </figure>
+                     <br/>
+                    <input
+                      className="form-check-input mt-1"
+                      type="checkbox"
+                      role="switch"
+                      id="flexSwitchCheckDefault"
+                    />
+                    <label
+                      className="form-check-label"
+                      for="flexSwitchCheckDefault"
+                    >
+                      <strong>Marcar el pedido como Cancelado</strong>
+                    </label>
+                  </div>
+                )}
+              </ul>
+            </figure>
+          </div>
         </div>
       </Card>
     );
@@ -158,34 +165,62 @@ const CreateCardsOrders = (db) => {
 
   return (
     <div>
-      <br />
-      <h3 key={uuidv4}>Ordenes del dia - {today}</h3>
-      <div className="list-group">
-        {ordenesDelDia ? (
-          ordenesDelDia.map((orden) => cardOrderSellers(orden))
-        ) : (
-          <h1> No hay ordenes para el dia de hoy</h1>
-        )}
+      <div className="accordion w-50 mx-auto mt-5 mb-50" id="accordionExample">
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="headingOne">
+            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <strong> ORDENES DE HOY:</strong>
+            </button>
+          </h2>
+          <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div className="accordion-body">
+              <div className="list-group ">
+                {ordenesDelDia.length ?
+                  ordenesDelDia.map((orden) => cardOrderSellers(orden))
+                  :
+                  <h1> No hay ordenes para el dia de hoy</h1>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="headingTwo">
+            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <strong> ORDENES ANTERIORES:</strong>
+            </button>
+          </h2>
+          <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div className="accordion-body">
+              <div className="list-group">
+                {ordenesViejas.length ?
+                  ordenesViejas.map((orden) => cardOrderSellers(orden))
+                  : <div> No hay ordenes para el dia de hoy</div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="headingThree">
+            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <strong>PROXIMAS ORDENES:</strong>
+            </button>
+          </h2>
+          <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div className="accordion-body">
+              <div className="list-group">
+                {ordenesFuturas.length ?
+                  ordenesFuturas.map((orden) => cardOrderSellers(orden))
+                  :
+                  <h1> No hay ordenes para el dia de hoy</h1>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <br />
-      <h3 key={uuidv4}>Ordenes antiguas:</h3>
-      <div className="list-group">
-        {ordenesViejas ? (
-          ordenesViejas.map((orden) => cardOrderSellers(orden))
-        ) : (
-          <h1> No hay ordenes para el dia de hoy</h1>
-        )}
-      </div>
-      <br />
-      <h3 key={uuidv4}>Proximas ordenes:</h3>
-      <div className="list-group">
-        {ordenesFuturas ? (
-          ordenesFuturas.map((orden) => cardOrderSellers(orden))
-        ) : (
-          <h1> No hay ordenes para el dia de hoy</h1>
-        )}
-      </div>
-      <br />
+
     </div>
   );
 };

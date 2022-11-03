@@ -10,6 +10,8 @@ import {
   disableOrder,
   modifyPost,
   cleanDetail,
+  getSellers,
+  postPay,
 } from "../../redux/actions";
 import AuthProfile from "../AuthProfile";
 import VerifyProfile from "../VerifyProfile";
@@ -19,31 +21,33 @@ import { Badge, Button, Card, ListGroup } from "react-bootstrap";
 export function Auxilary(props) {
   let id = props.idProduct;
   let orden = props.orden;
-  let sellerId = props.seller;
+  let sellerId = props?.seller;
 
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
   var yyyy = today.getFullYear();
   if (dd < 10) {
-      dd = '0' + dd
+    dd = "0" + dd;
   }
   if (mm < 10) {
-      mm = '0' + mm
+    mm = "0" + mm;
   }
-  today = yyyy + '-' + mm + '-' + dd;  //<------------ hace referencia a que no se puede activar un producto en una fecha anterior
+  today = yyyy + "-" + mm + "-" + dd; //<------------ hace referencia a que no se puede activar un producto en una fecha anterior
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(prodDetail(id));
+    dispatch(getSellers());
   }, [dispatch]);
   // let product = useSelector((state) => state.prodDetails);
 
   let product = useSelector((state) => state.prodDetails);
-  let sellers = useSelector((state) => state.allSeller);
+  let sellers = useSelector((state) => state.seller);
 
   let seller = sellers?.find((s) => s.id === sellerId);
-
+  // console.log(seller, "sellers");
+  // console.log(sellerId, "sellerId");
   useEffect(() => {
     return function () {
       dispatch(cleanDetail());
@@ -57,14 +61,20 @@ export function Auxilary(props) {
     .toString();
 
   const desabilitar = (e) => {
-    let orderFinded = orden.find((o) => o.id === e);
+    let orderFinded = orden?.find((o) => o.id === e);
     let postId = orderFinded.postId;
-    let postFinded = product.posts.find((p) => p.id === postId);
-    let amountFind = postFinded.amount;
+    let postFinded = product.posts?.find((p) => p.id === postId);
+    let amountFind = postFinded?.amount;
 
     dispatch(disableOrder(e));
     dispatch(modifyPost(postId, { amount: amountFind + 1 }));
     window.location.replace("/customer/orders");
+  };
+
+  const handlePayment = async (product) => {
+    let data = { price: product.price, postId: orden[0].id };
+    let res = await postPay(data);
+    window.location.replace(res.redirect);
   };
 
   return (
@@ -136,7 +146,12 @@ export function Auxilary(props) {
 
           <Card.Footer>
             <div className="d-flex align-items-center">
-              <Button className="btn btn-dark m-1 p-1">Finalizar compra</Button>
+              <Button
+                className="btn btn-dark m-1 p-1"
+                onClick={() => handlePayment(product)}
+              >
+                Finalizar compra
+              </Button>
               <Button
                 name={orden[0].id}
                 onClick={(e) => desabilitar(e.target.name)}
@@ -178,7 +193,14 @@ export function Auxilary(props) {
             </div>
             <Card.Body className="p-0">
               <ListGroup variant="flush">
-              <ListGroup.Item> Pedido realizado el dia: {orden[0].createdAt.slice(0,10)} Fecha de Entrega: {orden[0].date}</ListGroup.Item>
+                <ListGroup.Item>
+                  {" "}
+                  Pedido realizado el dia: {orden[0].createdAt.slice(
+                    0,
+                    10
+                  )}{" "}
+                  Fecha de Entrega: {orden[0].date}
+                </ListGroup.Item>
                 <ListGroup.Item className="d-flex justify-content-between">
                   <div>
                     <Card.Subtitle className="mb-2 text-muted ">
@@ -225,16 +247,19 @@ export function Auxilary(props) {
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>
-            
+
             <Card.Footer className="">
-              {orden && orden[0].date === today && 
-              <h6 className="d-flex  ">
-                Podés pasar a retirar el pedido en nuestra direccion:
-              </h6>}
-              {orden && orden[0].date < today && 
-              <h6 className="d-flex  ">
-                El producto se podra retirar el dia {orden[0].date} por nuestra direccion:
-              </h6>}
+              {orden && orden[0].date === today && (
+                <h6 className="d-flex  ">
+                  Podés pasar a retirar el pedido en nuestra direccion:
+                </h6>
+              )}
+              {orden && orden[0].date < today && (
+                <h6 className="d-flex  ">
+                  El producto se podra retirar el dia {orden[0].date} por
+                  nuestra direccion:
+                </h6>
+              )}
               <h4 className="p">{seller && seller.name}</h4>
               <Card.Link
                 href={`https://maps.google.com/?q=${

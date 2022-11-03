@@ -6,18 +6,22 @@ import { Card, Badge } from "react-bootstrap";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 
 function PostCard({ product, post }) {
-  let ordersProduct = product.posts.map(post => post.orders).flat();
-  let ordersProductWithReview = ordersProduct.filter(o => o.reviewValue)
-  let ordersReview = 0; 
+  let ordersProduct = product.posts.map((post) => post.orders).flat();
+  let ordersProductWithReview = ordersProduct.filter((o) => o.reviewValue);
+  let ordersReview = 0;
   if (ordersProductWithReview.length) {
-    for  (let i=0; i < ordersProductWithReview.length; i++) {
-      ordersReview = ordersReview + ordersProductWithReview[i].reviewValue
+    for (let i = 0; i < ordersProductWithReview.length; i++) {
+      ordersReview = ordersReview + ordersProductWithReview[i].reviewValue;
     }
-    ordersReview = ordersReview/ordersProductWithReview.length
+    ordersReview = ordersReview / ordersProductWithReview.length;
   }
   return (
     <Card
-      className={product.deletedAt || post.deletedAt ? "postCard1" : "postCard"}
+      className={
+        product.deletedAt || post.deletedAt || post.amount === 0
+          ? "postCard1"
+          : "postCard"
+      }
     >
       <Link className="card-link" to={`/home/${post.id}`}>
         <Card.Img className="card-image" variant="top" src={product.image} />
