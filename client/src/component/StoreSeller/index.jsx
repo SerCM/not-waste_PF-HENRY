@@ -79,24 +79,23 @@ function StoreSeller() {
           <span className="visually-hidden">Loading...</span>
         </div>
       )}
-      {db.type === "seller" && db.deletedAt === null && db.products.length && (
+      {db.type === "seller" && db.deletedAt === null && db.products.length && (<>
+      <div className="d-flex justify-content-center my-5">
+        <h1>Mis posteos</h1>
+      </div>
         <div className="card-title">
           {
             <div className="row g-0 ">
-              <div className="d-flex justify-content-center mw-10r">
+              <div className="d-flex justify-content-center mw-10r my-3">
                 <Image
                   className="seller-image"
                   src={seller?.image}
-                  />
+                />
                 <div>
                   <h1 className="card-name">{seller?.name}</h1>
                   <h5 className="card-category">{seller?.category}</h5>
                 </div>
               </div>
-              <br/>
-              <div className="d-flex justify-content-center my-5">
-                  <h1>Mis posteos</h1>
-                  </div>
               <div className="contenedor_card">
                 {seller?.products.map((p) => {
                   return p.posts.map((post) => {
@@ -107,7 +106,7 @@ function StoreSeller() {
             </div>
           }
         </div>
-      )}
+      </>)}
       {db.type === "seller" && db.deletedAt === null && !db.products.length && (
         <h1>
           <br />
