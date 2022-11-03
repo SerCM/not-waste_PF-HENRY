@@ -9,7 +9,7 @@ const OrderItem = ({ product, order }) => {
     <>
       <div
         className={
-          order?.deletedAt
+          order?.deletedAt || !product
             ? "null"
             : "d-flex align-items-center my-2 justify-content-around"
         }
@@ -31,7 +31,7 @@ const OrderItem = ({ product, order }) => {
               </Card.Subtitle>
             )}
             {order?.state === "pendiente" && (
-              <Card.Subtitle className="text-danger text-capitalize">
+              <Card.Subtitle className="text-danger text-capitalize text-center">
                 {order.state}
               </Card.Subtitle>
             )}
@@ -45,7 +45,9 @@ const OrderItem = ({ product, order }) => {
               <span>{order.amount}</span>
               <span className="text-capitalize">{product && product.name}</span>
               <span>{product && product.price}</span>
-              <span>Total: {product && order && product.price * order.amount}</span>
+              <span>
+                Total: {product && order && product.price * order.amount}
+              </span>
             </div>
           </Card.Body>
         </Card>

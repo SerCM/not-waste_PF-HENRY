@@ -16,14 +16,17 @@
   color: red;
 }
 .titulo-h1 {
-  color: rgb(11, 129, 56);
+  color: #d6846b;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 55px;
   text-transform: uppercase;
   font-weight: 600;
   text-shadow: 2px 5px #000;
+  text-align: center;
 }
-
+.center {
+  margin: auto;
+}
 .dis {
   background-color: rgba(255, 99, 71, 0.5);
 }
