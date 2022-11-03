@@ -39,7 +39,7 @@ function Registrering() {
       {db.exists && db.type === "customer" && db.deletedAt !== null && redirigir('bloqueado')}
       {db.exists && db.type === "seller" && db.deletedAt === null && window.location.assign(`${redirectUri}/home`)}
       {db.exists && db.type === "seller" && db.deletedAt !== null && redirigir('bloqueado')}
-      {db.exists && db.type === "manager" && db.deletedAt === null && window.location.assign(`${redirectUri}/home`)}
+      {db.exists && db.type === "manager" && window.location.assign(`${redirectUri}/home`)}
       {isLoading && <div className="spinner-grow" role="status">
         <span className="visually-hidden">Loading...</span>
       </div>}
