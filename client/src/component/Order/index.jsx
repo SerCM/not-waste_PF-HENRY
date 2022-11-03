@@ -131,7 +131,7 @@ const Order = () => {
       {db.exists && db.type === "customer" && db.deletedAt === null && (
         <Card className="w-50 mx-auto mt-5 mb-50">
           <div className="d-flex position-relative justify-content-center">
-            <Card.Title className="text-white fw-bold bg-light rounded p-2 ">
+            <Card.Title className="fw-bold rounded p-2 ">
               <span className="text-dark text-uppercase justify-content-center">
                 Mis pedidos
               </span>

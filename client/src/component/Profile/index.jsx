@@ -45,15 +45,14 @@ function Profile() {
         <span className="visually-hidden">Loading...</span>
       </div>}
       {db.exists && db.deletedAt === null && db.type === "customer" &&
-        <ListGroup variant="flush">
-          <ListGroup.Item className="textx-capitalice">
-            <strong>Nombre: {db.name}</strong>
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <strong>Email: </strong>
-            {db.email}
-          </ListGroup.Item>
-        </ListGroup>
+      <div class="position-relative">
+      <div class="card text-center position-absolute start-50 translate-middle-x">
+      <div class="card-body">
+        <h5 class="card-title">Nombre: {db.name}</h5>
+        <p class="card-text"> {db.email}</p>
+      </div>
+    </div>
+    </div>
       }
       {db.exists && db.deletedAt === null && db.type === "seller" &&
         <ListGroup variant="flush">

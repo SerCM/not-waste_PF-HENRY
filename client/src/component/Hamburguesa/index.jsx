@@ -12,7 +12,7 @@ export const Profile = (props) => {
     <div>
       {props.type === "customer" && props.deletedAt === null &&
         <Dropdown>
-          <Dropdown.Toggle className="bg-dark" id="dropdown">
+          <Dropdown.Toggle className="habilitado" id="dropdown">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="25"
@@ -70,7 +70,7 @@ export const Profile = (props) => {
       }
       {props.type === "seller" && props.deletedAt === null &&
         <Dropdown>
-          <Dropdown.Toggle className="bg-dark" id="dropdown">
+          <Dropdown.Toggle className="habilitado" id="dropdown">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="25"
@@ -146,7 +146,7 @@ export const Profile = (props) => {
       {
         props.type === "manager" &&
         <Dropdown>
-          <Dropdown.Toggle className="bg-dark" id="dropdown">
+          <Dropdown.Toggle className="habilitado" id="dropdown">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="25"

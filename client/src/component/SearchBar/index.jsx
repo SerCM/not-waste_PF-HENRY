@@ -30,7 +30,7 @@ function SearchBar() {
           onChange={e => {handleInputChange(e)}}
         />
         <button
-          className="btn btn-outline-success"
+          className="btn"
           id="buttonSearch"
           type="submit"
           onClick={e => {handleSubmit(e)}}
