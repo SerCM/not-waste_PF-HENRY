@@ -35,27 +35,28 @@ function Registrering() {
   return (
     <>
       <NavBar />
-      {db.exists && db.deletedAt === null && window.location.assign(`${redirectUri}/home`)}
-      {db.exists && db.deletedAt !== null && redirigir('bloqueado')}
-      {isLoading && <h1>Cargando....</h1>}
-      {!db.exists && <div>
-        <div className="dashRegister">
-          {log ? (
-            <Register {...log} />
-          ) : (
-            <div className="card w-75">
-              <div className="card-body">
-                <h5 className="card-title">Se requiere iniciar sesión</h5>
-                <p className="card-text">
-                  Para registrarte necesitas iniciar sesión con tu cuenta de
-                  Google.
-                </p>
-                <LogingButton />
-              </div>
-            </div>
-          )}
+      {db.exists && db.type === "customer" && db.deletedAt === null && window.location.assign(`${redirectUri}/home`)}
+      {db.exists && db.type === "customer" && db.deletedAt !== null && redirigir('bloqueado')}
+      {db.exists && db.type === "seller" && db.deletedAt === null && window.location.assign(`${redirectUri}/home`)}
+      {db.exists && db.type === "seller" && db.deletedAt !== null && redirigir('bloqueado')}
+      {db.exists && db.type === "manager" && db.deletedAt === null && window.location.assign(`${redirectUri}/home`)}
+      {isLoading && <div className="spinner-grow" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>}
+      {!log && <div className="card w-75">
+        <div className="card-body">
+          <h5 className="card-title">Se requiere iniciar sesión</h5>
+          <p className="card-text">
+            Para registrarte necesitas iniciar sesión con tu cuenta de
+            Google.
+          </p>
+          <LogingButton />
         </div>
       </div>}
+      {log && !db.exists &&
+        <div className="dashRegister">
+          <Register {...log} />
+        </div>}
       <Footer />
     </>
   );
