@@ -46,6 +46,7 @@ function Home() {
       ...seller,
       products: seller.products.filter(p => { return p?.posts.length > 0 }),
     }))
+    
   }
 
 
@@ -72,7 +73,8 @@ function Home() {
               <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                 <div className="accordion-body">
                   {sellersWithPosts.length ? sellersWithPosts.slice(0, 3).map(seller => {
-                    if (seller.products.length > 0)
+                   let postsSeller = seller?.products?.filter(product => product?.posts).map(p => p.posts).flat()
+                   if (seller.products.length > 0 && postsSeller.length)
                       return <CarouselSeller seller={seller} queryParams={queryParams} />
                   }) : (
                     <Spinner animation="border" role="status">
@@ -94,7 +96,8 @@ function Home() {
                 <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                   <div className="accordion-body">
                     {sellersWithPosts.length > 3 && sellersWithPosts.slice(3, 6).map(seller => {
-                      if (seller.products.length > 0)
+                      let postsSeller = seller?.products?.filter(product => product?.posts).map(p => p.posts).flat()
+                      if (seller.products.length > 0 && postsSeller.length)
                         return <CarouselSeller seller={seller} />
                     })}
                   </div>
@@ -111,7 +114,8 @@ function Home() {
                   <div id="panelsStayOpen-collapseTwo123" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                     <div className="accordion-body">
                       {sellersWithPosts.length > 6 && sellersWithPosts.slice(6).map(seller => {
-                        if (seller.products.length > 0)
+                         let postsSeller = seller?.products?.filter(product => product?.posts).map(p => p.posts).flat()
+                         if (seller.products.length > 0 && postsSeller.length)
                           return <CarouselSeller seller={seller} />
                       })}
                     </div>
