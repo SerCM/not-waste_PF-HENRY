@@ -74,7 +74,7 @@ export default function AdminListCustomer() {
       </div>}
       {db.exists && db.type === "manager" &&
         <div className="d-flex justify-content-center my-5">
-          <h1>Lista de compradores</h1>
+          <h1>Consumidores registrados</h1>
         </div>}
 
       {db.exists && db.type === "manager" &&
