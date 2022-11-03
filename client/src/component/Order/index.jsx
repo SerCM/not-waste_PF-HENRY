@@ -34,7 +34,6 @@ const Order = () => {
   let customer = customers?.find((c) => c.email === user?.email);
   let orderFinished = customer?.orders?.filter((o) => orderId?.includes(o.id));
   let orderPending = customer?.orders?.filter((o) => orderId?.includes(o.id) && o.state === "pendiente")
-  console.log("🚀 ~ file: index.jsx ~ line 37 ~ Order ~ orderPending", orderPending)
   let products = useSelector((state) => state.product);
   const dispatch = useDispatch();
     useEffect(() => {
@@ -49,7 +48,7 @@ const Order = () => {
           email: db.email,
           mensaje: "Gracias por su compra en not Waste, vuelva pronto",
         })
-      );
+      ); 
     }
   }, [orderFinished, dispatch]);
 

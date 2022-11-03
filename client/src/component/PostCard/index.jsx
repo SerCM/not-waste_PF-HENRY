@@ -6,11 +6,11 @@ import { Card, Badge } from "react-bootstrap";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
 
 function PostCard({ product, post }) {
-  let ordersProduct = product.posts.map((post) => post.orders).flat();
-  let ordersProductWithReview = ordersProduct.filter((o) => o.reviewValue);
+  let ordersProduct = product?.posts?.map((post) => post.orders).flat();
+  let ordersProductWithReview = ordersProduct?.filter((o) => o.reviewValue);
   let ordersReview = 0;
-  if (ordersProductWithReview.length) {
-    for (let i = 0; i < ordersProductWithReview.length; i++) {
+  if (ordersProductWithReview?.length) {
+    for (let i = 0; i < ordersProductWithReview?.length; i++) {
       ordersReview = ordersReview + ordersProductWithReview[i].reviewValue;
     }
     ordersReview = ordersReview / ordersProductWithReview.length;

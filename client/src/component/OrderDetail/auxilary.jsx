@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./orderDetail.css";
-
 import {
   getCustomer,
   postDetail,
@@ -16,12 +15,11 @@ import {
 import AuthProfile from "../AuthProfile";
 import VerifyProfile from "../VerifyProfile";
 import { useParams } from "react-router-dom";
-import { Badge, Button, Card, ListGroup } from "react-bootstrap";
+import { Badge, Button, Card, ListGroup, Image } from "react-bootstrap";
 
 export function Auxilary(props) {
   let id = props.idProduct;
   let orden = props.orden;
-  let sellerId = props?.seller;
 
   var today = new Date();
   var dd = today.getDate();
@@ -40,17 +38,18 @@ export function Auxilary(props) {
     dispatch(prodDetail(id));
     dispatch(getSellers());
   }, [dispatch]);
-  // let product = useSelector((state) => state.prodDetails);
 
   let product = useSelector((state) => state.prodDetails);
   let sellers = useSelector((state) => state.seller);
 
-  let seller = sellers?.find((s) => s.id === sellerId);
-  // console.log(seller, "sellers");
-  // console.log(sellerId, "sellerId");
+  let seller = sellers?.find((s) => { return s.id === product.sellerId})
+  console.log("🚀 ~ file: auxilary.jsx ~ line 49 ~ Auxilary ~ seller", seller)
+
+
   useEffect(() => {
     return function () {
       dispatch(cleanDetail());
+      dispatch(getSellers());
     };
   }, [dispatch]);
 
@@ -249,10 +248,24 @@ export function Auxilary(props) {
             </Card.Body>
 
             <Card.Footer className="">
+              <div className="d-flex align-items-center mw-10r">
+                <Image
+                  roundedCircle
+                  className="img-seller"
+                  src={seller?.image}
+                />
+                <div>
+                  <h1 className="title-seller">
+                    {seller?.name}
+                  </h1>
+                </div>
+              </div>
               {orden && orden[0].date === today && (
-                <h6 className="d-flex  ">
-                  Podés pasar a retirar el pedido en nuestra direccion:
-                </h6>
+                <div>
+                  <h6 className="d-flex  ">
+                    Podés pasar a retirar el pedido en nuestra direccion:
+                  </h6>
+                </div>
               )}
               {orden && orden[0].date < today && (
                 <h6 className="d-flex  ">
@@ -260,11 +273,10 @@ export function Auxilary(props) {
                   nuestra direccion:
                 </h6>
               )}
-              <h4 className="p">{seller && seller.name}</h4>
+
               <Card.Link
-                href={`https://maps.google.com/?q=${
-                  seller ? seller.adress : ""
-                }, Buenos Aires, Argentina`}
+                href={`https://maps.google.com/?q=${seller ? seller.adress : ""
+                  }, Buenos Aires, Argentina`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
