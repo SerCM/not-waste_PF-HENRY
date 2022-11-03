@@ -1,10 +1,13 @@
 .option {
-  background: black;
+  color: white;
+  background-color: #f4511f;
+  border: 2px solid #a0000a;
+  border-radius: 10px;
 }
 .drop {
   color: white;
 }
 .drop:hover{
-    background-color: red;
-    color: black;
+  background-color: #f8955f;
+  border-color: black;
 }

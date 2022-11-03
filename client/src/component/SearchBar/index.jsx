@@ -31,7 +31,7 @@ function SearchBar() {
           }}
         />
         <button
-          className="btn btn-outline-dark"
+          className="btn"
           id="buttonSearch"
           type="submit"
           onClick={(e) => {

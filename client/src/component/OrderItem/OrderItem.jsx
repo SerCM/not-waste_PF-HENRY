@@ -14,7 +14,7 @@ const OrderItem = ({ product, order }) => {
             : "d-flex align-items-center my-2 justify-content-around"
         }
       >
-        <Card className="container-fluid">
+        <Card className="card container-fluid">
           <Card.Title>
             Tu pedido realizado el{" "}
             {new Date(order?.createdAt).toLocaleDateString("es-AR")}
@@ -37,10 +37,11 @@ const OrderItem = ({ product, order }) => {
             )}
 
             <div className="d-flex justify-content-around">
-              <Card.Img
-                variant="left"
-                className="product-image"
+              <img
+                className="rounded float-start pe-2"
                 src={product?.image}
+                alt="imagen no disponible"
+                height="100px"
               />
               <span>{order.amount}</span>
               <span className="text-capitalize">{product && product.name}</span>

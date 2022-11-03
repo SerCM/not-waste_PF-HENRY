@@ -21,7 +21,7 @@ function NavBar({ isSearchVisible }) {
   let db = VerifyProfile(log.email);
 
   return (
-
+    <div class="position-static top-0 w-100">
     <nav className="navbar navbar-expand-md" id="navbar">
 
       <div className="container-fluid">
@@ -53,10 +53,7 @@ function NavBar({ isSearchVisible }) {
         )}
         <Navbar className="navbar-nav ms-auto mx-5">
           <Cart {...db} />
-
-          <div className="vr bg-dark"></div>
           {isAuthenticated && db.exists ? <Profile {...db} /> : <LogingButton />}
-          <div className="vr bg-dark"></div>
           {isAuthenticated && !db.exists && (
             <li className="nav-item">
               <Link to="/register" className="nav-link mx-4">
@@ -64,10 +61,10 @@ function NavBar({ isSearchVisible }) {
               </Link>
             </li>
           )}
-          <div className="vr bg-dark"></div>
         </Navbar>
       </div>
     </nav>
+    </div>
   );
 }
 
