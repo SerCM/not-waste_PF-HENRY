@@ -44,11 +44,11 @@ const PostDetail = () => {
   let sellers = useSelector((state) => state.seller);
   let customers = useSelector((state) => state.customer);
 
-  let ordersProduct = product.posts.map((post) => post.orders).flat();
-  let ordersProductWithReview = ordersProduct.filter((o) => o.reviewValue);
+  let ordersProduct = product?.posts.map((post) => post?.orders).flat();
+  let ordersProductWithReview = ordersProduct?.filter((o) => o.reviewValue);
   let ordersReview = 0;
-  if (ordersProductWithReview.length) {
-    for (let i = 0; i < ordersProductWithReview.length; i++) {
+  if (ordersProductWithReview?.length) {
+    for (let i = 0; i < ordersProductWithReview?.length; i++) {
       ordersReview = ordersReview + ordersProductWithReview[i].reviewValue;
     }
     ordersReview = ordersReview / ordersProductWithReview.length;
