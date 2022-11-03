@@ -1,8 +1,9 @@
 .product-image {
-  width: 40px;
-  height: 40px;
+  width: 100px;
+  height: 100px;
   margin: 8px;
   border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .card-container {
