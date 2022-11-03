@@ -7,6 +7,7 @@
   background-color: #f4511f;
   border: 2px solid #a0000a;
   border-radius: 10px;
+  box-shadow: 2px 0px 5px black;
 }
 
 .btn:hover {

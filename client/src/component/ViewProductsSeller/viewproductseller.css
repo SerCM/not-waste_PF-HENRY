@@ -1,7 +1,17 @@
-.dis {
-  background-color: rgba(255, 99, 71, 0.5);
+.btn-deshabilitar {
+  background-color: #ff6347;
+  color: black;
+}
+.btn-deshabilitar:hover {
+  background-color: #aa1001;
+  color: white;
 }
 
-.btn {
-  margin-right: 1rem;
+.btn-habilitar {
+  background-color: #98ec77;
+  color: black;
+}
+.btn-habilitar:hover {
+  background-color: #329711;
+  color: white;
 }

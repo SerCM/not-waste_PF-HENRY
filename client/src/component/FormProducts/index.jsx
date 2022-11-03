@@ -265,15 +265,13 @@ function FormProduct() {
             </div>
           </Form.Group>
           <div className="">
-            <Button type="submit" className="bg-light mx-5">
-              <Link to="/home" className="text-decoration-none">
+            <Button type="submit" className="btn-volver mx-5" onClick={() => window.location.replace("/home")}>
                 Volver
-              </Link>
             </Button>
             <Button
               type="submit"
               onClick={(e) => handleSubmit(e)}
-              className="mx-5"
+              className="btn-crearproducto mx-5"
             >
               Crear Producto
             </Button>

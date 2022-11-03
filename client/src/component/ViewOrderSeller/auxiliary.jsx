@@ -102,12 +102,14 @@ const CreateCardsOrders = (db) => {
                   Estado: <strong>{orden.state}</strong>
                 </li>
                 {orden.state === "confirmado" && orden.date === today && (
+                 
                   <div
                     className="form-check form-switch m-1"
                     onChange={() => marcarComoEntregado(orden.id)}
-                  >
+                  > 
+                  <br/>
                     <input
-                      className="form-check-input"
+                      className="form-check-input mt-1"
                       type="checkbox"
                       role="switch"
                       id="flexSwitchCheckDefault"
@@ -125,8 +127,9 @@ const CreateCardsOrders = (db) => {
                     className="form-check form-switch m-1"
                     onChange={() => marcarComoCancelado(orden.id)}
                   >
+                     <br/>
                     <input
-                      className="form-check-input"
+                      className="form-check-input mt-1"
                       type="checkbox"
                       role="switch"
                       id="flexSwitchCheckDefault"
@@ -162,63 +165,62 @@ const CreateCardsOrders = (db) => {
 
   return (
     <div>
-      <br />
-      <Card className="w-50 mx-auto mt-5 mb-50">
-        <div className="d-flex position-relative justify-content-center">
-          <Card.Title className="text-white fw-bold bg-light rounded p-2 ">
-            <span className="text-dark text-uppercase justify-content-center">
-              Ordenes de hoy
-            </span>
-          </Card.Title>
+      <div class="accordion w-50 mx-auto mt-5 mb-50" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <strong> ORDENES DE HOY:</strong>
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div className="list-group ">
+                {ordenesDelDia.length ?
+                  ordenesDelDia.map((orden) => cardOrderSellers(orden))
+                  :
+                  <h1> No hay ordenes para el dia de hoy</h1>
+                }
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="list-group ">
-          {ordenesDelDia ? (
-            ordenesDelDia.map((orden) => cardOrderSellers(orden))
-          ) : (
-            <h1> No hay ordenes para el dia de hoy</h1>
-          )}
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <strong> ORDENES ANTERIORES:</strong>
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div className="list-group">
+                {ordenesViejas.length ?
+                  ordenesViejas.map((orden) => cardOrderSellers(orden))
+                  : <div> No hay ordenes para el dia de hoy</div>
+                }
+              </div>
+            </div>
+          </div>
         </div>
-      </Card>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <strong>PROXIMAS ORDENES:</strong>
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div className="list-group">
+                {ordenesFuturas.length ?
+                  ordenesFuturas.map((orden) => cardOrderSellers(orden))
+                  :
+                  <h1> No hay ordenes para el dia de hoy</h1>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <br />
-
-      <Card className="w-50 mx-auto mt-5 mb-50">
-        <div className="d-flex position-relative justify-content-center">
-          <Card.Title className="text-white fw-bold bg-light rounded p-2 ">
-            <span className="text-dark text-uppercase justify-content-center">
-              Ordenes antiguas:
-            </span>
-          </Card.Title>
-        </div>
-        <div className="list-group">
-          {ordenesViejas ? (
-            ordenesViejas.map((orden) => cardOrderSellers(orden))
-          ) : (
-            <h1> No hay ordenes para el dia de hoy</h1>
-          )}
-        </div>
-      </Card>
-
-      <br />
-
-      <Card className="w-50 mx-auto mt-5 mb-50">
-        <div className="d-flex position-relative justify-content-center">
-          <Card.Title className="text-white fw-bold bg-light rounded p-2 ">
-            <span className="text-dark text-uppercase justify-content-center">
-              Proximas ordenes:
-            </span>
-          </Card.Title>
-        </div>
-        <div className="list-group">
-          {ordenesFuturas ? (
-            ordenesFuturas.map((orden) => cardOrderSellers(orden))
-          ) : (
-            <h1> No hay ordenes para el dia de hoy</h1>
-          )}
-        </div>
-      </Card>
-
-      <br />
     </div>
   );
 };
