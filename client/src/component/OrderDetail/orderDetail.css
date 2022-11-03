@@ -1,3 +1,15 @@
 .p:first-letter {
   text-transform: uppercase;
 }
+
+.title-seller{
+  text-transform: capitalize;
+  font-size: 32px;
+}
+
+.img-seller{
+  width: 40px;
+  height: 40px;
+  margin: 8px;
+  border: 1px solid #ccc;
+}

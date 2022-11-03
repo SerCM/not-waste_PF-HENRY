@@ -44,6 +44,16 @@ const PostDetail = () => {
   let sellers = useSelector((state) => state.seller);
   let customers = useSelector((state) => state.customer);
 
+  let ordersProduct = product?.posts.map((post) => post?.orders).flat();
+  let ordersProductWithReview = ordersProduct?.filter((o) => o.reviewValue);
+  let ordersReview = 0;
+  if (ordersProductWithReview?.length) {
+    for (let i = 0; i < ordersProductWithReview?.length; i++) {
+      ordersReview = ordersReview + ordersProductWithReview[i].reviewValue;
+    }
+    ordersReview = ordersReview / ordersProductWithReview.length;
+  }
+
   const [orders, setOrders] = useState({});
   let customer = customers?.find((c) => c.email === user?.email);
   let productId = post.productId;
@@ -54,9 +64,7 @@ const PostDetail = () => {
   let ordersComment = allOrders
     ?.map((e) => e.reviewComment)
     .filter((e) => e !== null);
-  let ordersReview = allOrders
-    ?.map((e) => e.reviewValue)
-    .filter((e) => e !== null);
+
 
   useEffect(() => {
     dispatch(postDetail(postId));
@@ -108,6 +116,16 @@ const PostDetail = () => {
                 </span>
               </Card.Title>
             </Card.ImgOverlay>
+            <Card.ImgOverlay className="d-flex align-items-end flex-column">
+              {ordersReview > 0 ? (
+                <Badge pill bg="warning">
+                  <div className="col-sm mx-4 ">{ordersReview + "  ★"}</div>
+                </Badge>)
+                : (<Badge pill bg="warning">
+                  <div className="col-sm mx-4 ">{" -  ★"}</div>
+                </Badge>
+                )}
+            </Card.ImgOverlay>
           </div>
           <Card.Body className="p-0">
             <ListGroup variant="flush">
@@ -133,9 +151,8 @@ const PostDetail = () => {
                 </Card.Subtitle>
 
                 <Card.Link
-                  href={`https://maps.google.com/?q=${
-                    seller ? seller.adress : ""
-                  }, Buenos Aires, Argentina`}
+                  href={`https://maps.google.com/?q=${seller ? seller.adress : ""
+                    }, Buenos Aires, Argentina`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -303,33 +320,6 @@ const PostDetail = () => {
               </div>
             )}
           </Card.Footer>
-          <div>
-            {ordersReview.length > 0 ? (
-              <Card.Subtitle className="mb-2 text-muted ">
-                Reviews
-              </Card.Subtitle>
-            ) : (
-              <Card.Subtitle className="mb-2 text-muted ">
-                Sin reviews
-              </Card.Subtitle>
-            )}
-
-            <div className="row">
-              <div className="col-sm">
-                {" "}
-                {ordersComment.map((e) => (
-                  <div>{e}</div>
-                ))}
-              </div>
-
-              <div className="col-sm">
-                {" "}
-                {ordersReview.map((e) => (
-                  <div className="col-sm">{e + "★"}</div>
-                ))}
-              </div>
-            </div>
-          </div>
         </Card>
       )}
       <Footer />
