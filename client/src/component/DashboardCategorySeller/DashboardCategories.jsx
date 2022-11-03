@@ -15,7 +15,7 @@ function DashboardCategories({sellers}) {
             
             <div className="containerCarousel">
                 <h2 className="sellerTitle">Vendedores: categorías</h2>
-                <PieChart width={400} height={200} onMouseEnter={PureComponent.onPieEnter}>
+                <PieChart width={400} height={250} onMouseEnter={PureComponent.onPieEnter}>
                     <Pie
                         data={data}
                         cx={250}

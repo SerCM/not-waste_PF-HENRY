@@ -20,7 +20,7 @@ function DashboardUsersRegistered({ customers, sellers }) {
 
             <div className="containerCarousel">
                 <h2 className="sellerTitle">Usuarios registrados </h2>
-                <PieChart width={400} height={200} onMouseEnter={PureComponent.onPieEnter}>
+                <PieChart width={400} height={250} onMouseEnter={PureComponent.onPieEnter}>
                     <Pie
                         data={data}
                         cx={250}

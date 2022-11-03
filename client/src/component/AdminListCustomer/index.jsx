@@ -52,13 +52,20 @@ export default function AdminListCustomer() {
   return (
     <div>
       <NavBar />
-      {
-        db.type === 'manager' ?
+      {db.exists === false && <div className="spinner-grow" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>}
+      {db.exists && db.type === "manager" &&
+        <div className="d-flex justify-content-center my-5">
+          <h1>Lista de compradores</h1>
+        </div>}
+
+        {db.exists && db.type === "manager" &&
           allCustomer?.map((cu, i) => {
             return (
               <div className="row justify-content-center" key={i}>
                 <div className="col-auto p-5">
-                  <Card className='cardbox'>
+                <Card style={{ width: '700px' }} className='cardbox'>
                     <Card.Body className={cu.deletedAt ? "resaltar" : "sinResaltar"}>
                       <div className="d-flex">
                         <div className="contadminseller mx-5">
@@ -66,6 +73,7 @@ export default function AdminListCustomer() {
                           <h3>Email: {cu.email}</h3>
                           <div className="mt-5">
                             <Button
+                              className="btn-deshabilitar"
                               name={cu.id}
                               variant="danger"
                               id="buttondeshabi"
@@ -74,9 +82,9 @@ export default function AdminListCustomer() {
                               Deshabilitar
                             </Button>
                             <Button
+                            className="btn-habilitar ms-5"
                               name={cu.id}
                               variant="success"
-                              className="ms-5"
                               id="buttondeshabi"
                               onClick={(e) => handleRestoreCustomer(e)}
                             >
@@ -90,10 +98,10 @@ export default function AdminListCustomer() {
                 </div>
               </div>
             )
-          }) : (
-            redirigir()
-          )
-      }
+          })}
+          {db.exists && db.type !== "manager" && redirigir()}
+          
+      
       <Footer />
     </div>
   )

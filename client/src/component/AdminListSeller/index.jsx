@@ -38,14 +38,14 @@ export default function AdminListSeller() {
     setTimeout(() => {
       window.location.replace("/home");
     }, 7000);
-   return (
+    return (
       <div>
         <h2>
-        Seccion habilitada unicamente para administradores.
+          Seccion habilitada unicamente para administradores.
         </h2>
         <br />
         <h4>
-        Sera redirigido a la pagina principal.
+          Sera redirigido a la pagina principal.
         </h4>
       </div>)
   }
@@ -53,57 +53,61 @@ export default function AdminListSeller() {
   return (
     <div>
       <NavBar />
-      <h1 className="text-center">Lista de proveedores</h1>
-        {
-          db.type === 'manager' ? 
-          allSellers?.map((se, i) => {
-            return (
-              <div className="row justify-content-center" key={i}>
-                <div className="col-auto p-5">
-                  <Card style={{ width: '700px' }} className='cardbox'>
-                    <Card.Body className={se.deletedAt ? "resaltar" : "sinResaltar"}>
-                      <div className="d-flex">
-                        <img
-                          src={se.image}
-                          alt="imgSeller"
-                          height="250px"
-                          width="250px"
-                          className="imgadmin"
-                        />
-                        <div className="contadminseller mx-5">
-                          <h2>Nombre: {se.name}</h2>
-                          <h4>Categoria: {se.category}</h4>
-                          <h5>Ciudades: {se.cities.map((e) => e.name)}</h5>
-                          <div className="mt-5">
-                            <Button
-                              name={se.id}
-                              onClick={(e) => handleDisableSeller(e)}
-                              variant="danger"
-                              id="buttondeshabi"
-                            >
-                              Deshabilitar
-                            </Button>
-                            <Button
-                              name={se.id}
-                              onClick={(e) => handleRestoreSeller(e)}
-                              variant="success"
-                              className="ms-5"
-                              id="buttondeshabi"
-                            >
-                              Habilitar
-                            </Button>
-                          </div>
-                        </div>
+      {db.exists === false && <div className="spinner-grow" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>}
+      {db.exists && db.type === "manager" &&
+        <div className="d-flex justify-content-center my-5">
+          <h1>Lista de proveedores</h1>
+        </div>}
+      {db.exists && db.type === "manager" && allSellers?.map((se, i) => {
+        return (
+          <div className="row justify-content-center" key={i}>
+            <div className="col-auto p-5">
+              <Card style={{ width: '700px' }} className='cardbox'>
+                <Card.Body className={se.deletedAt ? "resaltar" : "sinResaltar"}>
+                  <div className="d-flex">
+                    <img
+                      src={se.image}
+                      alt="imgSeller"
+                      height="250px"
+                      width="250px"
+                      className="imgadmin"
+                    />
+                    <div className="contadminseller mx-5">
+                      <h2>Nombre: {se.name}</h2>
+                      <h4>Categoria: {se.category}</h4>
+                      <h5>Ciudades: {se.cities.map((e) => e.name)}</h5>
+                      <div className="mt-5">
+                        <Button
+                         className="btn-deshabilitar"
+                          name={se.id}
+                          onClick={(e) => handleDisableSeller(e)}
+                          variant="danger"
+                          id="buttondeshabi"
+                        >
+                          Deshabilitar
+                        </Button>
+                        <Button
+                          name={se.id}
+                          onClick={(e) => handleRestoreSeller(e)}
+                          variant="success"
+                          className="btn-habilitar ms-5"
+                          id="buttondeshabi"
+                        >
+                          Habilitar
+                        </Button>
                       </div>
-                    </Card.Body>
-                  </Card>
-                </div>
-              </div>
-            );
-          }) : (
-           redirigir()
-          )
-        }
+                    </div>
+                  </div>
+                </Card.Body>
+              </Card>
+            </div>
+          </div>
+        );
+      })}
+
+      {db.exists && db.type !== "manager" && redirigir()}
       <Footer />
     </div>
   );

@@ -32,19 +32,19 @@ function Dashboard() {
 
     const redirigir = () => {
         setTimeout(() => {
-          window.location.replace("/home");
+            window.location.replace("/home");
         }, 7000);
-       return (
-          <div>
-            <h2>
-            Seccion habilitada unicamente para administradores.
-            </h2>
-            <br />
-            <h4>
-            Sera redirigido a la pagina principal.
-            </h4>
-          </div>)
-      }
+        return (
+            <div>
+                <h2>
+                    Seccion habilitada unicamente para administradores.
+                </h2>
+                <br />
+                <h4>
+                    Sera redirigido a la pagina principal.
+                </h4>
+            </div>)
+    }
 
     return (
 
@@ -54,10 +54,12 @@ function Dashboard() {
                 <span className="visually-hidden">Loading...</span>
             </div>}
             {db.exists && db.type === "manager" && <>
-            <h1>Dashboard Admin</h1>
-            <DashboardUsersRegistered customers={customers} sellers={sellers} />
-            <DashboardCategories sellers={sellers}/>
-            <DashboardOrders orders={orders} /></>}
+                <div className="d-flex justify-content-center my-5">
+                    <h1>Dashboard</h1>
+                </div>
+                <DashboardUsersRegistered customers={customers} sellers={sellers} />
+                <DashboardCategories sellers={sellers} />
+                <DashboardOrders orders={orders} /></>}
             {db.exists && db.type !== "manager" && redirigir()}
             <Footer />
         </div>
