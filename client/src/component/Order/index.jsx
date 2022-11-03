@@ -48,7 +48,7 @@ const Order = () => {
           email: db.email,
           mensaje: "Gracias por su compra en not Waste, vuelva pronto",
         })
-      );
+      ); 
     }
   }, [orderFinished, dispatch]);
 
