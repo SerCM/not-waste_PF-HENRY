@@ -15,3 +15,7 @@
   background-color: #329711;
   color: white;
 }
+
+.img-fluid {
+  width: 100%;
+}

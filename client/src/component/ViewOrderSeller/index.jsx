@@ -56,6 +56,9 @@ function ViewOrderSeller() {
             {db.exists === false && <div className="spinner-grow" role="status">
                 <span className="visually-hidden">Loading...</span>
             </div>}
+            {db.type === "seller" && db.deletedAt === null && db.products.length && <div className="d-flex justify-content-center my-5">
+                    <h1>Ordenes</h1>
+                </div>}
             {db.type === "seller" && db.deletedAt === null && db.products.length && <CreateCardsOrders {...db} />}
             {db.type === "seller" && db.deletedAt === null && !db.products.length && <h1> Aun no tiene productos cargados, por favor dirijase a <Link to="/formproduct"> creacion de productos!
             </Link></h1>}

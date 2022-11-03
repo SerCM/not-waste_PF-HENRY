@@ -54,6 +54,9 @@ function ViewProductSeller() {
       {db.exists === false && <div className="spinner-grow" role="status">
         <span className="visually-hidden">Loading...</span>
       </div>}
+      {db.type === "seller" && db.deletedAt === null && db.products.length &&  <div className="d-flex justify-content-center my-5">
+        <h1>Mis productos</h1>
+      </div>} 
       {db.type === "seller" && db.deletedAt === null && db.products.length && Createcards(db.products)}
       {db.type === "seller" && db.deletedAt === null && !db.products.length &&
         <h1>
