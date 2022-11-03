@@ -80,7 +80,7 @@ export default function Createcards(data) {
                 Eliminar producto
               </button> */}
               <button
-                className="btn btn-outline-danger col-md-4 mb-2"
+                className="btn btn-deshabilitar col-md-4 mb-2 me-2"
                 type="button"
                 name={e.id}
                 onClick={(event) => desabilitar(event)}
@@ -88,7 +88,7 @@ export default function Createcards(data) {
                 Deshabilitar
               </button>
               <button
-                className="btn btn-outline-success col-md-4 mb-2"
+                className="btn btn-habilitar col-md-4 mb-2"
                 type="button"
                 name={e.id}
                 onClick={(event) => habilitar(event)}
