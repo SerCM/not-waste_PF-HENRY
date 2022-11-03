@@ -7,6 +7,8 @@ import {
   postDetail,
   postGet,
   prodDetail,
+  getSellers,
+  getProduct,
 } from "../../redux/actions";
 import AuthProfile from "../AuthProfile";
 import VerifyProfile from "../VerifyProfile";
@@ -17,11 +19,13 @@ function OderDetail() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(postGet());
+
     // dispatch(postDetail(idPosteo))
   }, [dispatch]);
 
   let getPost = useSelector((state) => state.allPosts);
   let getProduct = useSelector((state) => state.product);
+  let getSellers = useSelector((state) => state.seller);
 
   const prod = useParams();
   let id = prod.id;
