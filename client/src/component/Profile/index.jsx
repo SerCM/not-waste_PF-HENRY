@@ -46,7 +46,7 @@ function Profile() {
       </div>}
       {db.exists && db.deletedAt === null && db.type === "customer" &&
       <div class="position-relative">
-      <div class="card text-center position-absolute start-50 translate-middle-x">
+      <div class="card text-center w-50 start-50 translate-middle-x">
       <div class="card-body">
         <h5 class="card-title">Nombre: {db.name}</h5>
         <p class="card-text"> {db.email}</p>
@@ -55,13 +55,14 @@ function Profile() {
     </div>
       }
       {db.exists && db.deletedAt === null && db.type === "seller" &&
+      <div class="position-relative">
+      <div class="card text-center w-50 start-50 translate-middle-x">
         <ListGroup variant="flush">
           <ListGroup.Item>
-            <strong>Logo: </strong>
-            <img alt="asd" src={db.image} width="50px" height="50px" />
+            <img alt="asd" src={db.image} height="100px" />
           </ListGroup.Item>
           <ListGroup.Item className="textx-capitalice">
-            <strong>Nombre: {db.name}</strong>
+            <strong>Nombre:</strong> {db.name}
           </ListGroup.Item>
           <ListGroup.Item>
             <strong>Email: </strong>
@@ -92,6 +93,8 @@ function Profile() {
             {db.category ? db.category : <h6>No hay categorias cargadas</h6>}
           </ListGroup.Item>
         </ListGroup>
+        </div>
+        </div>
       }
       {db.exists && db.deletedAt !== null && redirigir("bloqueado")}
       {db.exists && db.type === "manager" && redirigir(db.type)}
