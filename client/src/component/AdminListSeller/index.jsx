@@ -76,7 +76,7 @@ export default function AdminListSeller() {
       </div>}
       {db.exists && db.type === "manager" &&
         <div className="d-flex justify-content-center my-5">
-          <h1>Lista de proveedores</h1>
+          <h1>Vendedores registrados</h1>
         </div>}
       {db.exists && db.type === "manager" && allSellers?.map((se, i) => {
         return (
