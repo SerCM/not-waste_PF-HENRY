@@ -31,3 +31,7 @@
 .bold {
   font-weight: 600;
 }
+
+.reviews {
+  width: fit-content;
+}
