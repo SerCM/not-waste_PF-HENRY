@@ -5,6 +5,8 @@ import "./orderItem.css";
 import { Card, Image } from "react-bootstrap";
 
 const OrderItem = ({ product, order }) => {
+  let post = product?.posts?.find(p => p?.id === order?.postId)
+
   return (
     <>
       <div
@@ -16,8 +18,8 @@ const OrderItem = ({ product, order }) => {
       >
         <Card className="card container-fluid">
           <Card.Title>
-            Tu pedido realizado el{" "}
-            {new Date(order?.createdAt).toLocaleDateString("es-AR")}
+            Tu pedido con fecha de entrega el {" "}
+            {new Date(post?.date).toLocaleDateString("es-AR")}
           </Card.Title>
           <Card.Body>
             {order?.state === "entregado" && (
