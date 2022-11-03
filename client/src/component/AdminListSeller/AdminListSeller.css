@@ -1,13 +1,12 @@
-/* .contadminseller {
-  margin-left: 30%;
+.contadminseller {
+  text-transform: capitalize;
 }
 
 
-
-.container {
+/* .container {
   margin-top: 30px;
   flex-wrap: wrap;
-}  */
+}   */
 
 .cardbox {
   box-shadow: 5px 0px 10px black;

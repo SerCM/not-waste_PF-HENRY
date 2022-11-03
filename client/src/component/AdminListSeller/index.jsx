@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getSellers, disableSeller, restoreSeller } from "../../redux/actions";
+import { notificaciones } from "../../redux/actions";
 
 import AuthProfile from "../AuthProfile";
 import VerifyProfile from "../VerifyProfile";
@@ -22,16 +23,33 @@ export default function AdminListSeller() {
 
   useEffect(() => {
     dispatch(getSellers());
+    dispatch(disableSeller());
+    dispatch(restoreSeller());
   }, [dispatch]);
 
-  function handleDisableSeller(e) {
+  async function handleDisableSeller(e, email) {
+ 
     dispatch(disableSeller(e.target.name));
-    window.location.reload(true);
+    dispatch(getSellers());
+    dispatch(
+      notificaciones({
+        email: email,
+        mensaje: "Su usuario ha sido deshabilitado por incumplimiento de normas, el administrar se pondrá en contacto con usted.",
+      })
+    )
+  
   }
 
-  function handleRestoreSeller(e) {
+  async function handleRestoreSeller(e, email) {
+  
     dispatch(restoreSeller(e.target.name));
-    window.location.reload(true);
+    dispatch(getSellers());
+    dispatch(
+      notificaciones({
+        email: email,
+        mensaje: "Su usuario ha sido habilitado nuevamente.",
+      })
+    )
   }
 
   const redirigir = () => {
@@ -58,7 +76,7 @@ export default function AdminListSeller() {
       </div>}
       {db.exists && db.type === "manager" &&
         <div className="d-flex justify-content-center my-5">
-          <h1>Lista de proveedores</h1>
+          <h1>Vendedores registrados</h1>
         </div>}
       {db.exists && db.type === "manager" && allSellers?.map((se, i) => {
         return (
@@ -76,27 +94,28 @@ export default function AdminListSeller() {
                     />
                     <div className="contadminseller mx-5">
                       <h2>Nombre: {se.name}</h2>
-                      <h4>Categoria: {se.category}</h4>
+                      <h4>Categoría: {se.category}</h4>
                       <h5>Ciudades: {se.cities.map((e) => e.name)}</h5>
                       <div className="mt-5">
+                        {!se?.deletedAt ? 
                         <Button
-                         className="btn-deshabilitar"
+                          className="btn-deshabilitar"
                           name={se.id}
-                          onClick={(e) => handleDisableSeller(e)}
+                          onClick={(e) => handleDisableSeller(e, se?.email)}
                           variant="danger"
                           id="buttondeshabi"
                         >
                           Deshabilitar
                         </Button>
-                        <Button
+                        : <Button
                           name={se.id}
-                          onClick={(e) => handleRestoreSeller(e)}
+                          onClick={(e) => handleRestoreSeller(e, se?.email)}
                           variant="success"
                           className="btn-habilitar ms-5"
                           id="buttondeshabi"
                         >
                           Habilitar
-                        </Button>
+                        </Button>}
                       </div>
                     </div>
                   </div>
