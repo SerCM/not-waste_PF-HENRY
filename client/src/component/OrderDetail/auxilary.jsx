@@ -10,6 +10,8 @@ import {
   disableOrder,
   modifyPost,
   cleanDetail,
+  getSellers,
+  postPay,
 } from "../../redux/actions";
 import AuthProfile from "../AuthProfile";
 import VerifyProfile from "../VerifyProfile";
@@ -19,7 +21,7 @@ import { Badge, Button, Card, ListGroup } from "react-bootstrap";
 export function Auxilary(props) {
   let id = props.idProduct;
   let orden = props.orden;
-  let sellerId = props.seller;
+  let sellerId = props?.seller;
 
   var today = new Date();
   var dd = today.getDate();
@@ -36,14 +38,16 @@ export function Auxilary(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(prodDetail(id));
+    dispatch(getSellers());
   }, [dispatch]);
   // let product = useSelector((state) => state.prodDetails);
 
   let product = useSelector((state) => state.prodDetails);
-  let sellers = useSelector((state) => state.allSeller);
+  let sellers = useSelector((state) => state.seller);
 
   let seller = sellers?.find((s) => s.id === sellerId);
-
+  // console.log(seller, "sellers");
+  // console.log(sellerId, "sellerId");
   useEffect(() => {
     return function () {
       dispatch(cleanDetail());
@@ -62,11 +66,15 @@ export function Auxilary(props) {
     let postFinded = product.posts?.find((p) => p.id === postId);
     let amountFind = postFinded?.amount;
 
-    console.log(postId, amountFind, "AQUI");
-
     dispatch(disableOrder(e));
     dispatch(modifyPost(postId, { amount: amountFind + 1 }));
     window.location.replace("/customer/orders");
+  };
+
+  const handlePayment = async (product) => {
+    let data = { price: product.price, postId: orden[0].id };
+    let res = await postPay(data);
+    window.location.replace(res.redirect);
   };
 
   return (
@@ -138,7 +146,12 @@ export function Auxilary(props) {
 
           <Card.Footer>
             <div className="d-flex align-items-center">
-              <Button className="btn btn-dark m-1 p-1">Finalizar compra</Button>
+              <Button
+                className="btn btn-dark m-1 p-1"
+                onClick={() => handlePayment(product)}
+              >
+                Finalizar compra
+              </Button>
               <Button
                 name={orden[0].id}
                 onClick={(e) => desabilitar(e.target.name)}
