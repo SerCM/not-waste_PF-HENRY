@@ -14,3 +14,11 @@
   background-color: #f8955f;
   border-color: black;
 }
+
+.hambur {
+  margin-right: 60px;
+}
+
+.cart:hover {
+  box-shadow: 2px 0px 5px black;
+}

@@ -85,16 +85,18 @@ function StoreSeller() {
             <div className="row g-0 ">
               <div className="d-flex justify-content-center mw-10r">
                 <Image
-                  roundedCircle
                   className="seller-image"
                   src={seller?.image}
-                />
+                  />
                 <div>
                   <h1 className="card-name">{seller?.name}</h1>
                   <h5 className="card-category">{seller?.category}</h5>
                 </div>
               </div>
-              <h6 className="titulo-h1">Posteos</h6>
+              <br/>
+              <div className="d-flex justify-content-center my-5">
+                  <h1>Mis posteos</h1>
+                  </div>
               <div className="contenedor_card">
                 {seller?.products.map((p) => {
                   return p.posts.map((post) => {

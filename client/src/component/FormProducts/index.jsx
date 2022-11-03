@@ -169,8 +169,8 @@ function FormProduct() {
   return (
     <div>
       <NavBar />
-      {db.exists === false && <div class="spinner-grow" role="status">
-        <span class="visually-hidden">Loading...</span>
+      {db.exists === false && <div className="spinner-grow" role="status">
+        <span className="visually-hidden">Loading...</span>
       </div>}
       {db.type === "seller" && db.deletedAt === null &&
       <div className="m-2 row justify-content-center">

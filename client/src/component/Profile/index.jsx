@@ -45,18 +45,18 @@ function Profile() {
         <span className="visually-hidden">Loading...</span>
       </div>}
       {db.exists && db.deletedAt === null && db.type === "customer" &&
-      <div class="position-relative">
-      <div class="card text-center w-50 start-50 translate-middle-x">
-      <div class="card-body">
-        <h5 class="card-title">Nombre: {db.name}</h5>
-        <p class="card-text"> {db.email}</p>
+      <div className="position-relative">
+      <div className="card text-center w-50 start-50 translate-middle-x">
+      <div className="card-body">
+        <h5 className="card-title">Nombre: {db.name}</h5>
+        <p className="card-text"> {db.email}</p>
       </div>
     </div>
     </div>
       }
       {db.exists && db.deletedAt === null && db.type === "seller" &&
-      <div class="position-relative">
-      <div class="card text-center w-50 start-50 translate-middle-x">
+      <div className="position-relative">
+      <div className="card text-center w-50 start-50 translate-middle-x">
         <ListGroup variant="flush">
           <ListGroup.Item>
             <img alt="asd" src={db.image} height="100px" />

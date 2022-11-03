@@ -4,7 +4,7 @@ import style from './footer.module.css'
 function Footer() {
     // "navbar bg-light md-2"
     return (
-        <div class="position-relative bottom-0 w-100">
+        <div className="position-relative bottom-0 w-100">
         <nav className="navbar navbar-expand-md" id={style.footer}>
             <form className="container-fluid">
                 <div>
