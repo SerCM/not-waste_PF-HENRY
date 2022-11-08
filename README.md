@@ -41,7 +41,7 @@ Cumple con los siguientes objetivos TECH:</br>
 </br>
 </br>Colaboradores:
 </br><A HREF="https://github.com/socaria"> Sofia Caria</A>
-</br>https://github.com/nicolasvillarr
-</br>https://github.com/Javier-ojeda24
-</br>https://github.com/gabyakd2
-</br>https://github.com/Dedwison
+</br><A HREF="https://github.com/nicolasvillarr"> Nicolas Villar</A>
+</br><A HREF="https://github.com/Javier-ojeda24"> Javier Ojeda</A>
+</br><A HREF="https://github.com/gabyakd2"> Gabriel Saldaña</A>
+</br><A HREF="https://github.com/Dedwison"> Dedwison</A>
