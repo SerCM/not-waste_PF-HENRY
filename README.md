@@ -40,7 +40,7 @@ Cumple con los siguientes objetivos TECH:</br>
 </br>~ hacer NPM START en la carpeta client
 </br>
 </br>Colaboradores:
-</br><link to="https://github.com/socaria"> Sofia Caria</link>
+</br><A HREF="https://github.com/socaria"> Sofia Caria</A>
 </br>https://github.com/nicolasvillarr
 </br>https://github.com/Javier-ojeda24
 </br>https://github.com/gabyakd2
