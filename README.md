@@ -2,14 +2,16 @@
 </br>
 <h3>Proyecto Final del Bootcamp de Henry.</h3>
 </br>
+<img src="./Captura de pantalla_20221108_085623.png">
+</br>
 Cumple con los siguientes objetivos TECH:</br>
 </br>● Filtros combinados
-</br>● Cloudinary/upload/bucket
-</br>● Local storage/persist
+</br>● Cloudinary
+</br>● Local storage
 </br>● Deploy
 </br>● Auth de terceros integrada 
-</br>● Pasarela de pagos
-</br>● Notificaciones (mail/socket.io)
+</br>● Pasarela de pagos (Mercadopago pro)
+</br>● Notificaciones via mail
 </br>● Reviews/puntuación
 </br>● Borrado lógico
 </br>● Dashboard admin
@@ -39,6 +41,14 @@ Cumple con los siguientes objetivos TECH:</br>
 </br>~ hacer NPM START en la carpeta api
 </br>~ hacer NPM START en la carpeta client
 </br>
+<img src="./Captura de pantalla_20221108_090329.png">
+</br>
+<img src="./Captura de pantalla_20221108_090400.png">
+</br>
+<img src="./Captura de pantalla_20221108_090458.png">
+</br>
+<img src="./Captura de pantalla_20221108_090629.png">
+
 </br>Colaboradores:
 </br><A HREF="https://github.com/socaria"> Sofia Caria</A>
 </br><A HREF="https://github.com/nicolasvillarr"> Nicolas Villar</A>
