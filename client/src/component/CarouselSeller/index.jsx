@@ -32,6 +32,7 @@ function CarouselSeller({ seller, queryParams }) {
         <div className={Styles.containerCards}>
           {products?.map((product) => {
             return product?.posts?.map((post) => {
+              if (new Date(post?.date)>new Date() )
               return <PostCard key={post.id} product={product} post={post} />;
             });
           })}
