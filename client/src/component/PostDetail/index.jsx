@@ -119,7 +119,7 @@ const PostDetail = () => {
             <Card.ImgOverlay className="d-flex align-items-end flex-column">
               {ordersReview > 0 ? (
                 <Badge pill bg="warning">
-                  <div className="col-sm mx-4 ">{ordersReview + "  ★"}</div>
+                  <div className="col-sm mx-4 ">{ordersReview.toFixed(1) + "  ★"}</div>
                 </Badge>)
                 : (<Badge pill bg="warning">
                   <div className="col-sm mx-4 ">{" -  ★"}</div>
