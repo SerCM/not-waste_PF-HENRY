@@ -42,9 +42,10 @@ export function Auxilary(props) {
   let product = useSelector((state) => state.prodDetails);
   let sellers = useSelector((state) => state.seller);
 
-  let seller = sellers?.find((s) => { return s.id === product.sellerId})
-  console.log("🚀 ~ file: auxilary.jsx ~ line 49 ~ Auxilary ~ seller", seller)
-
+  let seller = sellers?.find((s) => {
+    return s.id === product.sellerId;
+  });
+  console.log("🚀 ~ file: auxilary.jsx ~ line 49 ~ Auxilary ~ seller", seller);
 
   useEffect(() => {
     return function () {
@@ -255,9 +256,7 @@ export function Auxilary(props) {
                   src={seller?.image}
                 />
                 <div>
-                  <h1 className="title-seller">
-                    {seller?.name}
-                  </h1>
+                  <h1 className="title-seller">{seller?.name}</h1>
                 </div>
               </div>
               {orden && orden[0].date === today && (
@@ -275,8 +274,9 @@ export function Auxilary(props) {
               )}
 
               <Card.Link
-                href={`https://maps.google.com/?q=${seller ? seller.adress : ""
-                  }, Buenos Aires, Argentina`}
+                href={`https://maps.google.com/?q=${
+                  seller ? seller.adress : ""
+                }, Buenos Aires, Argentina`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
